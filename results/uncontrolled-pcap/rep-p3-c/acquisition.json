@@ -1,0 +1,12 @@
+{
+  "case": "rep-p3-c",
+  "dynamic_cell_hook_used": false,
+  "entry_or_port": 5104,
+  "gcore_process_suspension_required": true,
+  "marker": "CGO-UCT-rep-p3-c-",
+  "path_length": 3,
+  "pre_capture_delay_seconds": 1.17,
+  "schema": "tor-cgo-uncontrolled-pcap-acquisition/0.1",
+  "snapshot_boundary_selected_from_cell_processing": false,
+  "traffic_paused_for_snapshot": false
+}

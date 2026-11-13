@@ -1,0 +1,224 @@
+{
+  "active_E3_circuits": 19,
+  "admitted_circuit_ids": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    18
+  ],
+  "admitted_to_E4_E5_pipeline": 8,
+  "all_cgo_E3_circuits": 8,
+  "all_checks_pass": true,
+  "checks": {
+    "manifest_exactly_equals_all_cgo_E3_set": true,
+    "mixed_circuit_present_as_negative_control": true,
+    "no_mixed_circuit_admitted": true,
+    "owner_list_completely_enumerated": true
+  },
+  "circuits": [
+    {
+      "all_cgo": false,
+      "control_circuit_id": 1,
+      "hop_crypto_kinds": [
+        "TOR1"
+      ],
+      "mixed_cgo_tor1": false
+    },
+    {
+      "all_cgo": true,
+      "control_circuit_id": 3,
+      "hop_crypto_kinds": [
+        "CGO",
+        "CGO",
+        "CGO"
+      ],
+      "mixed_cgo_tor1": false
+    },
+    {
+      "all_cgo": true,
+      "control_circuit_id": 4,
+      "hop_crypto_kinds": [
+        "CGO",
+        "CGO",
+        "CGO"
+      ],
+      "mixed_cgo_tor1": false
+    },
+    {
+      "all_cgo": true,
+      "control_circuit_id": 5,
+      "hop_crypto_kinds": [
+        "CGO",
+        "CGO",
+        "CGO"
+      ],
+      "mixed_cgo_tor1": false
+    },
+    {
+      "all_cgo": true,
+      "control_circuit_id": 6,
+      "hop_crypto_kinds": [
+        "CGO",
+        "CGO",
+        "CGO"
+      ],
+      "mixed_cgo_tor1": false
+    },
+    {
+      "all_cgo": true,
+      "control_circuit_id": 7,
+      "hop_crypto_kinds": [
+        "CGO",
+        "CGO",
+        "CGO"
+      ],
+      "mixed_cgo_tor1": false
+    },
+    {
+      "all_cgo": true,
+      "control_circuit_id": 8,
+      "hop_crypto_kinds": [
+        "CGO"
+      ],
+      "mixed_cgo_tor1": false
+    },
+    {
+      "all_cgo": true,
+      "control_circuit_id": 9,
+      "hop_crypto_kinds": [
+        "CGO"
+      ],
+      "mixed_cgo_tor1": false
+    },
+    {
+      "all_cgo": false,
+      "control_circuit_id": 10,
+      "hop_crypto_kinds": [
+        "CGO",
+        "CGO",
+        "TOR1"
+      ],
+      "mixed_cgo_tor1": true
+    },
+    {
+      "all_cgo": false,
+      "control_circuit_id": 11,
+      "hop_crypto_kinds": [
+        "CGO",
+        "CGO",
+        "TOR1"
+      ],
+      "mixed_cgo_tor1": true
+    },
+    {
+      "all_cgo": false,
+      "control_circuit_id": 12,
+      "hop_crypto_kinds": [
+        "CGO",
+        "CGO",
+        "TOR1"
+      ],
+      "mixed_cgo_tor1": true
+    },
+    {
+      "all_cgo": false,
+      "control_circuit_id": 13,
+      "hop_crypto_kinds": [
+        "CGO",
+        "CGO",
+        "TOR1"
+      ],
+      "mixed_cgo_tor1": true
+    },
+    {
+      "all_cgo": false,
+      "control_circuit_id": 14,
+      "hop_crypto_kinds": [
+        "CGO",
+        "CGO",
+        "TOR1"
+      ],
+      "mixed_cgo_tor1": true
+    },
+    {
+      "all_cgo": false,
+      "control_circuit_id": 15,
+      "hop_crypto_kinds": [
+        "CGO",
+        "CGO",
+        "TOR1"
+      ],
+      "mixed_cgo_tor1": true
+    },
+    {
+      "all_cgo": false,
+      "control_circuit_id": 16,
+      "hop_crypto_kinds": [
+        "CGO",
+        "CGO",
+        "TOR1"
+      ],
+      "mixed_cgo_tor1": true
+    },
+    {
+      "all_cgo": false,
+      "control_circuit_id": 17,
+      "hop_crypto_kinds": [
+        "CGO",
+        "TOR1",
+        "CGO"
+      ],
+      "mixed_cgo_tor1": true
+    },
+    {
+      "all_cgo": true,
+      "control_circuit_id": 18,
+      "hop_crypto_kinds": [
+        "CGO",
+        "CGO",
+        "CGO"
+      ],
+      "mixed_cgo_tor1": false
+    },
+    {
+      "all_cgo": false,
+      "control_circuit_id": 19,
+      "hop_crypto_kinds": [
+        "CGO",
+        "TOR1",
+        "CGO"
+      ],
+      "mixed_cgo_tor1": true
+    },
+    {
+      "all_cgo": false,
+      "control_circuit_id": 20,
+      "hop_crypto_kinds": [
+        "CGO",
+        "TOR1",
+        "CGO"
+      ],
+      "mixed_cgo_tor1": true
+    }
+  ],
+  "interpretation": "Mixed circuits remain reportable at E3, but the current CGO-only replay pipeline fails closed before secret extraction and traffic recovery.",
+  "mixed_admitted": 0,
+  "mixed_cgo_tor1_E3_circuits": 10,
+  "mixed_circuit_ids": [
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    19,
+    20
+  ],
+  "schema": "tor-cgo-mixed-e3-admission/0.1"
+}

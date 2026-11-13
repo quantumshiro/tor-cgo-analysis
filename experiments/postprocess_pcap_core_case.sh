@@ -79,6 +79,8 @@ for fixture in "$result_dir"/replay-candidates/candidate-*.bin; do
     >"$result_dir/replay-candidates/$base.log" 2>&1
 done
 
-python3 "$root/experiments/evaluate_full_pcap_replay.py" \
-  --result-dir "$result_dir" --truth-cell "$source_dir/cell.json" \
-  --output "$result_dir/full-pcap-evaluation.json"
+if [ -f "$source_dir/cell.json" ]; then
+  python3 "$root/experiments/evaluate_full_pcap_replay.py" \
+    --result-dir "$result_dir" --truth-cell "$source_dir/cell.json" \
+    --output "$result_dir/full-pcap-evaluation.json"
+fi

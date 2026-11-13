@@ -18,13 +18,13 @@ from pathlib import Path
 def build_fixture(state: dict, cell: dict) -> tuple[bytes, dict]:
     """Return a truth-free CGR2 blob and non-secret metadata."""
     hops = state["hops"]
-    if len(hops) != 3 or not state["raw_secrets_included"]:
-        raise ValueError("fixture requires three raw forward states")
+    if not (1 <= len(hops) <= 3) or not state["raw_secrets_included"]:
+        raise ValueError("fixture requires one to three raw forward states")
     command = cell["wire"]["command"]
     if cell["wire"]["circ_id"] != state["entry_link_circuit_id"]:
         raise ValueError("entry circuit ID mismatch")
 
-    blob = bytearray(b"CGR2" + bytes([3, command, 0, 0]))
+    blob = bytearray(b"CGR2" + bytes([len(hops), command, 0, 0]))
     secret_hashes = []
     for hop in hops:
         forward = hop["forward"]
@@ -50,6 +50,7 @@ def build_fixture(state: dict, cell: dict) -> tuple[bytes, dict]:
         "control_circuit_id": state["control_circuit_id"],
         "entry_link_circuit_id": state["entry_link_circuit_id"],
         "command": command,
+        "hop_count": len(hops),
         "secret_component_hashes": secret_hashes,
         "evaluation_truth_included": False,
         "raw_secrets_omitted_from_metadata": True,
