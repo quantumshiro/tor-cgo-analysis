@@ -12,10 +12,12 @@ pre_capture_delay=$3
 case "$path_length" in 1|2|3) ;; *) echo "path length must be 1, 2, or 3" >&2; exit 2;; esac
 
 root=/work
-result_dir=$root/results/uncontrolled-pcap/$case_name
+result_root=${CGO_RESULT_ROOT:-$root/results/uncontrolled-pcap}
+result_dir=$result_root/$case_name
 net_dir=$result_dir/net
-tor_binary=$root/build/tor-0.4.9.16-o2/src/app/tor
-tor_gencert=$root/build/tor-0.4.9.16-o2/src/tools/tor-gencert
+tor_binary=${CGO_TOR_BINARY_CONTAINER:-$root/build/tor-0.4.9.16-o2/src/app/tor}
+tor_gencert=${CGO_TOR_GENCERT_CONTAINER:-$root/build/tor-0.4.9.16-o2/src/tools/tor-gencert}
+distribution_label=${CGO_DISTRIBUTION_LABEL:-self-built}
 chutney=$root/third_party/chutney/chutney
 python=/opt/chutney-venv/bin/python
 mkdir -p "$result_dir" "$net_dir"
@@ -123,10 +125,16 @@ wait "$pcap_pid"
 pcap_pid=
 
 "$python" - "$result_dir/acquisition.json" "$case_name" "$path_length" \
-  "$pre_capture_delay" "$marker" "$entry_port" <<'PY'
-import json, sys
+  "$pre_capture_delay" "$marker" "$entry_port" "$tor_binary" \
+  "$distribution_label" <<'PY'
+import json, subprocess, sys
 from pathlib import Path
-out, name, path_length, delay, marker, port = sys.argv[1:]
+out, name, path_length, delay, marker, port, tor_binary, distribution_label = sys.argv[1:]
+notes = subprocess.check_output(["readelf", "-n", tor_binary], text=True)
+build_id = next(
+    line.split("Build ID:", 1)[1].strip()
+    for line in notes.splitlines() if "Build ID:" in line
+)
 Path(out).write_text(json.dumps({
     "schema": "tor-cgo-uncontrolled-pcap-acquisition/0.1",
     "case": name,
@@ -138,6 +146,11 @@ Path(out).write_text(json.dumps({
     "dynamic_cell_hook_used": False,
     "snapshot_boundary_selected_from_cell_processing": False,
     "gcore_process_suspension_required": True,
+    "tor_binary": tor_binary,
+    "tor_version": subprocess.check_output([tor_binary, "--version"], text=True).splitlines()[0],
+    "tor_build_id": build_id,
+    "tor_binary_description": subprocess.check_output(["file", "-b", tor_binary], text=True).strip(),
+    "distribution_label": distribution_label,
 }, indent=2, sort_keys=True) + "\n")
 PY
 

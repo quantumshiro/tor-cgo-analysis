@@ -1,0 +1,141 @@
+{
+  "authenticated_non_target_cells": 1,
+  "independence": "Every row starts a fresh Tor process and fresh Chutney network.",
+  "independent_process_runs": 6,
+  "invalid_evidence_chains": 0,
+  "no_unique_authenticated_candidates": 0,
+  "path_lengths_tested": [
+    2,
+    3
+  ],
+  "recognized_hops_observed": [
+    1,
+    2
+  ],
+  "runs": [
+    {
+      "authenticated_tls_records": 1,
+      "evidence_stages": {
+        "E1": true,
+        "E2": true,
+        "E3": true,
+        "E4": true,
+        "E5": true
+      },
+      "offline_candidate_count": 7,
+      "path_length": 2,
+      "recognized_hop": 1,
+      "run": "pkg-p2-a",
+      "status": "recovered_target_cell",
+      "success": true,
+      "tls_write_sequence_at_core": 13
+    },
+    {
+      "authenticated_tls_records": 1,
+      "evidence_stages": {
+        "E1": true,
+        "E2": true,
+        "E3": true,
+        "E4": true,
+        "E5": true
+      },
+      "offline_candidate_count": 1,
+      "path_length": 2,
+      "recognized_hop": 1,
+      "run": "pkg-p2-b",
+      "status": "authenticated_non_target_cell",
+      "success": false,
+      "tls_write_sequence_at_core": 19
+    },
+    {
+      "authenticated_tls_records": 1,
+      "evidence_stages": {
+        "E1": true,
+        "E2": true,
+        "E3": true,
+        "E4": true,
+        "E5": true
+      },
+      "offline_candidate_count": 7,
+      "path_length": 2,
+      "recognized_hop": 1,
+      "run": "pkg-p2-c",
+      "status": "recovered_target_cell",
+      "success": true,
+      "tls_write_sequence_at_core": 29
+    },
+    {
+      "authenticated_tls_records": 1,
+      "evidence_stages": {
+        "E1": true,
+        "E2": true,
+        "E3": true,
+        "E4": true,
+        "E5": true
+      },
+      "offline_candidate_count": 7,
+      "path_length": 3,
+      "recognized_hop": 2,
+      "run": "pkg-p3-a",
+      "status": "recovered_target_cell",
+      "success": true,
+      "tls_write_sequence_at_core": 16
+    },
+    {
+      "authenticated_tls_records": 1,
+      "evidence_stages": {
+        "E1": true,
+        "E2": true,
+        "E3": true,
+        "E4": true,
+        "E5": true
+      },
+      "offline_candidate_count": 7,
+      "path_length": 3,
+      "recognized_hop": 2,
+      "run": "pkg-p3-b",
+      "status": "recovered_target_cell",
+      "success": true,
+      "tls_write_sequence_at_core": 25
+    },
+    {
+      "authenticated_tls_records": 1,
+      "evidence_stages": {
+        "E1": true,
+        "E2": true,
+        "E3": true,
+        "E4": true,
+        "E5": true
+      },
+      "offline_candidate_count": 7,
+      "path_length": 3,
+      "recognized_hop": 2,
+      "run": "pkg-p3-c",
+      "status": "recovered_target_cell",
+      "success": true,
+      "tls_write_sequence_at_core": 34
+    }
+  ],
+  "schema": "tor-cgo-uncontrolled-pcap-core-repetitions/0.2",
+  "stage_success_counts": {
+    "E1": 6,
+    "E2": 6,
+    "E3": 6,
+    "E4": 6,
+    "E5": 6
+  },
+  "target_cell_recoveries": 5,
+  "target_cell_recovery_wilson_95": [
+    0.43649717781352987,
+    0.9699466302516935
+  ],
+  "timing": "Traffic is not paused and no dynamic cell hook chooses the snapshot boundary; gcore necessarily stops the process while copying its memory.",
+  "tls_write_sequences_observed": [
+    13,
+    16,
+    19,
+    25,
+    29,
+    34
+  ]
+}

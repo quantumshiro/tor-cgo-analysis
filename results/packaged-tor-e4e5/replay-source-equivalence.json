@@ -1,0 +1,20 @@
+{
+  "schema": "tor-cgo-packaged-replay-source-equivalence/0.1",
+  "packaged_tor_version": "0.4.9.17",
+  "official_source_archive": {
+    "file": "tor_0.4.9.17.orig.tar.gz",
+    "sha256": "ff372c41ee7013557fe5b7acd96c909950b27a7959c59fcb87c02591682fabe2",
+    "dsc_hash_matches": true
+  },
+  "packaged_source_cgo_file": {
+    "path": "src/core/crypto/relay_crypto_cgo.c",
+    "sha256": "c787453a1bb968a0333d6551c4b641d5702e636cda2066abe3467a757078f4d9"
+  },
+  "replay_evaluator_cgo_file": {
+    "base_version": "0.4.9.16",
+    "path": "src/core/crypto/relay_crypto_cgo.c",
+    "sha256": "c787453a1bb968a0333d6551c4b641d5702e636cda2066abe3467a757078f4d9"
+  },
+  "byte_identical": true,
+  "interpretation": "The replay evaluator executes the same relay_crypto_cgo.c bytes as the official Tor 0.4.9.17 source for the CGO operation under test. This does not establish equivalence outside that file."
+}

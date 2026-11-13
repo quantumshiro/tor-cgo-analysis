@@ -39,18 +39,32 @@ def main() -> None:
             "offline_candidate_count": result["offline_candidate_count"],
             "evidence_stages": result["evidence_stages"],
         })
-    accepted = sum(row["success"] for row in rows)
-    safe_stops = sum(row["status"].startswith("safe_stop") for row in rows)
-    invalid = len(rows) - accepted - safe_stops
+    recovered = sum(row["status"] == "recovered_target_cell" for row in rows)
+    non_target = sum(row["status"] == "authenticated_non_target_cell" for row in rows)
+    no_unique = sum(
+        row["status"] == "no_unique_authenticated_candidate" for row in rows
+    )
+    invalid = sum(row["status"] == "invalid_evidence_chain" for row in rows)
+    classified = recovered + non_target + no_unique + invalid
+    if classified != len(rows):
+        unknown = sorted({
+            row["status"] for row in rows
+            if row["status"] not in {
+                "recovered_target_cell",
+                "authenticated_non_target_cell",
+                "no_unique_authenticated_candidate",
+                "invalid_evidence_chain",
+            }
+        })
+        raise SystemExit(f"unknown result status: {unknown}")
     report = {
-        "schema": "tor-cgo-uncontrolled-pcap-core-repetitions/0.1",
+        "schema": "tor-cgo-uncontrolled-pcap-core-repetitions/0.2",
         "independent_process_runs": len(rows),
-        "authenticated_recoveries": accepted,
-        "safe_stops": safe_stops,
+        "target_cell_recoveries": recovered,
+        "authenticated_non_target_cells": non_target,
+        "no_unique_authenticated_candidates": no_unique,
         "invalid_evidence_chains": invalid,
-        "acceptable_outcomes": accepted + safe_stops,
-        "acceptable_outcome_wilson_95": wilson(accepted + safe_stops, len(rows)),
-        "authenticated_recovery_wilson_95": wilson(accepted, len(rows)),
+        "target_cell_recovery_wilson_95": wilson(recovered, len(rows)),
         "path_lengths_tested": sorted({row["path_length"] for row in rows}),
         "recognized_hops_observed": sorted({
             row["recognized_hop"] for row in rows if row["recognized_hop"] is not None

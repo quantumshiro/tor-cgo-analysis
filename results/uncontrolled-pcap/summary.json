@@ -1,17 +1,9 @@
 {
-  "acceptable_outcome_wilson_95": [
-    0.6096657120978346,
-    1.0
-  ],
-  "acceptable_outcomes": 6,
-  "authenticated_recoveries": 6,
-  "authenticated_recovery_wilson_95": [
-    0.6096657120978346,
-    1.0
-  ],
+  "authenticated_non_target_cells": 0,
   "independence": "Every row starts a fresh Tor process and fresh Chutney network.",
   "independent_process_runs": 6,
   "invalid_evidence_chains": 0,
+  "no_unique_authenticated_candidates": 0,
   "path_lengths_tested": [
     2,
     3
@@ -34,7 +26,7 @@
       "path_length": 2,
       "recognized_hop": 1,
       "run": "rep-p2-a",
-      "status": "recovered_authenticated_marker",
+      "status": "recovered_target_cell",
       "success": true,
       "tls_write_sequence_at_core": 17
     },
@@ -51,7 +43,7 @@
       "path_length": 2,
       "recognized_hop": 1,
       "run": "rep-p2-b",
-      "status": "recovered_authenticated_marker",
+      "status": "recovered_target_cell",
       "success": true,
       "tls_write_sequence_at_core": 29
     },
@@ -68,7 +60,7 @@
       "path_length": 2,
       "recognized_hop": 1,
       "run": "rep-p2-c",
-      "status": "recovered_authenticated_marker",
+      "status": "recovered_target_cell",
       "success": true,
       "tls_write_sequence_at_core": 68
     },
@@ -85,7 +77,7 @@
       "path_length": 3,
       "recognized_hop": 2,
       "run": "rep-p3-a",
-      "status": "recovered_authenticated_marker",
+      "status": "recovered_target_cell",
       "success": true,
       "tls_write_sequence_at_core": 23
     },
@@ -102,7 +94,7 @@
       "path_length": 3,
       "recognized_hop": 2,
       "run": "rep-p3-b",
-      "status": "recovered_authenticated_marker",
+      "status": "recovered_target_cell",
       "success": true,
       "tls_write_sequence_at_core": 37
     },
@@ -119,13 +111,12 @@
       "path_length": 3,
       "recognized_hop": 2,
       "run": "rep-p3-c",
-      "status": "recovered_authenticated_marker",
+      "status": "recovered_target_cell",
       "success": true,
       "tls_write_sequence_at_core": 53
     }
   ],
-  "safe_stops": 0,
-  "schema": "tor-cgo-uncontrolled-pcap-core-repetitions/0.1",
+  "schema": "tor-cgo-uncontrolled-pcap-core-repetitions/0.2",
   "stage_success_counts": {
     "E1": 6,
     "E2": 6,
@@ -133,6 +124,11 @@
     "E4": 6,
     "E5": 6
   },
+  "target_cell_recoveries": 6,
+  "target_cell_recovery_wilson_95": [
+    0.6096657120978346,
+    1.0
+  ],
   "timing": "Traffic is not paused and no dynamic cell hook chooses the snapshot boundary; gcore necessarily stops the process while copying its memory.",
   "tls_write_sequences_observed": [
     17,

@@ -1,0 +1,32 @@
+{
+  "authenticated_tls_records": 1,
+  "cgo_authenticated_candidate_count": 1,
+  "checks": {
+    "authenticated_candidate_contains_posthoc_marker": true,
+    "candidate_executable_compatible_with_core": true,
+    "exactly_one_candidate_authenticated_by_cgo": true,
+    "no_external_circuit_or_cell_selector": true,
+    "owner_list_completely_enumerated": true,
+    "recognized_hop_matches_path_length": true,
+    "replay_fixture_excluded_evaluation_truth": true,
+    "secret_extractors_constrained_by_same_E3_manifest": true,
+    "tls_record_authenticated_at_core_sequence": true
+  },
+  "control_circuit_id": 9,
+  "evaluation_boundary": "No dynamic cell truth or Control Protocol circuit selector enters recovery; the controlled marker is tested only after unique CGO authentication.",
+  "evidence_stages": {
+    "E1": true,
+    "E2": true,
+    "E3": true,
+    "E4": true,
+    "E5": true
+  },
+  "marker_match_count_after_authentication": 1,
+  "offline_candidate_count": 7,
+  "path_length": 3,
+  "recognized_hop": 2,
+  "schema": "tor-cgo-uncontrolled-pcap-core-replay/0.2",
+  "status": "recovered_target_cell",
+  "success": true,
+  "tls_write_sequence_at_core": 16
+}

@@ -1,6 +1,6 @@
 # 論文評価アーティファクト
 
-公開リポジトリ：<https://github.com/quantumshiro/tor-cgo-analysis>。論文の評価対象はリリースタグ`v0.0.3`で固定する。タグが指すコミットは`git rev-list -n 1 v0.0.3`で確認できる。
+公開リポジトリ：<https://github.com/quantumshiro/tor-cgo-analysis>。論文の評価対象はリリースタグ`v0.0.4`で固定する。タグが指すコミットは`git rev-list -n 1 v0.0.4`で確認できる。
 
 ## 再現可能性の区分
 
@@ -16,6 +16,7 @@
 |---|---|---:|---|
 | 144/144回路、432/432ホップ | `results/generalization/summary-arm64-replicated.json` | A/C | 集計と解析器を監査し、`run_generalization_case.sh`で新規取得 |
 | 公式パッケージ版36/36回路、108/108ホップ | `results/generalization/summary-official-package-0.4.9.17.json` | B/C | 公開した3起動の非秘密結果から再集計し、公式パッケージと外部デバッグシンボルで新規取得 |
+| 公式パッケージ版E1--E5成立6/6、対象セル復元5/6 | `results/packaged-tor-e4e5/summary.json` | B/C | 6個の非秘密評価JSONを再集計し、公式パッケージと外部デバッグシンボルで新規取得 |
 | TLSレコードとCGO層の連続復号、10/10 | `results/open-circuit-impact/independent-v3/summary.json` | B/C | 公開した10個の評価JSONを`evaluate_full_pcap_repetitions.py`で再集計 |
 | ストリーム非停止・停止時点非選択、6/6 | `results/uncontrolled-pcap/summary.json` | B/C | 6個の評価JSONを`evaluate_uncontrolled_pcap_repetitions.py`で再集計し、`run_uncontrolled_pcap_case.sh`で新規取得 |
 | 混在回路10件をCGO専用復号処理へ渡さない | `results/real-tor-mixed/mixed-e3-admission.json` | B/C | 公開した構造解析結果と対象回路一覧を`evaluate_mixed_e3_admission.py`で再評価 |
@@ -33,7 +34,7 @@
 
 `postprocess_pcap_core_case.sh`が復号処理へ渡すのは、取得済みコアダンプ、対応ELF/DWARF、PCAPだけである。最初に所有関係と構造を解析し、E3を通過した全ホップCGO回路を`e3-circuit-manifest.json`へ固定する。CGO抽出器とTLS抽出器は同じ対象回路一覧を必須入力とし、そこにない回路を処理しない。両抽出器はControl Protocol由来の回路IDを受け取らない。再生用入力`CGR2`にはCGO状態とPCAP由来暗号文だけを格納し、正解ホップと正解平文を含めない。
 
-ストリームを一時停止した10試行では、動的フックの`cell.json`を後処理の評価器だけが読む。停止時点をセルやTLSレコードの境界に合わせなかった6試行では動的セルフックを使わず、CGO認証により候補を一意化した後だけ評価用マーカーを確認する。混在回路はE3の方式分類には残すが、全ホップCGO条件を満たさないためE4--E5の対象回路一覧へ入れない。
+ストリームを一時停止した10試行では、動的フックの`cell.json`を後処理の評価器だけが読む。停止時点をセルやTLSレコードの境界に合わせなかった自己ビルド版6試行と公式パッケージ版6試行では動的セルフックを使わず、CGO認証により候補を一意化した後だけ評価用マーカーを確認する。公式パッケージ版の1試行は対象外セルを認証したため、対象セル復元には数えない。混在回路はE3の方式分類には残すが、全ホップCGO条件を満たさないためE4--E5の対象回路一覧へ入れない。
 
 ## 集計再生成例
 
@@ -61,4 +62,4 @@ python3 experiments/evaluate_mixed_e3_admission.py \
 - torspec: `d5b1ca79a35b811267783ac6555b66476fd900fc`
 - Chutney: `6036fae4bd94c53e1f72967b9fb6c10d9c7fbd7e`
 
-公開用アーカイブは`paper/build_public_supplement.sh`が`paper/public-supplement-files.txt`の固定リストから生成する。既定出力は`paper/tor-cgo-forensics-public-supplement-v5.tar.gz`である。収録ファイルのハッシュは`results/SHA256SUMS.paper-v5`に固定する。
+公開用アーカイブは`paper/build_public_supplement.sh`が`paper/public-supplement-files.txt`の固定リストから生成する。既定出力は`paper/tor-cgo-forensics-public-supplement-v6.tar.gz`である。収録ファイルのハッシュは`results/SHA256SUMS.paper-v6`に固定する。

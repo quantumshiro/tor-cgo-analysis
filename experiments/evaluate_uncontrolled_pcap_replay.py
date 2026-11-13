@@ -106,8 +106,9 @@ def main() -> None:
     )
     success = authenticated and checks["authenticated_candidate_contains_posthoc_marker"]
     status = (
-        "recovered_authenticated_marker" if success
-        else "safe_stop_no_unique_authenticated_candidate" if structural
+        "recovered_target_cell" if success
+        else "authenticated_non_target_cell" if authenticated
+        else "no_unique_authenticated_candidate" if structural
         else "invalid_evidence_chain"
     )
 
@@ -121,7 +122,7 @@ def main() -> None:
             None,
         )
     report = {
-        "schema": "tor-cgo-uncontrolled-pcap-core-replay/0.1",
+        "schema": "tor-cgo-uncontrolled-pcap-core-replay/0.2",
         "status": status,
         "success": success,
         "checks": checks,

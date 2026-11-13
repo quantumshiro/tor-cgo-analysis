@@ -19,14 +19,21 @@ case "$result_dir" in
 esac
 container_source_dir=/work/$source_relative
 container_dir=/work/$result_relative
+tor_binary_host=${CGO_TOR_BINARY_HOST:-$root/build/tor-0.4.9.16-o2/src/app/tor}
+tor_binary_container=${CGO_TOR_BINARY_CONTAINER:-/work/build/tor-0.4.9.16-o2/src/app/tor}
+gdb_debug_dir_container=${CGO_GDB_DEBUG_DIR_CONTAINER:-/usr/lib/debug}
+openssl_cgo_layout=${CGO_OPENSSL_LAYOUT:-openssl-3.0.22-debian-arm64}
+openssl_tls_layout=${CGO_OPENSSL_TLS_LAYOUT:-openssl-3.0.22-debian-arm64}
+replay_binary_container=${CGO_REPLAY_BINARY_CONTAINER:-/work/build/tor-cgo-audit-normal/src/test/test}
 python3 "$root/forensics/verify_core_executable.py" \
-  --executable "$root/build/tor-0.4.9.16-o2/src/app/tor" \
+  --executable "$tor_binary_host" \
   --core "$source_dir/client.core" \
   --output "$result_dir/executable-verification.json"
 docker exec \
   -e CGO_OUTPUT="$container_dir/core-scan.json" \
   tor-cgo-lab gdb -q -batch \
-  /work/build/tor-0.4.9.16-o2/src/app/tor "$container_source_dir/client.core" \
+  -iex "set debug-file-directory $gdb_debug_dir_container" \
+  "$tor_binary_container" "$container_source_dir/client.core" \
   -ex 'source /work/forensics/gdb_scan.py' \
   >"$result_dir/core-scan-gdb.log" 2>&1
 
@@ -35,23 +42,25 @@ python3 "$root/experiments/build_e3_manifest.py" \
   --output "$result_dir/e3-circuit-manifest.json"
 
 docker exec \
-  -e CGO_OPENSSL_LAYOUT=openssl-3.0.22-debian-arm64 \
+  -e CGO_OPENSSL_LAYOUT="$openssl_cgo_layout" \
   -e CGO_INCLUDE_SECRETS=1 \
   -e CGO_E3_MANIFEST="$container_dir/e3-circuit-manifest.json" \
   -e CGO_SECRET_OUTPUT="$container_dir/secret-state.json" \
   tor-cgo-lab gdb -q -batch \
-  /work/build/tor-0.4.9.16-o2/src/app/tor "$container_source_dir/client.core" \
+  -iex "set debug-file-directory $gdb_debug_dir_container" \
+  "$tor_binary_container" "$container_source_dir/client.core" \
   -ex 'source /work/forensics/gdb_extract_cgo_secrets.py' \
   >"$result_dir/secret-extract-gdb.log" 2>&1
 
 docker exec \
-  -e CGO_OPENSSL_TLS_LAYOUT=openssl-3.0.22-debian-arm64 \
+  -e CGO_OPENSSL_TLS_LAYOUT="$openssl_tls_layout" \
   -e CGO_INCLUDE_TLS_SECRETS=1 \
   -e CGO_E3_MANIFEST="$container_dir/e3-circuit-manifest.json" \
   -e CGO_TLS_SECRET_OUTPUT="$container_dir/tls-secret-state.json" \
   -e CGO_TLS_KEYLOG_OUTPUT="$container_dir/tls-keylog.txt" \
   tor-cgo-lab gdb -q -batch \
-  /work/build/tor-0.4.9.16-o2/src/app/tor "$container_source_dir/client.core" \
+  -iex "set debug-file-directory $gdb_debug_dir_container" \
+  "$tor_binary_container" "$container_source_dir/client.core" \
   -ex 'source /work/forensics/gdb_extract_tls_secrets.py' \
   >"$result_dir/tls-secret-extract-gdb.log" 2>&1
 
@@ -74,7 +83,7 @@ for fixture in "$result_dir"/replay-candidates/candidate-*.bin; do
   docker exec \
     -e CGO_REPLAY_FIXTURE="$container_dir/replay-candidates/$base.bin" \
     -e CGO_REPLAY_RESULT="$container_dir/replay-candidates/$base.json" \
-    tor-cgo-lab /work/build/tor-cgo-audit-normal/src/test/test \
+    tor-cgo-lab "$replay_binary_container" \
     crypto/cgo/cgo_external_core_replay \
     >"$result_dir/replay-candidates/$base.log" 2>&1
 done

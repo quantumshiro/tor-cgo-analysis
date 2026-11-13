@@ -97,7 +97,7 @@ TorのCounter Galois Onion（CGO）は、ホップごと・方向ごとに暗号
 さらに、回路が保持する入口TLS接続をたどり、TLS~1.3秘密、レコード番号、Tor回路ID、CGO状態を結合することで、取得直後に記録された保存PCAP内のリレーセルをTLS層からCGO層までオフラインで復号する。
 Linux arm64上の複数のTor 0.4.9系ビルドでは、独立12プロセスの制御下144/144回路と432/432ホップを復元した。
 コアダンプ内の状態と取得後のパケットが対応する条件では、Torと隔離網を毎回作り直した10/10独立起動で復号に成功し、各回で本稿が定義する評価段階E1からE5までを連続して検証した。さらに通信を一時停止せず、停止時点をセルやTLSレコードの境界に合わせなかった6/6独立起動でも、異なるTLSレコード番号と宛先ホップについてE5へ到達した。Control Protocol由来の正解回路IDを使わず対象回路の全セル候補を列挙し、TLSレコード認証とCGO認証により取得直後のセルを選んだ。CGOタグを除く493/493バイトが評価用リレーメッセージ本体と一致した。この本体はTorのリレーメッセージであり、HTTPSなど上位層の暗号を自動的に解除するものではない。
-Tor ProjectがDebian 12向けに配布するストリップ済みTor 0.4.9.17と、対応する外部デバッグシンボルを用いた3/3独立起動でも、36/36回路と108/108ホップを復元した。
+Tor ProjectがDebian 12向けに配布するストリップ済みTor 0.4.9.17と、対応する外部デバッグシンボルを用いた3/3独立起動でも、36/36回路と108/108ホップを復元した。同じ配布版を用いた別の6起動ではE1--E5が6/6で成立し、評価用対象セルは5/6で復元した。残る1起動では対象外セルを認証したため、対象セル復元とは判定しなかった。
 一方、現行状態による直前セルの復号は3/3で失敗し、活動中に端点を順次取得した場合は2.30--3.17秒の差で状態一致が0/36となった。
 したがって本手法は、端点メモリを取得できる調査者に、回路、経路、暗号方式、取得後の通信内容の対応関係を示すが、過去通信の包括的復号や遠隔からのTor匿名性破壊を与えない。
 
@@ -115,7 +115,7 @@ Finding key-like bytes in a Tor client memory image does not establish which liv
 We present a forensic method that starts from the ownership relationships maintained by C Tor.
 The method resolves Tor's circuit-owner list using matching DWARF information, recovers entry-oriented hop order from \texttt{cpath}, and links the entry TLS object to captured TLS records, Tor circuit identifiers, and per-hop CGO state.
 Across twelve independent processes covering four Tor 0.4.9 build conditions on Linux arm64, the analyzer recovered 144/144 controlled circuits and 432/432 established CGO hops.
-Across three further independent processes using the stripped Tor 0.4.9.17 package and matching external debug symbols distributed by the Tor Project for Debian 12, the analyzer recovered 36/36 circuits and 108/108 established CGO hops.
+Across three further independent processes using the stripped Tor 0.4.9.17 package and matching external debug symbols distributed by the Tor Project for Debian 12, the analyzer recovered 36/36 circuits and 108/108 established CGO hops.  In six separate packaged-Tor runs, E1--E5 held in all six; the designated evaluation cell was recovered in five, while one run authenticated a different cell and was not counted as a target-cell recovery.
 In ten fresh, independent Tor runs, an E3 circuit list derived from Tor's ownership relationships constrained both TLS and CGO extraction.  A client core and packet capture spanning its acquisition point were then sufficient to authenticate and decrypt TLS~1.3 records, enumerate all cells without a Control Protocol truth identifier, select the unique CGO-authenticated relay cell, recognize its destination hop, and recover all 493 non-tag bytes of the relay body.  Six further independent runs succeeded without pausing the application stream or selecting a cell boundary, across six distinct TLS record sequence numbers and destination hops one and two.
 The current state failed to decrypt the immediately preceding cell in 3/3 runs, and sequential endpoint acquisition during traffic preserved circuit links but lost all 36/36 instantaneous state matches.
 The contribution is therefore a method for verifying the correspondence among endpoint memory, Tor circuits, and post-acquisition traffic, not a remote cryptanalytic break or general deanonymization attack.
@@ -153,7 +153,7 @@ CGOは認証付きのonion encryptionをTorへ導入する方式であり、セ�
   回路ID、ストリーム宛先、入口チャネル、ホップ別CGO/\torone{}、方向別CGO状態を、Tor構造体間のポインタ関係に沿って対応付ける。これにより、メモリ内の鍵らしい値を発見するだけの手法と異なり、「どの回路の、どのホップの、どの方向の状態か」を説明できる。
 
   \item \textbf{TLSレコードとCGO層を順に処理する保存通信の復号。}
-  所有回路から入口OpenSSLオブジェクトを特定し、TLS~1.3通信秘密と書込みレコード番号を取得する。E3を通過した全ホップCGO回路だけを後段へ渡し、PCAPのTLS認証復号、全Torセル候補の列挙、CGO層処理を順に行う。通信を一時停止した10/10独立起動に加え、通信を止めず停止時点をセル境界に合わせなかった6/6独立起動でE1--E5を連続して検証し、宛先ホップを認識してリレー本文493/493バイトを復元した。Control Protocolや動的計測は復号処理へ渡さず、処理終了後の採点だけに用いた。
+  所有回路から入口OpenSSLオブジェクトを特定し、TLS~1.3通信秘密と書込みレコード番号を取得する。E3を通過した全ホップCGO回路だけを後段へ渡し、PCAPのTLS認証復号、全Torセル候補の列挙、CGO層処理を順に行う。通信を一時停止した自己ビルド版10/10独立起動に加え、通信を止めず停止時点をセル境界に合わせなかった自己ビルド版6/6起動と公式パッケージ版6/6起動でE1--E5を連続して検証した。公式パッケージ版の対象セル復元は5/6だった。Control Protocolや動的計測は復号処理へ渡さず、処理終了後の採点だけに用いた。
 
   \item \textbf{成功条件と誤認境界の定量化。}
   構築中の未初期化列挙値、欠損ページ、誤った実行ファイル、誤鍵、取得時点のずれ、直前セル、既知の後方向再同期攻撃を負の対照として評価した。その結果、現行状態はコアダンプ取得後の次セルには使えるが、過去通信の包括的復号、遠隔攻撃、一般的な匿名性破壊を意味しないことを示した。
@@ -884,6 +884,13 @@ Tor 0.4.9.17、ストリップ済み実行ファイル、対応する\code{tor-d
 
 外部デバッグシンボルを与えない条件では、解析器は終了状態3で型情報の欠如を報告し、回路を出力しなかった。異なるBuild IDのデバッグファイルを配置した条件では、GDBが当該ファイルを読み込まず、同じく回路を出力しなかった。実行ファイルとコアダンプの対応検査では、正しい配布実行ファイルは比較可能な368,640バイトの95.57\%が一致して通過した。別ビルドのTor 0.4.9.16は39.62\%だけが一致し、解析前に拒否された。したがって、配布実行ファイルだけでは本手法を適用できないが、対応する外部デバッグシンボルを保全できれば、自己ビルド時と同じE1--E3の判定を実行できる。
 
+同じ配布実行ファイルとデバッグシンボルを用い、隔離網とTorプロセスを毎回作り直した別の6起動でE4--E5まで評価した。通信は一時停止せず、セル処理やTLSレコード境界を観測して取得時点を選ばなかった。2ホップと3ホップを各3回試し、コアダンプ内のTLS書込みレコード番号13、16、19、25、29、34に対応するレコードを各1件認証した。6/6起動でCGO認証候補は一意となり、2ホップではホップ1、3ホップではホップ2が認識された。従ってE1--E5の証拠条件は6/6で成立した。一方、評価用マーカーを含む対象セルの復元は5/6だった。残る1起動は暗号学的に正しい対象外セルを認証したため、対象セル復元には数えない。対象セル復元5/6の二側95\% Wilsonスコア区間は43.65--96.99\%であり、固定した一条件の小標本である。
+
+配布版のCGO状態を処理する再生用実行ファイルはTor 0.4.9.16を基にするため、Tor Projectの0.4.9.17ソースアーカイブと対象ファイルを比較した。
+両者の\code{src/core/crypto/relay_crypto_cgo.c}はバイト単位で一致し、SHA-256はともに\code{c787453a...78f4d9}だった。この確認が支えるのは当該CGO処理ファイルに限られ、Tor全体の版間同一性ではない。
+
+TLSの負の対照では、通信秘密を1ビット変更した条件と別起動のTLS状態を与えた条件で認証レコードは0件だった。同じ接続秘密で書込み番号を1増やすと後続の正しいレコードは認証された。従って、AEAD認証だけで取得直後のレコードとは決めず、コアダンプ内番号と取得順序の一致を必要条件とする。
+
 一方、明示経路でないambient回路では、0.4.9.3-alphaの3起動でCGO 133ホップ、\torone{} 91ホップ、0.4.9.9でCGO 132、\torone{} 93だった。修正後の0.4.9.16ではCGO 438、\torone{} 12である。この分布差は、0.4.9.12で修正された「最終ホップ以外でCGOを交渉しない」条件と整合する~\cite{torrelease04912}。ただしambient回路はホップ選択と長さを固定していないため、この値をネットワーク全体の普及率とは解釈しない。表~\ref{tab:generalization}の432/432は、CGOが実体化した既知回路を各版の解析器が復元できるかという条件付き評価である。
 
 LTOビルドでは、DWARF上の所有リスト位置をGDBから直接取得できなかった。ELFローカルシンボルとPIEロードバイアスを用いる代替処理により12/12回路、36/36 CGOホップを復元した。
@@ -970,6 +977,7 @@ TLS側の負対照では、クライアント側通信秘密の1ビット反転�
 コアダンプ取得後の次セル & 5/5 & 現行CGO状態が利用可能 \\
 コアダンプ＋PCAP & 10/10 & TLSレコードからリレー本文まで復号 \\
 ストリーム非停止・停止時点非選択 & 6/6 & TLS番号6種、宛先ホップ1/2でE5 \\
+公式配布版・E1--E5 & 6/6 & 対象セル5/6、対象外セル認証1/6 \\
 混在回路のE4投入 & 0/10 & E3で報告しCGO専用後段から除外 \\
 現行状態＋直前セル & 0/3 & 過去状態を一般には逆算不可 \\
 順次取得した両端状態 & 0/36 & 瞬時照合には同時停止が必要 \\
@@ -1021,15 +1029,15 @@ TLSレコードとCGO層の復号は、CGOの鍵を暗号解析で推定した�
 
 \section{限界}\label{sec:limitations}
 
-第一に、TLSレコードとCGO層を連続して復号する中心評価はDebian arm64、Tor 0.4.9.16、OpenSSL 3.0.22、\code{TLS_AES_256_GCM_SHA384}に限られる。x86\_64の構造復元はQEMUゲストコアで確認したが、ネイティブx86\_64でTLSからCGOまでを通す評価は未実施である。OpenSSLのマイナーバージョンやプロバイダーが変われば、内部プロファイルを再検証する必要がある。
+第一に、TLSレコードとCGO層を連続して復号する評価はDebian arm64、自己ビルドTor 0.4.9.16とTor Project公式パッケージ0.4.9.17、OpenSSL 3.0.22、\code{TLS_AES_256_GCM_SHA384}に限られる。x86\_64の構造復元はQEMUゲストコアで確認したが、ネイティブx86\_64でTLSからCGOまでを通す評価は未実施である。OpenSSLのマイナーバージョンやプロバイダーが変われば、内部プロファイルを再検証する必要がある。
 
-第二に、10/10成功は固定条件での反復性を示し、停止時点をセルやTLSレコードの境界に合わせなかった6/6試行は、TLSレコード番号と宛先ホップへの一般化を補う。ただし、一般環境での成功率を精密に推定するものではない。二側95\% Wilsonスコア区間はそれぞれ72.25--100\%、60.97--100\%と広い。追加試行はレコード番号17--68と認識ホップ1/2を含むが、ホップ0、異なる暗号スイート、CGO/\torone{}混在回路を層ごとに復号する処理は未評価である。混在回路はE3で分類し、10/10回路をCGO専用復号処理へ渡さなかった段階に留まる。
+第二に、10/10成功は固定条件での反復性を示し、停止時点をセルやTLSレコードの境界に合わせなかった自己ビルド版6/6試行は、TLSレコード番号と宛先ホップへの一般化を補う。ただし、一般環境での成功率を精密に推定するものではない。二側95\% Wilsonスコア区間はそれぞれ72.25--100\%、60.97--100\%と広い。公式パッケージ版ではE1--E5が6/6で成立した一方、対象セル復元5/6の区間は43.65--96.99\%である。追加試行は認識ホップ1/2を含むが、ホップ0、異なる暗号スイート、CGO/\torone{}混在回路を層ごとに復号する処理は未評価である。混在回路はE3で分類し、10/10回路をCGO専用復号処理へ渡さなかった段階に留まる。
 
 中心10試行ではストリームを一時停止し、Torを\code{SIGSTOP}してからコアダンプを取得した。追加6試行はストリームを止めず、停止時点をセルやTLSレコードの境界に合わせなかったが、\code{gcore}によるメモリ複写中のプロセス停止は残る。実行を止めないライブメモリ取得や、命令途中で不整合なページを収集する取得器は評価していない。したがって本結果は「通常通信中でも整合したスナップショットを取得すれば復元できる」ことを示すが、非原子的なメモリ取得一般を保証しない。
 
 第三に、KeyUpdate、欠損PCAP、TCP部分重複、IP断片化、IPv6、pcapng、後方向、複数連続セルの長時間再生を評価していない。実装のTCP再構成は同一番号の完全再送だけを重複排除する。現行状態から直前セルを復号できなかったが、古い状態の別コピーやメモリアロケータの残留領域が残る可能性を一般には否定できない。
 
-第四に、配布パッケージ版の評価はTor Project公式Debian 12 arm64パッケージ一種類と、同じリポジトリが配布する外部デバッグシンボルに限られる。3/3起動でE1--E3を確認したが、配布パッケージ版を使ったTLSおよびCGO復号、他のディストリビューション、外部デバッグシンボルを取得できない現場資料は評価していない。したがって、任意の配布Torへそのまま適用できるとは主張しない。
+第四に、配布パッケージ版の評価はTor Project公式Debian 12 arm64パッケージ一種類と、同じリポジトリが配布する外部デバッグシンボルに限られる。3/3起動でE1--E3を、別の6/6起動でE4--E5を確認したが、対象セル復元は5/6だった。他のディストリビューション、外部デバッグシンボルを取得できない現場資料、異なるTLS暗号スイートは評価していない。したがって、任意の配布Torへそのまま適用できるとは主張しない。
 
 第五に、C Tor向けの型・所有関係を使用しており、ArtiのRust型へそのまま適用できない。C TorとArtiのCGO逐次状態が正常操作列で一致することは確認したが、ArtiではRustの所有関係に対応する解析器が別途必要である。
 
@@ -1040,7 +1048,7 @@ TLSレコードとCGO層の復号は、CGOの鍵を暗号解析で推定した�
 \section{結論}
 
 本研究は、Torの暗号状態を「鍵らしいバイト列」として探すのではなく、Tor自身の所有関係から回路、入口、ホップ、TLS、CGOをたどるメモリフォレンジック手法を示した。
-複数のC Tor 0.4.9系自己ビルドで144/144回路と432/432ホップを復元した。Tor Project公式Debianパッケージ版でも36/36回路と108/108ホップを復元した。取得時点が対応するクライアントコアダンプとPCAPによるTLSレコードおよびCGO層の復号は、ストリームを一時停止した10/10独立起動と、停止時点をセルやTLSレコードの境界に合わせなかった6/6独立起動で再現した。追加6試行ではTLS書込みレコード番号6種と宛先ホップ1/2へ条件を広げた。所有関係を検証したE3対象回路一覧をTLS/CGO抽出器の必須入力とすることで、E1からE5までを連続して成立させた。復号処理から評価用正解を物理的に分離し、各起動でControl Protocol由来の正解回路IDなしに7候補を列挙した後、CGO認証により一意の1候補を確定した。CGO/\torone{}混在10回路はE3で分類し、CGO専用の後段へは0件を投入した。
+複数のC Tor 0.4.9系自己ビルドで144/144回路と432/432ホップを復元した。Tor Project公式Debianパッケージ版でも36/36回路と108/108ホップを復元した。取得時点が対応するクライアントコアダンプとPCAPによるTLSレコードおよびCGO層の復号は、ストリームを一時停止した自己ビルド版10/10独立起動と、停止時点をセルやTLSレコードの境界に合わせなかった自己ビルド版6/6独立起動で再現した。同様の配布パッケージ版6起動ではE1--E5が6/6で成立し、対象セルを5/6で復元した。残る1起動は対象外セルを認証したため、目的の通信内容を常に得られるとは主張しない。所有関係を検証したE3対象回路一覧をTLS/CGO抽出器の必須入力とすることで、E1からE5までを連続して成立させた。復号処理から評価用正解を物理的に分離し、Control Protocol由来の正解回路IDを候補選択に使わなかった。CGO/\torone{}混在10回路はE3で分類し、CGO専用の後段へは0件を投入した。
 これにより、保存PCAP、TLSレコード、Tor回路、CGOホップ、493バイトのリレー本文の対応関係を検証できる。
 
 同時に、成立範囲も明確になった。現行CGO状態は過去通信を包括的に開く鍵ではない。直前セルは3/3で復号できず、活動中の順次取得では状態一致が0/36になった。既知の後方向再同期攻撃も、3ホップ処理と回路終了によって、鍵なし復号や匿名性破壊には至らなかった。
@@ -1049,11 +1057,11 @@ TLSレコードとCGO層の復号は、CGOの鍵を暗号解析で推定した�
 
 \section*{データと実装の利用可能性}
 
-補足資料には、解析器、実験スクリプト、環境情報、ソースコミット、SHA-256一覧を収録する。主要集計は、自己ビルド版の構造復元を\code{results/generalization/summary-arm64-replicated.json}、公式Debianパッケージ版を\code{results/generalization/summary-official-package-0.4.9.17.json}、E1--E5の10試行を\code{results/open-circuit-impact/independent-v3/summary.json}、停止時点を選ばなかった6試行を\code{results/uncontrolled-pcap/summary.json}、混在回路をCGO専用復号処理へ渡さない評価を\code{results/real-tor-mixed/mixed-e3-admission.json}、CGO負の対照を\code{results/open-circuit-impact/negative-state-matrix-v2/summary.json}へ固定した。対応表と再生成可能範囲は\code{paper/ARTIFACTS_ja.md}に記載する。
+補足資料には、解析器、実験スクリプト、環境情報、ソースコミット、SHA-256一覧を収録する。主要集計は、自己ビルド版の構造復元を\code{results/generalization/summary-arm64-replicated.json}、公式Debianパッケージ版のE1--E3を\code{results/generalization/summary-official-package-0.4.9.17.json}、同版のE1--E5を\code{results/packaged-tor-e4e5/summary.json}、E1--E5の10試行を\code{results/open-circuit-impact/independent-v3/summary.json}、停止時点を選ばなかった自己ビルド版6試行を\code{results/uncontrolled-pcap/summary.json}、混在回路をCGO専用復号処理へ渡さない評価を\code{results/real-tor-mixed/mixed-e3-admission.json}、CGO負の対照を\code{results/open-circuit-impact/negative-state-matrix-v2/summary.json}へ固定した。対応表と再生成可能範囲は\code{paper/ARTIFACTS_ja.md}に記載する。
 
-補足資料の公開先は\url{https://github.com/quantumshiro/tor-cgo-analysis}であり、評価対象を固定するリリースタグは\code{v0.0.3}である。公開用アーカイブ\url{paper/tor-cgo-forensics-public-supplement-v5.tar.gz}は固定リストから再生成できる。公開対象は秘密値と第三者情報を含まない集計、隔離網設定、再生成手順である。
+補足資料の公開先は\url{https://github.com/quantumshiro/tor-cgo-analysis}であり、評価対象を固定するリリースタグは\code{v0.0.4}である。公開用アーカイブ\url{paper/tor-cgo-forensics-public-supplement-v6.tar.gz}は固定リストから再生成できる。公開対象は秘密値と第三者情報を含まない集計、隔離網設定、再生成手順である。
 
-生のTLS秘密、CGO鍵、コアダンプ、復号済みレコードは公開対象から除外するため、公開物だけで保存済み取得物を完全に再解析することはできない。公開物では、集計の監査と隔離網での再取得手順を提供する。タグが指すコミットSHAは\code{git rev-list -n 1 v0.0.3}で検証できる。
+生のTLS秘密、CGO鍵、コアダンプ、復号済みレコードは公開対象から除外するため、公開物だけで保存済み取得物を完全に再解析することはできない。公開物では、集計の監査と隔離網での再取得手順を提供する。タグが指すコミットSHAは\code{git rev-list -n 1 v0.0.4}で検証できる。
 
 \section*{倫理的配慮}
 

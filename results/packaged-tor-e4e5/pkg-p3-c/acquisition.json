@@ -1,0 +1,17 @@
+{
+  "case": "pkg-p3-c",
+  "distribution_label": "Tor Project Debian 12 arm64 package 0.4.9.17",
+  "dynamic_cell_hook_used": false,
+  "entry_or_port": 5104,
+  "gcore_process_suspension_required": true,
+  "marker": "CGO-UCT-pkg-p3-c-",
+  "path_length": 3,
+  "pre_capture_delay_seconds": 0.71,
+  "schema": "tor-cgo-uncontrolled-pcap-acquisition/0.1",
+  "snapshot_boundary_selected_from_cell_processing": false,
+  "tor_binary": "/work/build/packaged-tor/rootfs/usr/bin/tor",
+  "tor_binary_description": "ELF 64-bit LSB pie executable, ARM aarch64, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux-aarch64.so.1, BuildID[sha1]=59de31afcb999ddd92cadb0ff80978b35ac38a9f, for GNU/Linux 3.7.0, stripped",
+  "tor_build_id": "59de31afcb999ddd92cadb0ff80978b35ac38a9f",
+  "tor_version": "Tor version 0.4.9.17.",
+  "traffic_paused_for_snapshot": false
+}

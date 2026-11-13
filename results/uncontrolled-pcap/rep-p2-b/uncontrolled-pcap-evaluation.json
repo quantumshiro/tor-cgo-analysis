@@ -25,8 +25,8 @@
   "offline_candidate_count": 7,
   "path_length": 2,
   "recognized_hop": 1,
-  "schema": "tor-cgo-uncontrolled-pcap-core-replay/0.1",
-  "status": "recovered_authenticated_marker",
+  "schema": "tor-cgo-uncontrolled-pcap-core-replay/0.2",
+  "status": "recovered_target_cell",
   "success": true,
   "tls_write_sequence_at_core": 29
 }
