@@ -1,8 +1,17 @@
 {
-  "authenticated_non_target_cells": 0,
+  "authenticated_marker_absent_relay_bodies": 0,
+  "cgo_authenticated_relay_bodies": 6,
+  "cgo_authentication_wilson_95": [
+    0.6096657120978346,
+    1.0
+  ],
   "independence": "Every row starts a fresh Tor process and fresh Chutney network.",
   "independent_process_runs": 6,
-  "invalid_evidence_chains": 0,
+  "marker_bearing_relay_bodies": 6,
+  "marker_bearing_relay_body_wilson_95": [
+    0.6096657120978346,
+    1.0
+  ],
   "no_unique_authenticated_candidates": 0,
   "path_lengths_tested": [
     2,
@@ -15,121 +24,133 @@
   "runs": [
     {
       "authenticated_tls_records": 1,
-      "evidence_stages": {
-        "E1": true,
-        "E2": true,
-        "E3": true,
-        "E4": true,
-        "E5": true
-      },
+      "cgo_authentication_succeeded": true,
+      "marker_bearing_relay_body_recovered": true,
       "offline_candidate_count": 7,
       "path_length": 2,
       "recognized_hop": 1,
+      "relay_body_length": 493,
+      "relay_body_sha256": "db7aa807983b707726867d19f4b1d1b9ae20f93907ceb8409b4a1dfedceec337",
       "run": "rep-p2-a",
-      "status": "recovered_target_cell",
-      "success": true,
-      "tls_write_sequence_at_core": 17
+      "status": "recovered_marker_bearing_relay_body",
+      "tls_write_sequence_at_core": 17,
+      "verification_results": {
+        "cgo_contexts_initialized": true,
+        "circuit_owner_and_path_structure_valid": true,
+        "exactly_one_relay_body_authenticated_by_cgo": true,
+        "marker_bearing_relay_body_recovered_posthoc": true,
+        "owner_list_completely_enumerated": true,
+        "tls_record_authenticated_at_core_sequence": true
+      }
     },
     {
       "authenticated_tls_records": 1,
-      "evidence_stages": {
-        "E1": true,
-        "E2": true,
-        "E3": true,
-        "E4": true,
-        "E5": true
-      },
+      "cgo_authentication_succeeded": true,
+      "marker_bearing_relay_body_recovered": true,
       "offline_candidate_count": 7,
       "path_length": 2,
       "recognized_hop": 1,
+      "relay_body_length": 493,
+      "relay_body_sha256": "2c7430e0664c389e04fc9553f6b5262097b7830b21ca38ff08649a3a2f9a6a40",
       "run": "rep-p2-b",
-      "status": "recovered_target_cell",
-      "success": true,
-      "tls_write_sequence_at_core": 29
+      "status": "recovered_marker_bearing_relay_body",
+      "tls_write_sequence_at_core": 29,
+      "verification_results": {
+        "cgo_contexts_initialized": true,
+        "circuit_owner_and_path_structure_valid": true,
+        "exactly_one_relay_body_authenticated_by_cgo": true,
+        "marker_bearing_relay_body_recovered_posthoc": true,
+        "owner_list_completely_enumerated": true,
+        "tls_record_authenticated_at_core_sequence": true
+      }
     },
     {
       "authenticated_tls_records": 1,
-      "evidence_stages": {
-        "E1": true,
-        "E2": true,
-        "E3": true,
-        "E4": true,
-        "E5": true
-      },
+      "cgo_authentication_succeeded": true,
+      "marker_bearing_relay_body_recovered": true,
       "offline_candidate_count": 7,
       "path_length": 2,
       "recognized_hop": 1,
+      "relay_body_length": 493,
+      "relay_body_sha256": "f1c4067f62d4b49c4c177bad496877a3d950acdf795dfb8631ee0661760cde48",
       "run": "rep-p2-c",
-      "status": "recovered_target_cell",
-      "success": true,
-      "tls_write_sequence_at_core": 68
+      "status": "recovered_marker_bearing_relay_body",
+      "tls_write_sequence_at_core": 68,
+      "verification_results": {
+        "cgo_contexts_initialized": true,
+        "circuit_owner_and_path_structure_valid": true,
+        "exactly_one_relay_body_authenticated_by_cgo": true,
+        "marker_bearing_relay_body_recovered_posthoc": true,
+        "owner_list_completely_enumerated": true,
+        "tls_record_authenticated_at_core_sequence": true
+      }
     },
     {
       "authenticated_tls_records": 1,
-      "evidence_stages": {
-        "E1": true,
-        "E2": true,
-        "E3": true,
-        "E4": true,
-        "E5": true
-      },
+      "cgo_authentication_succeeded": true,
+      "marker_bearing_relay_body_recovered": true,
       "offline_candidate_count": 7,
       "path_length": 3,
       "recognized_hop": 2,
+      "relay_body_length": 493,
+      "relay_body_sha256": "44cafdc50673f411b3f458d6885d77567ae9f6bde17d30f1bf44ecd4bbd346f8",
       "run": "rep-p3-a",
-      "status": "recovered_target_cell",
-      "success": true,
-      "tls_write_sequence_at_core": 23
+      "status": "recovered_marker_bearing_relay_body",
+      "tls_write_sequence_at_core": 23,
+      "verification_results": {
+        "cgo_contexts_initialized": true,
+        "circuit_owner_and_path_structure_valid": true,
+        "exactly_one_relay_body_authenticated_by_cgo": true,
+        "marker_bearing_relay_body_recovered_posthoc": true,
+        "owner_list_completely_enumerated": true,
+        "tls_record_authenticated_at_core_sequence": true
+      }
     },
     {
       "authenticated_tls_records": 1,
-      "evidence_stages": {
-        "E1": true,
-        "E2": true,
-        "E3": true,
-        "E4": true,
-        "E5": true
-      },
+      "cgo_authentication_succeeded": true,
+      "marker_bearing_relay_body_recovered": true,
       "offline_candidate_count": 7,
       "path_length": 3,
       "recognized_hop": 2,
+      "relay_body_length": 493,
+      "relay_body_sha256": "77fce2386d4965569914fdcaba49cda34da4e39a98683a2f862185a158ff0540",
       "run": "rep-p3-b",
-      "status": "recovered_target_cell",
-      "success": true,
-      "tls_write_sequence_at_core": 37
+      "status": "recovered_marker_bearing_relay_body",
+      "tls_write_sequence_at_core": 37,
+      "verification_results": {
+        "cgo_contexts_initialized": true,
+        "circuit_owner_and_path_structure_valid": true,
+        "exactly_one_relay_body_authenticated_by_cgo": true,
+        "marker_bearing_relay_body_recovered_posthoc": true,
+        "owner_list_completely_enumerated": true,
+        "tls_record_authenticated_at_core_sequence": true
+      }
     },
     {
       "authenticated_tls_records": 1,
-      "evidence_stages": {
-        "E1": true,
-        "E2": true,
-        "E3": true,
-        "E4": true,
-        "E5": true
-      },
+      "cgo_authentication_succeeded": true,
+      "marker_bearing_relay_body_recovered": true,
       "offline_candidate_count": 7,
       "path_length": 3,
       "recognized_hop": 2,
+      "relay_body_length": 493,
+      "relay_body_sha256": "7ff98b569212f2687847db5156651b825268611b401699d0e2db5a04ae708e48",
       "run": "rep-p3-c",
-      "status": "recovered_target_cell",
-      "success": true,
-      "tls_write_sequence_at_core": 53
+      "status": "recovered_marker_bearing_relay_body",
+      "tls_write_sequence_at_core": 53,
+      "verification_results": {
+        "cgo_contexts_initialized": true,
+        "circuit_owner_and_path_structure_valid": true,
+        "exactly_one_relay_body_authenticated_by_cgo": true,
+        "marker_bearing_relay_body_recovered_posthoc": true,
+        "owner_list_completely_enumerated": true,
+        "tls_record_authenticated_at_core_sequence": true
+      }
     }
   ],
-  "schema": "tor-cgo-uncontrolled-pcap-core-repetitions/0.2",
-  "stage_success_counts": {
-    "E1": 6,
-    "E2": 6,
-    "E3": 6,
-    "E4": 6,
-    "E5": 6
-  },
-  "target_cell_recoveries": 6,
-  "target_cell_recovery_wilson_95": [
-    0.6096657120978346,
-    1.0
-  ],
-  "timing": "Traffic is not paused and no dynamic cell hook chooses the snapshot boundary; gcore necessarily stops the process while copying its memory.",
+  "schema": "tor-cgo-uncontrolled-pcap-core-repetitions/0.3",
+  "timing": "Traffic is not paused. The snapshot starts after a predetermined fixed delay without observing a relay-cell or TLS-record boundary; gcore necessarily stops the process while copying its memory.",
   "tls_write_sequences_observed": [
     17,
     23,
@@ -137,5 +158,14 @@
     37,
     53,
     68
-  ]
+  ],
+  "verification_prerequisite_failures": 0,
+  "verification_success_counts": {
+    "cgo_contexts_initialized": 6,
+    "circuit_owner_and_path_structure_valid": 6,
+    "exactly_one_relay_body_authenticated_by_cgo": 6,
+    "marker_bearing_relay_body_recovered_posthoc": 6,
+    "owner_list_completely_enumerated": 6,
+    "tls_record_authenticated_at_core_sequence": 6
+  }
 }

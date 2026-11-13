@@ -1,0 +1,46 @@
+{
+  "authenticated_tls_records": 1,
+  "cgo_authenticated_candidate_count": 1,
+  "cgo_authentication_succeeded": true,
+  "checks": {
+    "all_admitted_circuits_have_initialized_cgo_contexts": true,
+    "all_admitted_circuits_have_valid_owner_and_path_structure": true,
+    "authenticated_candidate_contains_posthoc_marker": true,
+    "candidate_executable_compatible_with_core": true,
+    "exactly_one_candidate_authenticated_by_cgo": true,
+    "no_external_circuit_or_cell_selector": true,
+    "owner_list_completely_enumerated": true,
+    "recognized_hop_matches_path_length": true,
+    "replay_fixture_excluded_evaluation_truth": true,
+    "secret_extractors_constrained_by_same_verified_circuit_list": true,
+    "tls_record_authenticated_at_core_sequence": true
+  },
+  "control_circuit_id": 11,
+  "evaluation_boundary": "No dynamic cell truth or Control Protocol circuit selector enters recovery; the controlled marker is tested only after unique CGO authentication.",
+  "marker_bearing_relay_body_recovered": true,
+  "marker_match_count_after_authentication": 1,
+  "offline_candidate_count": 7,
+  "path_length": 3,
+  "recognized_hop": 2,
+  "relay_body_length": 493,
+  "relay_body_sha256": "3ce9ec27f0031cc942dca73efdf049ed4e27b394b2d51127100a1decba599d12",
+  "relay_command_code": 2,
+  "relay_command_name": "DATA",
+  "replay_build": {
+    "binary_sha256": "e71129d040f1d724905096fccd639fd8c26998f9225f5506df5d3b5282c0acbd",
+    "source_archive_sha256": "ff372c41ee7013557fe5b7acd96c909950b27a7959c59fcb87c02591682fabe2",
+    "test_overlay_sha256": "6a92d263281d8edf8771f655525e226860e463fc4b56d3b1f98b38acee4164c6",
+    "tor_version": "0.4.9.17"
+  },
+  "schema": "tor-cgo-uncontrolled-pcap-core-replay/0.4",
+  "status": "recovered_marker_bearing_relay_body",
+  "tls_write_sequence_at_core": 34,
+  "verification_results": {
+    "cgo_contexts_initialized": true,
+    "circuit_owner_and_path_structure_valid": true,
+    "exactly_one_relay_body_authenticated_by_cgo": true,
+    "marker_bearing_relay_body_recovered_posthoc": true,
+    "owner_list_completely_enumerated": true,
+    "tls_record_authenticated_at_core_sequence": true
+  }
+}

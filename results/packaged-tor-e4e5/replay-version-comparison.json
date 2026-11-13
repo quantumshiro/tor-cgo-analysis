@@ -1,0 +1,268 @@
+{
+  "all_equal": true,
+  "archived_replay_base_version": "0.4.9.16",
+  "candidate_outputs_compared": 36,
+  "comparison_fields": [
+    "recognized_hop",
+    "recovered_payload_hex",
+    "evaluation_truth_used"
+  ],
+  "new_binary_sha256": "e71129d040f1d724905096fccd639fd8c26998f9225f5506df5d3b5282c0acbd",
+  "new_replay_version": "0.4.9.17",
+  "rows": [
+    {
+      "candidate": "candidate-000",
+      "equal": true,
+      "recognized_hop": 1,
+      "recovered_payload_sha256": "bf1d5d6cf5c9019ff09ef33485df61fdc9f644a87a6c7ddee67626616d29cea4",
+      "run": "pkg-p2-a"
+    },
+    {
+      "candidate": "candidate-001",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "1957ad010394f57e2119140749b89428e4362646aaa0ebbda760bf30496d6328",
+      "run": "pkg-p2-a"
+    },
+    {
+      "candidate": "candidate-002",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "87a21d278036ffcb6cf3d7046c57dcc5511d6d7d7563c3dc183e7e50b9b427b9",
+      "run": "pkg-p2-a"
+    },
+    {
+      "candidate": "candidate-003",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "e493a94d59798a1c5a546e7206b6e7ed269fc45189e72a534566ca5e5aaefc08",
+      "run": "pkg-p2-a"
+    },
+    {
+      "candidate": "candidate-004",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "13e0c212f7be5242a1041dce609e5b86ce94f8fc2cea10b2d8071d28fcd46355",
+      "run": "pkg-p2-a"
+    },
+    {
+      "candidate": "candidate-005",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "9a0d511e4a935e790cb07f5f372ef2a224128efc92df5c9862cae775bc0cab16",
+      "run": "pkg-p2-a"
+    },
+    {
+      "candidate": "candidate-006",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "c030d85568eb9996ae6e0a33f293513f690991ecde492b03bda84826b7fc389d",
+      "run": "pkg-p2-a"
+    },
+    {
+      "candidate": "candidate-000",
+      "equal": true,
+      "recognized_hop": 1,
+      "recovered_payload_sha256": "169af93695235904763aed604e44a44585c64e5ec0f91e08545aa2339cb4a4f5",
+      "run": "pkg-p2-b"
+    },
+    {
+      "candidate": "candidate-000",
+      "equal": true,
+      "recognized_hop": 1,
+      "recovered_payload_sha256": "47a85c0c642460296d9d3920301dec7bc493c4000ddf977d9d430ed9c28d0300",
+      "run": "pkg-p2-c"
+    },
+    {
+      "candidate": "candidate-001",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "5e2a2c8af7109189d4ffd9386189406f4955755ac6105374c3fc7b31b02216c6",
+      "run": "pkg-p2-c"
+    },
+    {
+      "candidate": "candidate-002",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "916ab66d087849f2088d484518afe446d5ca504e13fd4cdd814eb50ee84751c8",
+      "run": "pkg-p2-c"
+    },
+    {
+      "candidate": "candidate-003",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "884385018188baefd558f6a7b1a3ca5f88f2bf5d4c3e343d0928ee67b305dbdd",
+      "run": "pkg-p2-c"
+    },
+    {
+      "candidate": "candidate-004",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "a510301c16ca622b6e4cabd0969bc08c4777421bf8d339a74cdc1742dac69a1d",
+      "run": "pkg-p2-c"
+    },
+    {
+      "candidate": "candidate-005",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "fa1f0908151ef8cb199d08516d904b71f3a60358da4864eaa6ac82e7f8ff2fba",
+      "run": "pkg-p2-c"
+    },
+    {
+      "candidate": "candidate-006",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "21806f2bbcdac2937d5fdd57542f4d68e5009ed9c6fdb3e04ca9a50bd467a91b",
+      "run": "pkg-p2-c"
+    },
+    {
+      "candidate": "candidate-000",
+      "equal": true,
+      "recognized_hop": 2,
+      "recovered_payload_sha256": "043621187e4c502c81fbc56dd2bbdd1342beb9e7a7ce1d70133e782fc3be3468",
+      "run": "pkg-p3-a"
+    },
+    {
+      "candidate": "candidate-001",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "ac02918bea2bf32041279ebf1a841f58e71f1c29e27bf2d1648d894cec33f3fc",
+      "run": "pkg-p3-a"
+    },
+    {
+      "candidate": "candidate-002",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "ef094f2de94918c536a326291e630ef7f778b8199b5e32609c356a2d57f2145b",
+      "run": "pkg-p3-a"
+    },
+    {
+      "candidate": "candidate-003",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "e4fbfcbc00ce83d134532718a9b324070ed69d644e8d74efc57917d910082dfc",
+      "run": "pkg-p3-a"
+    },
+    {
+      "candidate": "candidate-004",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "cb5d60bac0ddc1db810320ddbd4fac7024ed519bc9a2c251c60377c1b9b0411b",
+      "run": "pkg-p3-a"
+    },
+    {
+      "candidate": "candidate-005",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "409a13fca002d8f28ca0b19fafe255a2f54a2cc55e833522f45ac5351753cb3e",
+      "run": "pkg-p3-a"
+    },
+    {
+      "candidate": "candidate-006",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "d6cf5abd5a619a46a8ea957b690d8e4e7afb62d62db0663c7a4727a792c84848",
+      "run": "pkg-p3-a"
+    },
+    {
+      "candidate": "candidate-000",
+      "equal": true,
+      "recognized_hop": 2,
+      "recovered_payload_sha256": "aa80c2aa069c07ac6433e85d8a3891417eb050f97daacc4af6a7762e92222b27",
+      "run": "pkg-p3-b"
+    },
+    {
+      "candidate": "candidate-001",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "852327c4a4b743b89b8775fa21943cf1ddc42f5cffd0798f152afdfb96291e7c",
+      "run": "pkg-p3-b"
+    },
+    {
+      "candidate": "candidate-002",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "104a0b8b1d4315d097b7ce82ced50cf0f21bced988714fe289680b932aa0f799",
+      "run": "pkg-p3-b"
+    },
+    {
+      "candidate": "candidate-003",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "e9dd20cb60fb22786d56b7b2334f2338eb23618368b1d0f7b4b8fc9717e3a970",
+      "run": "pkg-p3-b"
+    },
+    {
+      "candidate": "candidate-004",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "1eacbc429aa51c8e11d5c6471d9ce0fd77fe09a2bcaba10c3acf9a25916a1340",
+      "run": "pkg-p3-b"
+    },
+    {
+      "candidate": "candidate-005",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "77c2f2c42c6f482cc7245f7ebea34503098c671eeb34bd7c9d70e3127d97e837",
+      "run": "pkg-p3-b"
+    },
+    {
+      "candidate": "candidate-006",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "dda090ffb31d851e0f20b2f85430ce25491f4fd396caea474020aa1764cb1013",
+      "run": "pkg-p3-b"
+    },
+    {
+      "candidate": "candidate-000",
+      "equal": true,
+      "recognized_hop": 2,
+      "recovered_payload_sha256": "bffa6f8ea3a01baffc63c872031583443c648b5594afd47c42187afe17517fec",
+      "run": "pkg-p3-c"
+    },
+    {
+      "candidate": "candidate-001",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "9988c9c9af6429983d7a19807150ff5e6316c2fe0c832e01160c9539348d9499",
+      "run": "pkg-p3-c"
+    },
+    {
+      "candidate": "candidate-002",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "e1d3869f034884f3efabf86968fd115ba9bfaa8736627114dbb4d10a343960a7",
+      "run": "pkg-p3-c"
+    },
+    {
+      "candidate": "candidate-003",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "51e1ca784ef07ad599af0e18f46c236042f84505c9f42b9eb1102322759052da",
+      "run": "pkg-p3-c"
+    },
+    {
+      "candidate": "candidate-004",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "089ada50a691edd05c1a247b52422820ccebee757457ffda005f4208db5c5cbe",
+      "run": "pkg-p3-c"
+    },
+    {
+      "candidate": "candidate-005",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "92a77307c25e4819d9b332b45af0e7053ebdfd9e985c8bdaf054311e75015bd7",
+      "run": "pkg-p3-c"
+    },
+    {
+      "candidate": "candidate-006",
+      "equal": true,
+      "recognized_hop": -1,
+      "recovered_payload_sha256": "e21967ce3f7ee59a93fad404c34b272bd55acb87c4f5c998b7ab17e45e632e01",
+      "run": "pkg-p3-c"
+    }
+  ],
+  "schema": "tor-cgo-replay-version-comparison/1.0",
+  "semantically_identical_outputs": 36
+}

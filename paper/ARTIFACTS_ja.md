@@ -1,6 +1,6 @@
 # 論文評価アーティファクト
 
-公開リポジトリ：<https://github.com/quantumshiro/tor-cgo-analysis>。論文の評価対象はリリースタグ`v0.0.4`で固定する。タグが指すコミットは`git rev-list -n 1 v0.0.4`で確認できる。
+公開リポジトリ：<https://github.com/quantumshiro/tor-cgo-analysis>。本改訂に対応するタグと完全なコミットSHAは、提出版の公開時に固定する。
 
 ## 再現可能性の区分
 
@@ -16,11 +16,13 @@
 |---|---|---:|---|
 | 144/144回路、432/432ホップ | `results/generalization/summary-arm64-replicated.json` | A/C | 集計と解析器を監査し、`run_generalization_case.sh`で新規取得 |
 | 公式パッケージ版36/36回路、108/108ホップ | `results/generalization/summary-official-package-0.4.9.17.json` | B/C | 公開した3起動の非秘密結果から再集計し、公式パッケージと外部デバッグシンボルで新規取得 |
-| 公式パッケージ版E1--E5成立6/6、対象セル復元5/6 | `results/packaged-tor-e4e5/summary.json` | B/C | 6個の非秘密評価JSONを再集計し、公式パッケージと外部デバッグシンボルで新規取得 |
+| 公式パッケージ版の一意なCGO認証6/6、DATA 5件、SENDME 1件 | `results/packaged-tor-e4e5/summary-04917-replay.json` | B/C | 公式0.4.9.17ソースから構築した再生器で6個の保存済み取得物を再評価 |
+| 公式0.4.9.17再生器の由来・Build ID・SHA-256 | `results/packaged-tor-e4e5/replay-0.4.9.17-build.json` | A | 製品側ソースを変更せず、試験用入出力だけを追加してビルド |
+| 旧再生器と公式0.4.9.17再生器の全36候補の一致 | `results/packaged-tor-e4e5/replay-version-comparison.json` | A | CGO認証ホップ、復元バイト列、正解情報不使用フラグを比較 |
 | TLSレコードとCGO層の連続復号、10/10 | `results/open-circuit-impact/independent-v3/summary.json` | B/C | 公開した10個の評価JSONを`evaluate_full_pcap_repetitions.py`で再集計 |
-| ストリーム非停止・停止時点非選択、6/6 | `results/uncontrolled-pcap/summary.json` | B/C | 6個の評価JSONを`evaluate_uncontrolled_pcap_repetitions.py`で再集計し、`run_uncontrolled_pcap_case.sh`で新規取得 |
+| ストリームを停止せず、セル・TLS境界を観測しない固定遅延取得、6/6 | `results/uncontrolled-pcap/summary.json` | B/C | 6個の評価JSONを`evaluate_uncontrolled_pcap_repetitions.py`で再集計し、`run_uncontrolled_pcap_case.sh`で新規取得 |
 | 混在回路10件をCGO専用復号処理へ渡さない | `results/real-tor-mixed/mixed-e3-admission.json` | B/C | 公開した構造解析結果と対象回路一覧を`evaluate_mixed_e3_admission.py`で再評価 |
-| E3必須条件の負の対照4/4 | `results/open-circuit-impact/e3-enforcement-negative/summary.json` | A/C | 結果監査と`test_e3_enforcement.py`による新規試験入力の評価 |
+| 所有関係・経路構造・暗号コンテキストを検証した回路一覧に対する負の対照4/4 | `results/open-circuit-impact/e3-enforcement-negative/summary.json` | A/C | 結果監査と`test_e3_enforcement.py`による新規試験入力の評価 |
 | CGO状態7分類、7,168件 | `results/open-circuit-impact/negative-state-matrix-v2/summary.json` | A/C | 変更済みC試験ソースを監査し、別途ビルド後に再実行 |
 | TLS負対照 | `results/open-circuit-impact/tls-negative-controls-v2/summary.json` | A/C | 結果と`run_tls_negative_controls.py`を監査し、新規取得物で再実行 |
 | 実行ファイル互換性の正負対照 | `results/robustness/build-verification/` | A/C | `verify_core_executable.py`の判定と結果を監査 |
@@ -32,9 +34,11 @@
 
 ## TLSレコードとCGO層の復号における入力分離
 
-`postprocess_pcap_core_case.sh`が復号処理へ渡すのは、取得済みコアダンプ、対応ELF/DWARF、PCAPだけである。最初に所有関係と構造を解析し、E3を通過した全ホップCGO回路を`e3-circuit-manifest.json`へ固定する。CGO抽出器とTLS抽出器は同じ対象回路一覧を必須入力とし、そこにない回路を処理しない。両抽出器はControl Protocol由来の回路IDを受け取らない。再生用入力`CGR2`にはCGO状態とPCAP由来暗号文だけを格納し、正解ホップと正解平文を含めない。
+ストリームを一時停止した10試行の個別評価JSONはスキーマ0.3で保存され、集計器が互換変換してスキーマ0.4の`summary.json`を生成する。
 
-ストリームを一時停止した10試行では、動的フックの`cell.json`を後処理の評価器だけが読む。停止時点をセルやTLSレコードの境界に合わせなかった自己ビルド版6試行と公式パッケージ版6試行では動的セルフックを使わず、CGO認証により候補を一意化した後だけ評価用マーカーを確認する。公式パッケージ版の1試行は対象外セルを認証したため、対象セル復元には数えない。混在回路はE3の方式分類には残すが、全ホップCGO条件を満たさないためE4--E5の対象回路一覧へ入れない。
+`postprocess_pcap_core_case.sh`が復号処理へ渡すのは、取得済みコアダンプ、対応ELF/DWARF、PCAPだけである。最初に所有関係と構造を解析し、全ホップのCGO暗号コンテキストを検証できた回路を`e3-circuit-manifest.json`へ固定する。このファイル名は過去版との対応のため維持している。CGO抽出器とTLS抽出器は同じ対象回路一覧を必須入力とし、そこにない回路を処理しない。両抽出器はControl Protocol由来の回路IDを受け取らない。再生用入力`CGR2`にはCGO状態とPCAP由来暗号文だけを格納し、正解ホップと正解平文を含めない。
+
+ストリームを一時停止した10試行では、動的フックの`cell.json`を後処理の評価器だけが読む。セル・TLS境界を観測しない固定遅延取得による自己ビルド版6試行と公式パッケージ版6試行では動的セルフックを使わず、CGO認証により候補を一意化した後だけ評価用マーカーを確認する。公式パッケージ版の1試行では、CGO認証に成功したSENDMEセルを得たが、評価用マーカーを含まなかった。混在回路は方式分類には残すが、全ホップCGO条件を満たさないため、TLS・CGO通信復元処理の対象回路一覧へ入れない。
 
 ## 集計再生成例
 

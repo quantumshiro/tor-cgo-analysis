@@ -1,20 +1,28 @@
 {
-  "schema": "tor-cgo-packaged-replay-source-equivalence/0.1",
+  "schema": "tor-cgo-packaged-replay-source-equivalence/0.2",
   "packaged_tor_version": "0.4.9.17",
   "official_source_archive": {
     "file": "tor_0.4.9.17.orig.tar.gz",
     "sha256": "ff372c41ee7013557fe5b7acd96c909950b27a7959c59fcb87c02591682fabe2",
     "dsc_hash_matches": true
   },
-  "packaged_source_cgo_file": {
-    "path": "src/core/crypto/relay_crypto_cgo.c",
-    "sha256": "c787453a1bb968a0333d6551c4b641d5702e636cda2066abe3467a757078f4d9"
-  },
-  "replay_evaluator_cgo_file": {
-    "base_version": "0.4.9.16",
-    "path": "src/core/crypto/relay_crypto_cgo.c",
-    "sha256": "c787453a1bb968a0333d6551c4b641d5702e636cda2066abe3467a757078f4d9"
+  "replay_evaluator_base_version": "0.4.9.16",
+  "comparison_method": "byte-for-byte comparison and SHA-256",
+  "identical_files": {
+    "src/core/crypto/relay_crypto_cgo.c": "c787453a1bb968a0333d6551c4b641d5702e636cda2066abe3467a757078f4d9",
+    "src/core/crypto/relay_crypto_cgo.h": "6d1887ff00c8fa8af3c362e9cdec1b207007e8f62f885a519f12db4f72754817",
+    "src/core/crypto/relay_crypto.c": "b14afdbd1812f53bf2a273b29e28d62a8a44b07392f4947b97a7e77dc88949ea",
+    "src/core/crypto/relay_crypto.h": "97b6fbe3a2ac906f471277946542db791ea91bdf8a8cf23d57ea0c00a250e41a",
+    "src/core/or/cell_st.h": "ebd93aa63098a9c5f663a19994a6ca366535d9b2fcdcd9de4c56f4ce5dac6866",
+    "src/ext/polyval/polyval.c": "9b89e8de7faf2d0ddef00a9b1bf406923868f832aef338c5d508f5875d990471",
+    "src/ext/polyval/polyval.h": "d5805a9678a01f1ee3c6d8f64cc890ee37bbf14ac8f155b3117e92ba1e0d2835",
+    "src/lib/arch/bytes.h": "9c945714cc97150b88b99376acb24c6d800b053f68573cc953e28cab80eff00d",
+    "src/lib/crypt_ops/aes.h": "5e6754412fce97175ab7f8be8425a8e3abb7453d842004ac0f67e995333597b0",
+    "src/lib/crypt_ops/aes_openssl.c": "ced0040ac831a9efc312bec0145a50cdbfee3c2535494209537637a3c828c109",
+    "src/lib/crypt_ops/aes_nss.c": "60131607db1aca0716b242539cc3364a7717834a1cc19962638ed43fb82c5c08",
+    "src/lib/crypt_ops/crypto_util.c": "821b7e91a3b90973fa0f811036be647bb43071ad35d78f2ae431f2d1178f0436",
+    "src/lib/crypt_ops/crypto_util.h": "e707cdaa2d7adefcca819cf853703c859a63497e04c761cc4f05f641bd002c8d"
   },
   "byte_identical": true,
-  "interpretation": "The replay evaluator executes the same relay_crypto_cgo.c bytes as the official Tor 0.4.9.17 source for the CGO operation under test. This does not establish equivalence outside that file."
+  "interpretation": "The comparison covers the CGO implementation and the directly used Tor source dependencies listed above. It does not establish equality of the complete Tor builds, compiler options, linked libraries, or runtime behavior."
 }

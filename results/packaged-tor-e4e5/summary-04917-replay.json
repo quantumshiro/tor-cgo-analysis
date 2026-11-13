@@ -1,0 +1,223 @@
+{
+  "authenticated_marker_absent_relay_bodies": 1,
+  "cgo_authenticated_relay_bodies": 6,
+  "cgo_authentication_wilson_95": [
+    0.6096657120978346,
+    1.0
+  ],
+  "independence": "Every row starts a fresh Tor process and fresh Chutney network.",
+  "independent_process_runs": 6,
+  "marker_bearing_relay_bodies": 5,
+  "marker_bearing_relay_body_wilson_95": [
+    0.43649717781352987,
+    0.9699466302516935
+  ],
+  "no_unique_authenticated_candidates": 0,
+  "path_lengths_tested": [
+    2,
+    3
+  ],
+  "recognized_hops_observed": [
+    1,
+    2
+  ],
+  "relay_command_counts": {
+    "DATA": 5,
+    "SENDME": 1
+  },
+  "runs": [
+    {
+      "authenticated_tls_records": 1,
+      "cgo_authentication_succeeded": true,
+      "marker_bearing_relay_body_recovered": true,
+      "offline_candidate_count": 7,
+      "path_length": 2,
+      "recognized_hop": 1,
+      "relay_body_length": 493,
+      "relay_body_sha256": "44c477171cae46d41fe36c88391a69f437faa650a7fc36b7d794ac140855a1da",
+      "relay_command_code": 2,
+      "relay_command_name": "DATA",
+      "replay_build": {
+        "binary_sha256": "e71129d040f1d724905096fccd639fd8c26998f9225f5506df5d3b5282c0acbd",
+        "source_archive_sha256": "ff372c41ee7013557fe5b7acd96c909950b27a7959c59fcb87c02591682fabe2",
+        "test_overlay_sha256": "6a92d263281d8edf8771f655525e226860e463fc4b56d3b1f98b38acee4164c6",
+        "tor_version": "0.4.9.17"
+      },
+      "run": "pkg-p2-a",
+      "status": "recovered_marker_bearing_relay_body",
+      "tls_write_sequence_at_core": 13,
+      "verification_results": {
+        "cgo_contexts_initialized": true,
+        "circuit_owner_and_path_structure_valid": true,
+        "exactly_one_relay_body_authenticated_by_cgo": true,
+        "marker_bearing_relay_body_recovered_posthoc": true,
+        "owner_list_completely_enumerated": true,
+        "tls_record_authenticated_at_core_sequence": true
+      }
+    },
+    {
+      "authenticated_tls_records": 1,
+      "cgo_authentication_succeeded": true,
+      "marker_bearing_relay_body_recovered": false,
+      "offline_candidate_count": 1,
+      "path_length": 2,
+      "recognized_hop": 1,
+      "relay_body_length": 493,
+      "relay_body_sha256": "6e030d1ec6c03b413dd5681ec6c78571dd18838b169e2692d8fd8033121f3336",
+      "relay_command_code": 5,
+      "relay_command_name": "SENDME",
+      "replay_build": {
+        "binary_sha256": "e71129d040f1d724905096fccd639fd8c26998f9225f5506df5d3b5282c0acbd",
+        "source_archive_sha256": "ff372c41ee7013557fe5b7acd96c909950b27a7959c59fcb87c02591682fabe2",
+        "test_overlay_sha256": "6a92d263281d8edf8771f655525e226860e463fc4b56d3b1f98b38acee4164c6",
+        "tor_version": "0.4.9.17"
+      },
+      "run": "pkg-p2-b",
+      "status": "authenticated_marker_absent_relay_body",
+      "tls_write_sequence_at_core": 19,
+      "verification_results": {
+        "cgo_contexts_initialized": true,
+        "circuit_owner_and_path_structure_valid": true,
+        "exactly_one_relay_body_authenticated_by_cgo": true,
+        "marker_bearing_relay_body_recovered_posthoc": false,
+        "owner_list_completely_enumerated": true,
+        "tls_record_authenticated_at_core_sequence": true
+      }
+    },
+    {
+      "authenticated_tls_records": 1,
+      "cgo_authentication_succeeded": true,
+      "marker_bearing_relay_body_recovered": true,
+      "offline_candidate_count": 7,
+      "path_length": 2,
+      "recognized_hop": 1,
+      "relay_body_length": 493,
+      "relay_body_sha256": "b04ee3fa624253bf801283103c7172dccfb77e63bb88b249c3b1f8bc003ac9cc",
+      "relay_command_code": 2,
+      "relay_command_name": "DATA",
+      "replay_build": {
+        "binary_sha256": "e71129d040f1d724905096fccd639fd8c26998f9225f5506df5d3b5282c0acbd",
+        "source_archive_sha256": "ff372c41ee7013557fe5b7acd96c909950b27a7959c59fcb87c02591682fabe2",
+        "test_overlay_sha256": "6a92d263281d8edf8771f655525e226860e463fc4b56d3b1f98b38acee4164c6",
+        "tor_version": "0.4.9.17"
+      },
+      "run": "pkg-p2-c",
+      "status": "recovered_marker_bearing_relay_body",
+      "tls_write_sequence_at_core": 29,
+      "verification_results": {
+        "cgo_contexts_initialized": true,
+        "circuit_owner_and_path_structure_valid": true,
+        "exactly_one_relay_body_authenticated_by_cgo": true,
+        "marker_bearing_relay_body_recovered_posthoc": true,
+        "owner_list_completely_enumerated": true,
+        "tls_record_authenticated_at_core_sequence": true
+      }
+    },
+    {
+      "authenticated_tls_records": 1,
+      "cgo_authentication_succeeded": true,
+      "marker_bearing_relay_body_recovered": true,
+      "offline_candidate_count": 7,
+      "path_length": 3,
+      "recognized_hop": 2,
+      "relay_body_length": 493,
+      "relay_body_sha256": "af7a833e408b11451580531761eb3732adce3cc0c32fcf866263d035d2c9d2a6",
+      "relay_command_code": 2,
+      "relay_command_name": "DATA",
+      "replay_build": {
+        "binary_sha256": "e71129d040f1d724905096fccd639fd8c26998f9225f5506df5d3b5282c0acbd",
+        "source_archive_sha256": "ff372c41ee7013557fe5b7acd96c909950b27a7959c59fcb87c02591682fabe2",
+        "test_overlay_sha256": "6a92d263281d8edf8771f655525e226860e463fc4b56d3b1f98b38acee4164c6",
+        "tor_version": "0.4.9.17"
+      },
+      "run": "pkg-p3-a",
+      "status": "recovered_marker_bearing_relay_body",
+      "tls_write_sequence_at_core": 16,
+      "verification_results": {
+        "cgo_contexts_initialized": true,
+        "circuit_owner_and_path_structure_valid": true,
+        "exactly_one_relay_body_authenticated_by_cgo": true,
+        "marker_bearing_relay_body_recovered_posthoc": true,
+        "owner_list_completely_enumerated": true,
+        "tls_record_authenticated_at_core_sequence": true
+      }
+    },
+    {
+      "authenticated_tls_records": 1,
+      "cgo_authentication_succeeded": true,
+      "marker_bearing_relay_body_recovered": true,
+      "offline_candidate_count": 7,
+      "path_length": 3,
+      "recognized_hop": 2,
+      "relay_body_length": 493,
+      "relay_body_sha256": "76184423f805eb2cc243f696ba3e7819c4a00d2e5f55639d89a7aacd33728daa",
+      "relay_command_code": 2,
+      "relay_command_name": "DATA",
+      "replay_build": {
+        "binary_sha256": "e71129d040f1d724905096fccd639fd8c26998f9225f5506df5d3b5282c0acbd",
+        "source_archive_sha256": "ff372c41ee7013557fe5b7acd96c909950b27a7959c59fcb87c02591682fabe2",
+        "test_overlay_sha256": "6a92d263281d8edf8771f655525e226860e463fc4b56d3b1f98b38acee4164c6",
+        "tor_version": "0.4.9.17"
+      },
+      "run": "pkg-p3-b",
+      "status": "recovered_marker_bearing_relay_body",
+      "tls_write_sequence_at_core": 25,
+      "verification_results": {
+        "cgo_contexts_initialized": true,
+        "circuit_owner_and_path_structure_valid": true,
+        "exactly_one_relay_body_authenticated_by_cgo": true,
+        "marker_bearing_relay_body_recovered_posthoc": true,
+        "owner_list_completely_enumerated": true,
+        "tls_record_authenticated_at_core_sequence": true
+      }
+    },
+    {
+      "authenticated_tls_records": 1,
+      "cgo_authentication_succeeded": true,
+      "marker_bearing_relay_body_recovered": true,
+      "offline_candidate_count": 7,
+      "path_length": 3,
+      "recognized_hop": 2,
+      "relay_body_length": 493,
+      "relay_body_sha256": "3ce9ec27f0031cc942dca73efdf049ed4e27b394b2d51127100a1decba599d12",
+      "relay_command_code": 2,
+      "relay_command_name": "DATA",
+      "replay_build": {
+        "binary_sha256": "e71129d040f1d724905096fccd639fd8c26998f9225f5506df5d3b5282c0acbd",
+        "source_archive_sha256": "ff372c41ee7013557fe5b7acd96c909950b27a7959c59fcb87c02591682fabe2",
+        "test_overlay_sha256": "6a92d263281d8edf8771f655525e226860e463fc4b56d3b1f98b38acee4164c6",
+        "tor_version": "0.4.9.17"
+      },
+      "run": "pkg-p3-c",
+      "status": "recovered_marker_bearing_relay_body",
+      "tls_write_sequence_at_core": 34,
+      "verification_results": {
+        "cgo_contexts_initialized": true,
+        "circuit_owner_and_path_structure_valid": true,
+        "exactly_one_relay_body_authenticated_by_cgo": true,
+        "marker_bearing_relay_body_recovered_posthoc": true,
+        "owner_list_completely_enumerated": true,
+        "tls_record_authenticated_at_core_sequence": true
+      }
+    }
+  ],
+  "schema": "tor-cgo-uncontrolled-pcap-core-repetitions/0.4",
+  "timing": "Traffic is not paused. The snapshot starts after a predetermined fixed delay without observing a relay-cell or TLS-record boundary; gcore necessarily stops the process while copying its memory.",
+  "tls_write_sequences_observed": [
+    13,
+    16,
+    19,
+    25,
+    29,
+    34
+  ],
+  "verification_prerequisite_failures": 0,
+  "verification_success_counts": {
+    "cgo_contexts_initialized": 6,
+    "circuit_owner_and_path_structure_valid": 6,
+    "exactly_one_relay_body_authenticated_by_cgo": 6,
+    "marker_bearing_relay_body_recovered_posthoc": 5,
+    "owner_list_completely_enumerated": 6,
+    "tls_record_authenticated_at_core_sequence": 6
+  }
+}

@@ -81,13 +81,20 @@ def main() -> None:
             and not scan["errors"]
             and e3_manifest["owner_list_completely_enumerated"] is True
         ),
-        "selected_circuit_reached_E1_E2_E3": (
-            selected_scan["highest_core_evidence_level"] == "E3"
-            and all(selected_scan["evidence"].values())
+        "selected_circuit_owner_path_and_crypto_valid": (
+            selected_scan["evidence"].get(
+                "E1_owned_list_completely_enumerated"
+            ) is True
+            and selected_scan["evidence"].get(
+                "E2_origin_magic_index_and_entry_path_valid"
+            ) is True
+            and selected_scan["evidence"].get(
+                "E3_all_hops_open_with_instantiated_crypto"
+            ) is True
             and selected_e3["owner_index"] == selected_scan["global_origin_list_index"]
             and selected_e3["entry_link_circuit_id"] == selected_scan["entry_link_circuit_id"]
         ),
-        "secret_extractors_constrained_by_same_E3_manifest": (
+        "secret_extractors_constrained_by_same_verified_circuit_list": (
             cgo["e3_manifest_enforced"] is True
             and tls["e3_manifest_enforced"] is True
             and cgo["e3_manifest_source_scan_sha256"] == e3_hash
@@ -120,10 +127,20 @@ def main() -> None:
         "cgo_recognized_expected_hop": replay["recognized_hop"] == expected_hop,
         "cgo_plaintext_493_bytes_match": recovered[16:] == truth_plaintext[16:],
     }
+    cgo_authentication_succeeded = checks[
+        "exactly_one_candidate_authenticated_by_cgo"
+    ]
+    evaluation_truth_match = (
+        checks["unique_authenticated_candidate_matches_posthoc_truth"]
+        and checks["cgo_recognized_expected_hop"]
+        and checks["cgo_plaintext_493_bytes_match"]
+    )
     report = {
-        "schema": "tor-cgo-full-pcap-core-replay/0.3",
+        "schema": "tor-cgo-full-pcap-core-replay/0.4",
         "checks": checks,
         "all_checks_pass": all(checks.values()),
+        "cgo_authentication_succeeded": cgo_authentication_succeeded,
+        "evaluation_truth_match": evaluation_truth_match,
         "control_circuit_id": selected_tls["control_circuit_id"],
         "entry_link_circuit_id": selected_tls["entry_link_circuit_id"],
         "tls_write_sequence_at_core": selected_tls["write_sequence"],
@@ -134,22 +151,32 @@ def main() -> None:
         "evaluation_truth_candidate_index": candidate_index,
         "recognized_hop": replay["recognized_hop"],
         "payload_bytes_compared": 493,
-        "evidence_stages": {
-            "E1": checks["owner_list_completely_enumerated"],
-            "E2": checks["selected_circuit_reached_E1_E2_E3"],
-            "E3": (
-                checks["selected_circuit_reached_E1_E2_E3"]
-                and checks["secret_extractors_constrained_by_same_E3_manifest"]
+        "verification_results": {
+            "owner_list_completely_enumerated": checks[
+                "owner_list_completely_enumerated"
+            ],
+            "circuit_owner_path_and_crypto_valid": checks[
+                "selected_circuit_owner_path_and_crypto_valid"
+            ],
+            "secret_extraction_constrained_to_verified_circuit_list": (
+                checks["selected_circuit_owner_path_and_crypto_valid"]
+                and checks[
+                    "secret_extractors_constrained_by_same_verified_circuit_list"
+                ]
             ),
-            "E4": (
+            "tls_record_authenticated_at_core_sequence": (
                 checks["tls_record_authenticated"]
                 and checks["target_tor_cell_selected_by_core_sequence"]
             ),
-            "E5": (
-                checks["exactly_one_candidate_authenticated_by_cgo"]
-                and checks["cgo_recognized_expected_hop"]
-                and checks["cgo_plaintext_493_bytes_match"]
-            ),
+            "exactly_one_relay_body_authenticated_by_cgo": checks[
+                "exactly_one_candidate_authenticated_by_cgo"
+            ],
+            "recognized_hop_matches_evaluation_truth": checks[
+                "cgo_recognized_expected_hop"
+            ],
+            "relay_body_493_bytes_matches_evaluation_truth": checks[
+                "cgo_plaintext_493_bytes_match"
+            ],
         },
         "evidence_boundary": "evaluation truth is read only by this post-recovery evaluator and is absent from extraction, selection, TLS decryption, fixture, and CGO replay",
     }

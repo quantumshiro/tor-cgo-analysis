@@ -1,7 +1,10 @@
 {
   "authenticated_tls_records": 1,
   "cgo_authenticated_candidate_count": 1,
+  "cgo_authentication_succeeded": true,
   "checks": {
+    "all_admitted_circuits_have_initialized_cgo_contexts": true,
+    "all_admitted_circuits_have_valid_owner_and_path_structure": true,
     "authenticated_candidate_contains_posthoc_marker": true,
     "candidate_executable_compatible_with_core": true,
     "exactly_one_candidate_authenticated_by_cgo": true,
@@ -9,24 +12,27 @@
     "owner_list_completely_enumerated": true,
     "recognized_hop_matches_path_length": true,
     "replay_fixture_excluded_evaluation_truth": true,
-    "secret_extractors_constrained_by_same_E3_manifest": true,
+    "secret_extractors_constrained_by_same_verified_circuit_list": true,
     "tls_record_authenticated_at_core_sequence": true
   },
   "control_circuit_id": 18,
   "evaluation_boundary": "No dynamic cell truth or Control Protocol circuit selector enters recovery; the controlled marker is tested only after unique CGO authentication.",
-  "evidence_stages": {
-    "E1": true,
-    "E2": true,
-    "E3": true,
-    "E4": true,
-    "E5": true
-  },
+  "marker_bearing_relay_body_recovered": true,
   "marker_match_count_after_authentication": 1,
   "offline_candidate_count": 7,
   "path_length": 2,
   "recognized_hop": 1,
-  "schema": "tor-cgo-uncontrolled-pcap-core-replay/0.2",
-  "status": "recovered_target_cell",
-  "success": true,
-  "tls_write_sequence_at_core": 29
+  "relay_body_length": 493,
+  "relay_body_sha256": "2c7430e0664c389e04fc9553f6b5262097b7830b21ca38ff08649a3a2f9a6a40",
+  "schema": "tor-cgo-uncontrolled-pcap-core-replay/0.3",
+  "status": "recovered_marker_bearing_relay_body",
+  "tls_write_sequence_at_core": 29,
+  "verification_results": {
+    "cgo_contexts_initialized": true,
+    "circuit_owner_and_path_structure_valid": true,
+    "exactly_one_relay_body_authenticated_by_cgo": true,
+    "marker_bearing_relay_body_recovered_posthoc": true,
+    "owner_list_completely_enumerated": true,
+    "tls_record_authenticated_at_core_sequence": true
+  }
 }

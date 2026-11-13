@@ -1,0 +1,20 @@
+{
+  "schema": "tor-cgo-official-replay-build/1.0",
+  "tor_version": "0.4.9.17",
+  "source_archive": "tor_0.4.9.17.orig.tar.gz",
+  "source_archive_sha256": "ff372c41ee7013557fe5b7acd96c909950b27a7959c59fcb87c02591682fabe2",
+  "production_source_modifications": false,
+  "original_test_source_sha256": "030dba82328961c16983f82eaa26aefb26204c1119d19879acadcc0d9de51ff6",
+  "test_overlay_sha256": "6a92d263281d8edf8771f655525e226860e463fc4b56d3b1f98b38acee4164c6",
+  "test_overlay_purpose": "Read an offline fixture and write replay results; the production CGO implementation is unchanged.",
+  "build_script_sha256": "6239f6595145728a969f711b7c5450493ec2e5512cec8fa1059cbb2c1c777042",
+  "configure": "--disable-asciidoc CFLAGS=-O2 -g -fno-omit-frame-pointer",
+  "platform": "Debian 12 aarch64",
+  "compiler": "cc (Debian 12.2.0-14+deb12u1) 12.2.0",
+  "glibc": "2.36-9+deb12u14",
+  "binary": "build/tor-cgo-replay-0.4.9.17/src/test/test",
+  "binary_sha256": "e71129d040f1d724905096fccd639fd8c26998f9225f5506df5d3b5282c0acbd",
+  "binary_build_id": "cfebbca1e59d6a179e8e968e30d4469309e3eebc",
+  "smoke_test": "crypto/cgo/cgo_fwd",
+  "smoke_test_passed": true
+}
