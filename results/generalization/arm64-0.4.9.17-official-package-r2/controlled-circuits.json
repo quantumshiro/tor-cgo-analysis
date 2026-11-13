@@ -1,0 +1,62 @@
+{
+  "built_circuit_ids": [
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ],
+  "created_circuit_ids": [
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ],
+  "created_unix_s": 1794602079.4995842,
+  "final_status": {
+    "1": "BUILT",
+    "10": "BUILT",
+    "11": "BUILT",
+    "12": "BUILT",
+    "13": "BUILT",
+    "14": "BUILT",
+    "15": "BUILT",
+    "16": "BUILT",
+    "17": "BUILT",
+    "18": "BUILT",
+    "19": "BUILT",
+    "2": "BUILT",
+    "20": "BUILT",
+    "21": "BUILT",
+    "22": "BUILT",
+    "3": "BUILT",
+    "4": "BUILT",
+    "5": "BUILT",
+    "6": "BUILT",
+    "7": "BUILT",
+    "8": "BUILT",
+    "9": "BUILT"
+  },
+  "path_identities": [
+    "64CE0D7CBAB1DCDB93737DBBB38072A1B35109AA",
+    "A7768106DC7CF88746BF10A9699846EAD4F05354",
+    "516EBCF7FFAB71F309D03CDC87DEC38D038FAEC3"
+  ],
+  "requested_count": 12,
+  "schema": "tor-cgo-controlled-circuits/0.1"
+}

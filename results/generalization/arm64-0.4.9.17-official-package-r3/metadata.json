@@ -1,0 +1,10 @@
+{
+  "binary_description": "ELF 64-bit LSB pie executable, ARM aarch64, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux-aarch64.so.1, BuildID[sha1]=59de31afcb999ddd92cadb0ff80978b35ac38a9f, for GNU/Linux 3.7.0, stripped",
+  "build_id": "59de31afcb999ddd92cadb0ff80978b35ac38a9f",
+  "case": "arm64-0.4.9.17-official-package-r3",
+  "controlled_circuits": 12,
+  "core_sha256": "82c573bf94920a13248efa172b225acbe1886dfc1fcbb474cd8f5e1b48701d89",
+  "schema": "tor-cgo-generalization-case/0.1",
+  "tor_binary": "/work/build/packaged-tor/rootfs/usr/bin/tor",
+  "tor_version": "Tor version 0.4.9.17."
+}

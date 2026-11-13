@@ -3,7 +3,7 @@ set -eu
 
 root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 manifest="$root/paper/public-supplement-files.txt"
-output=${1:-"$root/paper/tor-cgo-forensics-public-supplement-v4.tar.gz"}
+output=${1:-"$root/paper/tor-cgo-forensics-public-supplement-v5.tar.gz"}
 
 while IFS= read -r relative; do
   [ -n "$relative" ] || continue

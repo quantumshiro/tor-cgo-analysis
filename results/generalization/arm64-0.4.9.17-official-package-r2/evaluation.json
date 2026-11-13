@@ -1,0 +1,34 @@
+{
+  "activity_evidence_counts": {
+    "CGO_backward_used": 38,
+    "CGO_forward_used": 38
+  },
+  "counts": {
+    "control_after": 29,
+    "control_before": 22,
+    "offline_recovered": 22,
+    "stable_across_bracket": 22
+  },
+  "crypto_hop_counts": {
+    "CGO": 56,
+    "TOR1": 2,
+    "UNKNOWN": 0
+  },
+  "ownership": {
+    "recovered_inside_temporal_envelope": 22,
+    "recovered_outside_temporal_envelope": [],
+    "stable_control_circuits_missing": [],
+    "stable_control_circuits_recovered": 22
+  },
+  "paths": {
+    "compared": 22,
+    "exact_matches": 22,
+    "mismatched_ids": []
+  },
+  "schema": "tor-cgo-snapshot-evaluation/0.1",
+  "structural_validation": {
+    "total": 22,
+    "valid": 22
+  },
+  "timing_model": "control_before < core_capture < control_after"
+}

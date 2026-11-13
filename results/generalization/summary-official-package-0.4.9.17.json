@@ -1,0 +1,228 @@
+{
+  "cases": [
+    {
+      "ambient": {
+        "activity_evidence_counts": {
+          "CGO_backward_used": 37,
+          "CGO_forward_used": 37
+        },
+        "counts": {
+          "control_after": 28,
+          "control_before": 21,
+          "offline_recovered": 21,
+          "stable_across_bracket": 21
+        },
+        "crypto_hop_counts": {
+          "CGO": 55,
+          "TOR1": 2,
+          "UNKNOWN": 0
+        },
+        "ownership": {
+          "recovered_inside_temporal_envelope": 21,
+          "recovered_outside_temporal_envelope": [],
+          "stable_control_circuits_missing": [],
+          "stable_control_circuits_recovered": 21
+        },
+        "paths": {
+          "compared": 21,
+          "exact_matches": 21,
+          "mismatched_ids": []
+        },
+        "schema": "tor-cgo-snapshot-evaluation/0.1",
+        "structural_validation": {
+          "total": 21,
+          "valid": 21
+        },
+        "timing_model": "control_before < core_capture < control_after"
+      },
+      "architecture": "arm64",
+      "build_id": "59de31afcb999ddd92cadb0ff80978b35ac38a9f",
+      "case": "arm64-0.4.9.17-official-package-r1",
+      "controlled": {
+        "crypto_hop_counts": {
+          "CGO": 36
+        },
+        "exact_path_circuits": 12,
+        "expected_circuits": 12,
+        "expected_hops": 36,
+        "forensic_crypto_state_counts": {
+          "CGO_established": 36
+        },
+        "missing_ids": [],
+        "observed_hops": 36,
+        "recovered_circuits": 12,
+        "structurally_valid_circuits": 12
+      },
+      "core_sha256": "970898a506d072102ba74163b31dce65f0cae141719bd5ce013f4f47840b8db7",
+      "optimization": "r1",
+      "scan_errors": [],
+      "tor_version": "Tor version 0.4.9.17."
+    },
+    {
+      "ambient": {
+        "activity_evidence_counts": {
+          "CGO_backward_used": 38,
+          "CGO_forward_used": 38
+        },
+        "counts": {
+          "control_after": 29,
+          "control_before": 22,
+          "offline_recovered": 22,
+          "stable_across_bracket": 22
+        },
+        "crypto_hop_counts": {
+          "CGO": 56,
+          "TOR1": 2,
+          "UNKNOWN": 0
+        },
+        "ownership": {
+          "recovered_inside_temporal_envelope": 22,
+          "recovered_outside_temporal_envelope": [],
+          "stable_control_circuits_missing": [],
+          "stable_control_circuits_recovered": 22
+        },
+        "paths": {
+          "compared": 22,
+          "exact_matches": 22,
+          "mismatched_ids": []
+        },
+        "schema": "tor-cgo-snapshot-evaluation/0.1",
+        "structural_validation": {
+          "total": 22,
+          "valid": 22
+        },
+        "timing_model": "control_before < core_capture < control_after"
+      },
+      "architecture": "arm64",
+      "build_id": "59de31afcb999ddd92cadb0ff80978b35ac38a9f",
+      "case": "arm64-0.4.9.17-official-package-r2",
+      "controlled": {
+        "crypto_hop_counts": {
+          "CGO": 36
+        },
+        "exact_path_circuits": 12,
+        "expected_circuits": 12,
+        "expected_hops": 36,
+        "forensic_crypto_state_counts": {
+          "CGO_established": 36
+        },
+        "missing_ids": [],
+        "observed_hops": 36,
+        "recovered_circuits": 12,
+        "structurally_valid_circuits": 12
+      },
+      "core_sha256": "c002ecdc36211ee785fd45b1b3af8dc2ed8a76fc8ea3218547be88f10ef53371",
+      "optimization": "r2",
+      "scan_errors": [],
+      "tor_version": "Tor version 0.4.9.17."
+    },
+    {
+      "ambient": {
+        "activity_evidence_counts": {
+          "CGO_backward_used": 37,
+          "CGO_forward_used": 37
+        },
+        "counts": {
+          "control_after": 28,
+          "control_before": 21,
+          "offline_recovered": 21,
+          "stable_across_bracket": 21
+        },
+        "crypto_hop_counts": {
+          "CGO": 55,
+          "TOR1": 2,
+          "UNKNOWN": 0
+        },
+        "ownership": {
+          "recovered_inside_temporal_envelope": 21,
+          "recovered_outside_temporal_envelope": [],
+          "stable_control_circuits_missing": [],
+          "stable_control_circuits_recovered": 21
+        },
+        "paths": {
+          "compared": 21,
+          "exact_matches": 21,
+          "mismatched_ids": []
+        },
+        "schema": "tor-cgo-snapshot-evaluation/0.1",
+        "structural_validation": {
+          "total": 21,
+          "valid": 21
+        },
+        "timing_model": "control_before < core_capture < control_after"
+      },
+      "architecture": "arm64",
+      "build_id": "59de31afcb999ddd92cadb0ff80978b35ac38a9f",
+      "case": "arm64-0.4.9.17-official-package-r3",
+      "controlled": {
+        "crypto_hop_counts": {
+          "CGO": 36
+        },
+        "exact_path_circuits": 12,
+        "expected_circuits": 12,
+        "expected_hops": 36,
+        "forensic_crypto_state_counts": {
+          "CGO_established": 36
+        },
+        "missing_ids": [],
+        "observed_hops": 36,
+        "recovered_circuits": 12,
+        "structurally_valid_circuits": 12
+      },
+      "core_sha256": "82c573bf94920a13248efa172b225acbe1886dfc1fcbb474cd8f5e1b48701d89",
+      "optimization": "r3",
+      "scan_errors": [],
+      "tor_version": "Tor version 0.4.9.17."
+    }
+  ],
+  "condition_repetitions": {
+    "arm64|Tor version 0.4.9.17.|r1": {
+      "complete_successes": 1,
+      "runs": 1
+    },
+    "arm64|Tor version 0.4.9.17.|r2": {
+      "complete_successes": 1,
+      "runs": 1
+    },
+    "arm64|Tor version 0.4.9.17.|r3": {
+      "complete_successes": 1,
+      "runs": 1
+    }
+  },
+  "independence_caveat": "Pooled Wilson intervals treat circuits/hops as Bernoulli trials, but observations within one process snapshot are correlated; intervals are descriptive, not a population-level generalization guarantee.",
+  "independent_process_runs": {
+    "complete_successes": 3,
+    "total": 3,
+    "wilson_95_ci": [
+      0.4385029682449546,
+      1.0
+    ]
+  },
+  "pooled_controlled": {
+    "circuit_recovery": {
+      "successes": 36,
+      "total": 36,
+      "wilson_95_ci": [
+        0.9035813714055363,
+        1.0
+      ]
+    },
+    "established_cgo_hop_classification": {
+      "successes": 108,
+      "total": 108,
+      "wilson_95_ci": [
+        0.9656526402534428,
+        0.9999999999999999
+      ]
+    },
+    "exact_path": {
+      "successes": 36,
+      "total": 36,
+      "wilson_95_ci": [
+        0.9035813714055363,
+        1.0
+      ]
+    }
+  },
+  "schema": "tor-cgo-generalization-evaluation/0.1"
+}

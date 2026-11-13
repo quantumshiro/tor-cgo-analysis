@@ -1,0 +1,14 @@
+{
+  "circuits": [],
+  "errors": [
+    "global list unavailable: No symbol table is loaded.  Use the \"file\" command."
+  ],
+  "executable": {
+    "path": "/work/build/packaged-tor/rootfs/usr/bin/tor",
+    "sha256": "d83c22a3fc2785cda8100057fd286f2a8ff640a72fa43b30f51e5c7deea2cbc1"
+  },
+  "generated_at_utc": "2026-11-13T20:38:31.270532+00:00",
+  "method": "offline_gdb_dwarf_core",
+  "recovery_completeness": "owner_list_unavailable",
+  "schema": "tor-cgo-memory-forensics/0.2"
+}

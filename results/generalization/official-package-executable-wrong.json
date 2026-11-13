@@ -1,0 +1,7 @@
+{
+  "core": "results/generalization/arm64-0.4.9.17-official-package-r1/client.core",
+  "error": "candidate executable is incompatible with the core mapping: only 146039/368640 bytes match (39.616%)",
+  "executable": "build/tor-0.4.9.16-o2/src/app/tor",
+  "schema": "tor-core-executable-verification/0.1",
+  "verified": false
+}

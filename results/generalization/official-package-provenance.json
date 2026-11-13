@@ -1,0 +1,37 @@
+{
+  "debug_symbol_package": {
+    "architecture": "arm64",
+    "expected_sha256": "e92251cf817736d803546e09ff20a358a41c724a4f01b25d4b6783d0e60df8d9",
+    "file": "/work/build/packaged-tor/debs/tor-dbgsym_0.4.9.17-1~d12.bookworm+1_arm64.deb",
+    "package": "tor-dbgsym",
+    "repository_hash_matches": true,
+    "sha256": "e92251cf817736d803546e09ff20a358a41c724a4f01b25d4b6783d0e60df8d9",
+    "source": "tor",
+    "version": "0.4.9.17-1~d12.bookworm+1"
+  },
+  "executable": {
+    "build_id": "59de31afcb999ddd92cadb0ff80978b35ac38a9f",
+    "description": "ELF 64-bit LSB pie executable, ARM aarch64, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux-aarch64.so.1, BuildID[sha1]=59de31afcb999ddd92cadb0ff80978b35ac38a9f, for GNU/Linux 3.7.0, stripped",
+    "file": "/work/build/packaged-tor/rootfs/usr/bin/tor",
+    "is_stripped": true,
+    "sha256": "d83c22a3fc2785cda8100057fd286f2a8ff640a72fa43b30f51e5c7deea2cbc1"
+  },
+  "external_debug_file": {
+    "build_id": "59de31afcb999ddd92cadb0ff80978b35ac38a9f",
+    "build_id_matches_executable": true,
+    "file": "/work/build/packaged-tor/rootfs/usr/lib/debug/.build-id/59/de31afcb999ddd92cadb0ff80978b35ac38a9f.debug",
+    "sha256": "23b034b491ae00f7a8900402af62c39cfcf07037e1117e2775e682e5cd8cb7b6"
+  },
+  "repository_url": "https://deb.torproject.org/torproject.org/dists/bookworm/main/binary-arm64/Packages",
+  "schema": "tor-cgo-packaged-tor-provenance/0.1",
+  "tor_package": {
+    "architecture": "arm64",
+    "expected_sha256": "120aeb1578d88bf87bde41874b112e9471a4510587597700c2cbb9401cf378c2",
+    "file": "/work/build/packaged-tor/debs/tor_0.4.9.17-1~d12.bookworm+1_arm64.deb",
+    "package": "tor",
+    "repository_hash_matches": true,
+    "sha256": "120aeb1578d88bf87bde41874b112e9471a4510587597700c2cbb9401cf378c2",
+    "source": "",
+    "version": "0.4.9.17-1~d12.bookworm+1"
+  }
+}

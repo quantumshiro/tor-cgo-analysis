@@ -1,0 +1,20 @@
+{
+  "compared_bytes": 368640,
+  "core": "results/generalization/arm64-0.4.9.17-official-package-r1/client.core",
+  "core_mapped_paths": [
+    "/work/build/packaged-tor/rootfs/usr/bin/tor"
+  ],
+  "core_sha256": "970898a506d072102ba74163b31dce65f0cae141719bd5ce013f4f47840b8db7",
+  "elf_machine": 183,
+  "executable": "build/packaged-tor/rootfs/usr/bin/tor",
+  "executable_build_id": "59de31afcb999ddd92cadb0ff80978b35ac38a9f",
+  "executable_sha256": "d83c22a3fc2785cda8100057fd286f2a8ff640a72fa43b30f51e5c7deea2cbc1",
+  "match_fraction": 0.9556749131944444,
+  "matched_bytes": 352300,
+  "method": "NT_FILE mapping plus mapped-file compatibility fingerprint",
+  "minimum_match_fraction": 0.75,
+  "mismatched_bytes": 16340,
+  "note": "runtime relocation and mutable data bytes are expected to differ; clean executable pages may be omitted from gcore files",
+  "schema": "tor-core-executable-verification/0.1",
+  "verified": true
+}
