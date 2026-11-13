@@ -1,0 +1,64 @@
+{
+  "all_checks_pass": true,
+  "cgo_authenticated_candidate_count": 1,
+  "cgo_authenticated_candidates": [
+    {
+      "candidate_index": 0,
+      "control_circuit_id": 16,
+      "evaluation_truth_used": false,
+      "recognized_hop": 2
+    }
+  ],
+  "checks": {
+    "candidate_executable_compatible_with_core": true,
+    "cgo_plaintext_493_bytes_match": true,
+    "cgo_recognized_expected_hop": true,
+    "exactly_one_candidate_authenticated_by_cgo": true,
+    "external_circuit_selector_not_used": true,
+    "owner_list_completely_enumerated": true,
+    "pcap_cell_matches_evaluation_wire_cell": true,
+    "replay_fixture_excluded_evaluation_truth": true,
+    "secret_extractors_constrained_by_same_E3_manifest": true,
+    "selected_circuit_reached_E1_E2_E3": true,
+    "target_tor_cell_selected_by_core_sequence": true,
+    "tls13_secret_extracted": true,
+    "tls_cipher_suite_read_from_ssl_state": true,
+    "tls_record_authenticated": true,
+    "unique_authenticated_candidate_matches_posthoc_truth": true
+  },
+  "control_circuit_id": 16,
+  "entry_link_circuit_id": 2530179828,
+  "evaluation_truth_candidate_index": 0,
+  "evidence_boundary": "evaluation truth is read only by this post-recovery evaluator and is absent from extraction, selection, TLS decryption, fixture, and CGO replay",
+  "evidence_stages": {
+    "E1": true,
+    "E2": true,
+    "E3": true,
+    "E4": true,
+    "E5": true
+  },
+  "offline_candidate_count": 7,
+  "payload_bytes_compared": 493,
+  "recognized_hop": 2,
+  "schema": "tor-cgo-full-pcap-core-replay/0.3",
+  "selected_tls_record": {
+    "cipher_suite": "TLS_AES_256_GCM_SHA384",
+    "cipher_suite_source": "SSL.session->cipher->id",
+    "content_length": 4048,
+    "content_sha256": "a7f64114ca7d851b7e71983cba72029ee42fea7237b75cf0dbe3ca8d3493eb10",
+    "control_circuit_id": 16,
+    "entry_link_circuit_id": 2530179828,
+    "flow": [
+      "127.0.0.1",
+      51418,
+      "127.0.0.1",
+      5104
+    ],
+    "inner_content_type": 23,
+    "record_index": 10,
+    "sequence": 7,
+    "stream_offset": 7958,
+    "traffic_secret": "client"
+  },
+  "tls_write_sequence_at_core": 7
+}

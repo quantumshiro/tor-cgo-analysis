@@ -1,0 +1,7 @@
+{
+  "core": "results/open-circuit-impact/pcap-full-rep10/client.core",
+  "error": "candidate executable is incompatible with the core mapping: only 10597/110592 bytes match (9.582%)",
+  "executable": "build/tor-0.4.9.9-o0/src/app/tor",
+  "schema": "tor-core-executable-verification/0.1",
+  "verified": false
+}

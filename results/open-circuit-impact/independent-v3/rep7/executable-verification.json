@@ -1,0 +1,20 @@
+{
+  "compared_bytes": 110592,
+  "core": "/Users/hiro/workspace/tor/results/open-circuit-impact/pcap-full-rep7/client.core",
+  "core_mapped_paths": [
+    "/work/build/tor-0.4.9.16-o2/src/app/tor"
+  ],
+  "core_sha256": "f687e74d180ac0e07f63c7931b97b00ad7be437002fbfb2f8057624312b890ca",
+  "elf_machine": 183,
+  "executable": "/Users/hiro/workspace/tor/build/tor-0.4.9.16-o2/src/app/tor",
+  "executable_build_id": "aa72f972c0bd8dabcfb349a62a4ae7dea0059fd6",
+  "executable_sha256": "c725f66cc5c5089cf288820bc06ca1a748951094ec4f6127d0d73cf19c41b11f",
+  "match_fraction": 0.8450882523148148,
+  "matched_bytes": 93460,
+  "method": "NT_FILE mapping plus mapped-file compatibility fingerprint",
+  "minimum_match_fraction": 0.75,
+  "mismatched_bytes": 17132,
+  "note": "runtime relocation and mutable data bytes are expected to differ; clean executable pages may be omitted from gcore files",
+  "schema": "tor-core-executable-verification/0.1",
+  "verified": true
+}

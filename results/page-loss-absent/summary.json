@@ -1,0 +1,31 @@
+{
+  "all_failed_closed": true,
+  "cases": [
+    {
+      "failed_closed": true,
+      "false_valid_acceptances": 0,
+      "label": "owner-heap-segment",
+      "recovery_completeness": "owner_list_unavailable",
+      "removed_program_header_index": 4,
+      "removed_virtual_address": "0xaaaaeb2e2000",
+      "reported_circuits": 0,
+      "reported_errors": [
+        "global list unavailable: Cannot access memory at address 0xaaaaeb351868"
+      ]
+    },
+    {
+      "failed_closed": true,
+      "false_valid_acceptances": 0,
+      "label": "executable-data-segment",
+      "recovery_completeness": "owner_list_unavailable",
+      "removed_program_header_index": 3,
+      "removed_virtual_address": "0xaaaac709c000",
+      "reported_circuits": 0,
+      "reported_errors": [
+        "global list unavailable: Cannot access memory at address 0xaaaac709f320"
+      ]
+    }
+  ],
+  "schema": "tor-cgo-absent-core-segment-evaluation/0.1",
+  "scope": "PT_LOAD containing the selected evidence was changed to PT_NULL, making the range unavailable to the core reader rather than zero-filled"
+}

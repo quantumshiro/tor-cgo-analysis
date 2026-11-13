@@ -1,0 +1,24 @@
+{
+  "independent_process_runs": 3,
+  "interpretation": "This tests the immediately preceding forward cell, not all possible historical evidence conditions.",
+  "post_cell_state_failed_to_decrypt_past_cell": 3,
+  "runs": [
+    {
+      "past_cell_rejected": true,
+      "run": "past-cell-rep1"
+    },
+    {
+      "past_cell_rejected": true,
+      "run": "past-cell-rep2"
+    },
+    {
+      "past_cell_rejected": true,
+      "run": "past-cell-rep3"
+    }
+  ],
+  "schema": "tor-cgo-past-cell-repetition/0.1",
+  "wilson_95": [
+    0.4385029682449546,
+    1.0
+  ]
+}

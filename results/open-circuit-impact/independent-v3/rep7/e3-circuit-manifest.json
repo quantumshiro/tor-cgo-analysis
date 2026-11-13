@@ -1,0 +1,507 @@
+{
+  "circuits": [
+    {
+      "circuit_address": "0xaaab0c2a8720",
+      "control_circuit_id": 4,
+      "entry_link_channel_id": 1,
+      "entry_link_circuit_id": 2876954831,
+      "hop_count": 3,
+      "hops": [
+        {
+          "address": "0xaaab0c2aa680",
+          "backward_nonce_sha256": "078935c39388134fae881bb06cafc1bd9c2efe8bcb8dac7e1a0a1f97528f0227",
+          "backward_tprime_sha256": "f5fae534c890a30a9dbab483109552534a7c1111cb7ef7b5b691f6f667f38535",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "f2cdc83f139284bdb516f43533af3ffea4c89d9ab14aa0f9ca78e2c5074c0b58",
+          "forward_tprime_sha256": "e0dda2640bce07b115faf4abf9c34cb52984c265898d0a93f50f2c74c459238a",
+          "index_from_entry": 0
+        },
+        {
+          "address": "0xaaab0c2a9a50",
+          "backward_nonce_sha256": "74efddc0d3ff3a804286972c0111fc24615b22dff11c2b44fdd0e7603dc761ac",
+          "backward_tprime_sha256": "cbeba3844b1a8f6f90e9df87c68e5da1b67a9abee3c0cd1242d286f7bf87d95f",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "858d2edd2f16757279fae8d08dcc7b3f9afd4aa776352f88bb96c34cf13140f3",
+          "forward_tprime_sha256": "604253e7c9fa9ea47327774d29eccaec6dfdd558c65d96eb0787ee7687529fe5",
+          "index_from_entry": 1
+        },
+        {
+          "address": "0xaaab0c29cdf0",
+          "backward_nonce_sha256": "c76671b6605ee627da9c558f217c0f5643e3ed3591bf5c0dae9a81f5965da7a9",
+          "backward_tprime_sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "4f6b51056f904571ac2aa3cf8f82a57694599127b616376a440b00927a7ef137",
+          "forward_tprime_sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb",
+          "index_from_entry": 2
+        }
+      ],
+      "owner_index": 2,
+      "structural_state_fingerprint_sha256": "34e437e26724f4b99168f3d36678c5c3393cb18e3db09e89b68c0de4266cd707"
+    },
+    {
+      "circuit_address": "0xaaab0c2abcd0",
+      "control_circuit_id": 6,
+      "entry_link_channel_id": 1,
+      "entry_link_circuit_id": 2635618989,
+      "hop_count": 3,
+      "hops": [
+        {
+          "address": "0xaaab0c2ac9c0",
+          "backward_nonce_sha256": "641e5ec0c7e0a0461acc746cfa681400910e597ea91aeb571568310578f37a3a",
+          "backward_tprime_sha256": "817aa793750bc65cf4ddc5f6df94e06d5ff1610e8bc640b2449ffe68c25daa25",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "32853333e41acc6beaa5aae525cdb405ee27a62a4901be2db57aefb51ee8be19",
+          "forward_tprime_sha256": "f82d66bf74c3e6522755d5b141477f89674d65d2e9c4d355c3e92f00897dbeb9",
+          "index_from_entry": 0
+        },
+        {
+          "address": "0xaaab0c2abfa0",
+          "backward_nonce_sha256": "14c4c624904a2f8274d125478125cfc278dfbb1e544b1182c9d4dc5967d17fbf",
+          "backward_tprime_sha256": "57e897d86d7e051fda3371310750cc6918b8b33426d101c1b63e2cfc03c40589",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "60af2d058b14ab2849f3eca23d3638da52933e7d743cdba40abace8ea111715a",
+          "forward_tprime_sha256": "880e53bd209827dc439b0808592c86a9ba7bf85e4f5432642ca6bc0143cdc6f4",
+          "index_from_entry": 1
+        },
+        {
+          "address": "0xaaab0c2add50",
+          "backward_nonce_sha256": "30e3c0de5173d33cfb499676ef61468fa7309b387739812f6f77b6c55e36b03d",
+          "backward_tprime_sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "f122550dbeab63321172471b5f24d4792c37d4052282856ef4c434b7fc2e9329",
+          "forward_tprime_sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb",
+          "index_from_entry": 2
+        }
+      ],
+      "owner_index": 3,
+      "structural_state_fingerprint_sha256": "05557a5e69f5ea0100a6deed6718e98291b0ec7dc65851b31296fa68fe93a31a"
+    },
+    {
+      "circuit_address": "0xaaab0c2a2eb0",
+      "control_circuit_id": 7,
+      "entry_link_channel_id": 1,
+      "entry_link_circuit_id": 3808258723,
+      "hop_count": 3,
+      "hops": [
+        {
+          "address": "0xaaab0c2a3240",
+          "backward_nonce_sha256": "d6ce0d9c104fd86bb126a4484d742f70144f0517ed4f0eafa9426e1c830ab480",
+          "backward_tprime_sha256": "c5c4e2354e738249743d3408d3d181a841b0252dc52208159c832eb7cc6ad438",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "cf2614f3c4488cb0b67122e12c2d8e915574f4829da7a282b9046cf767e212c7",
+          "forward_tprime_sha256": "d0d18e831610e26657469f5eca5ee726c5428ca8ba8d1f5257ddba286daca7cf",
+          "index_from_entry": 0
+        },
+        {
+          "address": "0xaaab0c2a3400",
+          "backward_nonce_sha256": "535f4ddad9c5736ccb22daf1f198c9f47585b0dc039d642abb79bf3a50f1f8fe",
+          "backward_tprime_sha256": "8fa2ed658aa9462ae9be36ca4b528a127aa863aafb59d4ec02fa7373d64c9466",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "204f4b0227b9bcc58fc5c0e4a2b71d9a276aeeb4c31e2236e61b8dd954b0a2c3",
+          "forward_tprime_sha256": "75cc71a7fad3f0ce969c04ce56d7a9bfc1017c8a81038722263b525a5abeeb6c",
+          "index_from_entry": 1
+        },
+        {
+          "address": "0xaaab0c2a3580",
+          "backward_nonce_sha256": "b9bdb856e153274da67ce67954091726f844267342b52340380bd01f7ce210d1",
+          "backward_tprime_sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "8f04dd0bbe313e9af686657a20dbe8208888ddd6371ae73c55886619d30de92a",
+          "forward_tprime_sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb",
+          "index_from_entry": 2
+        }
+      ],
+      "owner_index": 4,
+      "structural_state_fingerprint_sha256": "1850981b6f1c1a84952e75642cad857df389ab82c21104161963e3b086b4dfa0"
+    },
+    {
+      "circuit_address": "0xaaab0c2a5cf0",
+      "control_circuit_id": 8,
+      "entry_link_channel_id": 1,
+      "entry_link_circuit_id": 2387369056,
+      "hop_count": 3,
+      "hops": [
+        {
+          "address": "0xaaab0c2a60a0",
+          "backward_nonce_sha256": "2e3ee88addcdfaa4b769fc314aa90209ccced0f0575f5f577e99a20e75a5bb69",
+          "backward_tprime_sha256": "7453e6608796197b2f9d694068791bb42e5d6ce436acb13e4ce98f636fc3d16f",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "4b1246f96fb649e9e38b452c3ba94ba6194c04aa4979bc73ca6cb0a0d7ad97bf",
+          "forward_tprime_sha256": "21cf8ed5dde36d8e3e7c25dc14a80eb83b652b93f7bd0f61071f25eb5d7d4958",
+          "index_from_entry": 0
+        },
+        {
+          "address": "0xaaab0c2a6280",
+          "backward_nonce_sha256": "207f5f03950fbc86aaf8ef7803d727a95cf5e844fac56e9f2e745be59cb3a171",
+          "backward_tprime_sha256": "c80d59429343c70b328284700646c9a9b1478e796d20b4617fc5a3ec5611d431",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "5aaba30e32549b8d720c1419656ee00a21c682ee5dc374c96d144fc6f8511c67",
+          "forward_tprime_sha256": "81fdad5e31894f1cf5edda0420b8773ce2332a7cdd5d8d51bf7d5363c7d08ea5",
+          "index_from_entry": 1
+        },
+        {
+          "address": "0xaaab0c2a6400",
+          "backward_nonce_sha256": "1ccad476db9570558a345498c806c783140b346964d5f4c04d20997b2c140890",
+          "backward_tprime_sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "ff6a81c7177a447d90fc8d2d44fa6e578252fa465b4bf9345c19c2a0eaf329bd",
+          "forward_tprime_sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb",
+          "index_from_entry": 2
+        }
+      ],
+      "owner_index": 5,
+      "structural_state_fingerprint_sha256": "84b8979fcd240101ced7fc14429d673cc9292d749f28c5e431102296ae6f52c8"
+    },
+    {
+      "circuit_address": "0xaaab0c2b0670",
+      "control_circuit_id": 9,
+      "entry_link_channel_id": 3,
+      "entry_link_circuit_id": 3618119156,
+      "hop_count": 3,
+      "hops": [
+        {
+          "address": "0xaaab0c2b0a00",
+          "backward_nonce_sha256": "f3a1b1c88783877730338c1d4343c8bbea67472ee2a30aa359567dc6df08f4db",
+          "backward_tprime_sha256": "49e23cad8f12b2ef976e98137e4c51beb6125c65482c0b9b75f01ed7b0f13c26",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "e75b469cf639d2211d30c38a2e81a0a8b40b5762633d58d25e50811ab0bae60b",
+          "forward_tprime_sha256": "6f576b83dd3c555f8908fa3db00003a2d389d436751709996c0b8dbf42bae1dd",
+          "index_from_entry": 0
+        },
+        {
+          "address": "0xaaab0c2b0b80",
+          "backward_nonce_sha256": "636ba2f95a9b27032af51e2d069a2f35a10a851006bd4552b8c4aa370e2bf514",
+          "backward_tprime_sha256": "b4e60a25acbb882652f9c252080ea972ab7ff2da76a49cc5daf225fed2de9711",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "d860c92f1628381b401c5ba986ba174a0d1767bc7c96c81fd11333933ed0e37a",
+          "forward_tprime_sha256": "d6ab7395554fdbe99bfecd61992a89e65622330e77f21f08fa4114922812b75f",
+          "index_from_entry": 1
+        },
+        {
+          "address": "0xaaab0c2b0d00",
+          "backward_nonce_sha256": "9e1ca7cd8253e7be7429e9c499bd9f612ccb3b28071d23d10dcc4d3df01aa467",
+          "backward_tprime_sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "83ffb7b69c1c547a982e64c4b8cdc2de16b035241f94dcc84e418e736f4bfe7d",
+          "forward_tprime_sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb",
+          "index_from_entry": 2
+        }
+      ],
+      "owner_index": 6,
+      "structural_state_fingerprint_sha256": "3282742e75609f3b31312690f6d21f3dfaefc5c1e7c76d155c9c887d6b61abd6"
+    },
+    {
+      "circuit_address": "0xaaab0c2bdaa0",
+      "control_circuit_id": 10,
+      "entry_link_channel_id": 1,
+      "entry_link_circuit_id": 4092447310,
+      "hop_count": 3,
+      "hops": [
+        {
+          "address": "0xaaab0c2a1fc0",
+          "backward_nonce_sha256": "2bea5a37aad1c83ff7c9aa563c4e4e0d3360d9abcbc2f55ede17a5a831fc75e1",
+          "backward_tprime_sha256": "485fbaa4ee7785dc2a1c2d0beca8369ebfdc4e4ae387fbafb5f807a4b543745b",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "6ec595056bbd0b0c5a204526577269078314a2f3ef06d9a2fadfb6117e42577d",
+          "forward_tprime_sha256": "3cba00fd41820981059aeeca50472a7971393b969ae5cd8c46266fdeccf40c35",
+          "index_from_entry": 0
+        },
+        {
+          "address": "0xaaab0c2a1c80",
+          "backward_nonce_sha256": "c640287dd616e5bc0a4acd93cd10f37176781719488fcfe2588fc52d2b013c50",
+          "backward_tprime_sha256": "47bbbc7f5f97de17fe966706630d27d42da889d431de94e9a7feefc509632c72",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "8e05006a0284e09fbd10b00b89e59745d60a553854e884a3ad957bd51d01fc31",
+          "forward_tprime_sha256": "2427f9aeb24bc94219a0ad711b72f3a450a9004b06deefce8054f708e76196b8",
+          "index_from_entry": 1
+        },
+        {
+          "address": "0xaaab0c29a590",
+          "backward_nonce_sha256": "70444d9b41d7ff74e0de52ac4bbb6f6f34867c373689d1a0cacd5b57a5d081a6",
+          "backward_tprime_sha256": "3fdce0efa722ee6a569bc2753558aee1f30d0a748928f130711eef348d4d6cdf",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "f435ba5402f9deaa91f3ef923cfcaad321a5c05df3568f872416e87d9676447d",
+          "forward_tprime_sha256": "28ef4ddcb54e6fdc1bcd42151e0f0bdec591076791dad2562502adbc7adbd7c1",
+          "index_from_entry": 2
+        }
+      ],
+      "owner_index": 7,
+      "structural_state_fingerprint_sha256": "b080cdc84ec7585f3c2902e01fb31fe68f5b3343f162ce2f5cdf0515b078726e"
+    },
+    {
+      "circuit_address": "0xaaab0c2bd810",
+      "control_circuit_id": 11,
+      "entry_link_channel_id": 3,
+      "entry_link_circuit_id": 2620996932,
+      "hop_count": 3,
+      "hops": [
+        {
+          "address": "0xaaab0c2b9250",
+          "backward_nonce_sha256": "8eee3408be39597fcaef56ecef3272c7adbf84b8568a83777dc9764a1d513abc",
+          "backward_tprime_sha256": "9137d11350e2661cc8cb04e512311102fadb5c283c96fb0a54d5d25151457043",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "64ee66bd70d60c0fde18023dbd18cbeae16df9849d63d8717963f65bf871216a",
+          "forward_tprime_sha256": "e7cb75bba1dc14144047206a3990da2f24f5efe370a585de2d43693babd4f622",
+          "index_from_entry": 0
+        },
+        {
+          "address": "0xaaab0c2a1830",
+          "backward_nonce_sha256": "aabe85931e7e9b7779f57e5fa366069a45d1472f6984430950e4359787d885ac",
+          "backward_tprime_sha256": "a5be8be01e25875a198fc78ba8f163019f7f076f919bf5ce7ac2c13262b65edd",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "ba97f30f4e3f3c40003b273a6f38efa124deaaf4cd88ef1a26434f09175ca97d",
+          "forward_tprime_sha256": "91673571cdd3f0875af3aeedfdb01cc9ce689045ac924f46ff811ad91891f1ac",
+          "index_from_entry": 1
+        },
+        {
+          "address": "0xaaab0c2a19b0",
+          "backward_nonce_sha256": "0f7bc2b12546d189c75ecfd1fde68616cde4ba6d883f7ea767282046bfb71ed8",
+          "backward_tprime_sha256": "3810a5b5fc596b77c069651885e3df866e37afeec4f32e80991190a70c996fa4",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "69b1fde60a0c6c7fbe35a57d28266fe3b343311ec371b2e923155ab8b2379216",
+          "forward_tprime_sha256": "a7620beaf9549281da2e687191c57d9c5f5197216a6f5611d2844a604dd982a8",
+          "index_from_entry": 2
+        }
+      ],
+      "owner_index": 8,
+      "structural_state_fingerprint_sha256": "3c1f50ddee0f9b013cffa88ddc7c82920144e0aa51a63fdfae77372d0a5eadd4"
+    },
+    {
+      "circuit_address": "0xaaab0c2c1e40",
+      "control_circuit_id": 12,
+      "entry_link_channel_id": 1,
+      "entry_link_circuit_id": 2641281035,
+      "hop_count": 3,
+      "hops": [
+        {
+          "address": "0xaaab0c2b8070",
+          "backward_nonce_sha256": "4ffe8cabaa1729f5eec58ab18d140257658f7f11ce2b3497b76f216c5cfceded",
+          "backward_tprime_sha256": "a32275c37a51504dd4ae690dccf7f74ee5faa42382b2fc8cab0bfd5e9be115a9",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "2d223059148f8aef90815392f31817a3d51b6e2b3853f8722d056a98663f1ff4",
+          "forward_tprime_sha256": "39d2d015903530e92fdf614aaac170b84bdf7d480165c8b7239da0cd7702237a",
+          "index_from_entry": 0
+        },
+        {
+          "address": "0xaaab0c2b8270",
+          "backward_nonce_sha256": "3bded1733868f71c411e1e5f9d2f033c77cf26fbda3c5838376772feeedbe6fa",
+          "backward_tprime_sha256": "a5b7de08ba53bff35b2d57685c80e5466c03b6bf0a759d42849efdc97e4ef1d0",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "e6e507b090c05723367c08a03c741aff74d56198c260f2508e475e033794596b",
+          "forward_tprime_sha256": "7d69f0992b2b81cfda66e071bcef3f15390e1fb247d8f9f25555d146f4f60a18",
+          "index_from_entry": 1
+        },
+        {
+          "address": "0xaaab0c2b83f0",
+          "backward_nonce_sha256": "b872532102631836ee2aefc280a096d0ce80fb0314045f2de34c96a5dd7725c4",
+          "backward_tprime_sha256": "5f1712535912b8ac9fe1ca5d36157f6692427ded6c6c1f69121669af8a858cf9",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "2b80d0fd0357d0bf38e8ec6d8c3bd8389e4aff827fa3161c9a6d78c452ddc620",
+          "forward_tprime_sha256": "a2a455b126db2e072ee45f66d9cc855582b5197be5326b9f9b8450243f4213e3",
+          "index_from_entry": 2
+        }
+      ],
+      "owner_index": 9,
+      "structural_state_fingerprint_sha256": "51bbda1218ef669c06bfe53cf5aa60689dabd6cc8ea9b02130e3b6de5459bd42"
+    },
+    {
+      "circuit_address": "0xaaab0c2b88b0",
+      "control_circuit_id": 13,
+      "entry_link_channel_id": 3,
+      "entry_link_circuit_id": 3599598571,
+      "hop_count": 3,
+      "hops": [
+        {
+          "address": "0xaaab0c2b8be0",
+          "backward_nonce_sha256": "7ac81093c369dffbfa75102926d85bc0da96dac19ab63dded135b55a779f9dc1",
+          "backward_tprime_sha256": "43713d86b8a02a9ef576be4beabd9f7b5989e502afdb026ec1d7e25b6f045fa0",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "a7af2fac597266a0a29dabb432e3e7266cf93836f9d0dc8af6e49de0b8d112e8",
+          "forward_tprime_sha256": "eab1661e77acb76eb257acd034d0b70dff1edfc2cf273af0952fd6727b2fed62",
+          "index_from_entry": 0
+        },
+        {
+          "address": "0xaaab0c2bf1a0",
+          "backward_nonce_sha256": "5c137a1283d9fed7e576182d1255cd72829cb7134e6a8d1eea6463390413f8f7",
+          "backward_tprime_sha256": "c03cfc664df669feba528a63e925f6506c2259881d37b6f4b57d5db144ceae9a",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "f4c13a9327bf69b804d1da0c50a17b154f8f431ba51e7072b9bb679f65ed5695",
+          "forward_tprime_sha256": "5a754d60c7c38d2fee9bef0f44bee3e24ed0a68469dae9f584b0ac367e0acf15",
+          "index_from_entry": 1
+        },
+        {
+          "address": "0xaaab0c2bf320",
+          "backward_nonce_sha256": "e83943d5ea2b007b562ea5d4d1af5f8c4f2c92ffb673d516539396c7064a9a42",
+          "backward_tprime_sha256": "ab22cb9d531dd468e58aae9ac8412d779a3c83b7c376f9cb711b4d3ea045f22d",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "dcc9f17f33de46ce678e5bc774d1844acb5874cfb4e9af678bfbb2835942d776",
+          "forward_tprime_sha256": "10212a1bf9d20c0105d628d04a9a88aa5996757776cf6870c2c3cb5d620a754f",
+          "index_from_entry": 2
+        }
+      ],
+      "owner_index": 10,
+      "structural_state_fingerprint_sha256": "21a35dc4c19c0ca5c7dca529c067b8cde35483efb2aecc565e5565d47a3eba14"
+    },
+    {
+      "circuit_address": "0xaaab0c2bf880",
+      "control_circuit_id": 14,
+      "entry_link_channel_id": 1,
+      "entry_link_circuit_id": 2530213499,
+      "hop_count": 3,
+      "hops": [
+        {
+          "address": "0xaaab0c2bfc50",
+          "backward_nonce_sha256": "58aa85aee48c4dccf315d3b44283cbdb3339007dcc7e5f54f186eeefa9f15dfd",
+          "backward_tprime_sha256": "c736b29d20b335625322ccf743e1df6e211e5efb03fb214f5e084d8d606bfc2b",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "c014b6a3a32dad9753dd1cebec56dba3e05531740bf35aa62d7f9c6c67d4afbf",
+          "forward_tprime_sha256": "5c100d8d37ec3f3b5ea84b0a38f1b76b186527a344ae353ad64219231bcc7561",
+          "index_from_entry": 0
+        },
+        {
+          "address": "0xaaab0c2bfee0",
+          "backward_nonce_sha256": "76211dd517642ccf2a91cb638dd4f45da4fb92e0722d9ff4181d8277d60f424f",
+          "backward_tprime_sha256": "35c4310b6c54b8a02d1281212a4bb90691cb24bdb568ace3b468f40860400c7f",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "433732867a35ce4095e70c27afb8ecd738b31480090450100e8e50323ddd6096",
+          "forward_tprime_sha256": "0d4c0e4f9a6ded52f27fe505363ca436234713299d3e45f39be612f2cdd1319c",
+          "index_from_entry": 1
+        },
+        {
+          "address": "0xaaab0c2c0060",
+          "backward_nonce_sha256": "66ff2543c996642fc1c29e2179ba15506a390e8129f6d8050928b7c1b3635b1d",
+          "backward_tprime_sha256": "9396c709bd053c47477732afa162d4b2d1e78345670ada8b70b979fdbdaadcbf",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "3cd68c0c4bfed48f7cdc5cf739f9bcca1b928a38a29f34cf23325a22fe66e9f4",
+          "forward_tprime_sha256": "96edc95b9ac81a503bbd2b8568c08fb49968c1f0e5f4f050f875ccc30c1b55e4",
+          "index_from_entry": 2
+        }
+      ],
+      "owner_index": 11,
+      "structural_state_fingerprint_sha256": "b37cbbd4611ed21b6bbeab6f410754c114169e97dc47e8d558dd8872a9f757eb"
+    },
+    {
+      "circuit_address": "0xaaab0c2b4800",
+      "control_circuit_id": 15,
+      "entry_link_channel_id": 3,
+      "entry_link_circuit_id": 2304088019,
+      "hop_count": 3,
+      "hops": [
+        {
+          "address": "0xaaab0c2b4b30",
+          "backward_nonce_sha256": "663729dac4c0b75dc0d5eb477b982d0de5fb862e9eea00b70b09300461c8af8d",
+          "backward_tprime_sha256": "4868606e6eca18a3d447b14e43e0ae30bb9a4bb5d16c18283fb6e9a4a8ac6570",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "37064060c7663f585bde1640fb5d8b5dda00a07781a612c491bdeeeb7e3b0bf3",
+          "forward_tprime_sha256": "57bef8a16d1143578845fa6206282f42e9ae44f3b0ae1c6f4251ff4dbd65ecce",
+          "index_from_entry": 0
+        },
+        {
+          "address": "0xaaab0c2b4d50",
+          "backward_nonce_sha256": "6939e24defe76c4c125d32ef121ce31a981dfe15c6d02d1eb05059b3b2f8ff6e",
+          "backward_tprime_sha256": "ad7e331a453fb0c6856649a7869684967087d8a758999452449889bef2d8b497",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "4ac666173bbcec5219abec75b1d4ffdcf19cbe346200a0beb4a6959fde1e0e04",
+          "forward_tprime_sha256": "64357034975e09b55c283ac843aae3b3feb6f2b4e1d1279da5026cbc379d9ab1",
+          "index_from_entry": 1
+        },
+        {
+          "address": "0xaaab0c2b4ed0",
+          "backward_nonce_sha256": "88a5b6b9d2d6248323eec08a9431e22d30c67e0c066bd2c88979293dca5d7e35",
+          "backward_tprime_sha256": "c132d60ebc7bbde7cc59791b709e8c03b25177d361055905cce7fa0f2a00292a",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "0dfc34c63609aedbb7931153703699e72722d308fcd81a3fc4d1b057ac999aad",
+          "forward_tprime_sha256": "7d5bac69b6f4627d15467342544801c5c0e4a6413834f0b7093d124f628a74aa",
+          "index_from_entry": 2
+        }
+      ],
+      "owner_index": 12,
+      "structural_state_fingerprint_sha256": "d65996f42244dbb21589a37621023f8192471065cc317de60dccb18da4b0271e"
+    },
+    {
+      "circuit_address": "0xaaab0c2b54c0",
+      "control_circuit_id": 16,
+      "entry_link_channel_id": 1,
+      "entry_link_circuit_id": 2674188796,
+      "hop_count": 3,
+      "hops": [
+        {
+          "address": "0xaaab0c2b57e0",
+          "backward_nonce_sha256": "1af68a325f02773b06e545cfafae8c61c712c93788a448e8fec84d99bcbe2c9d",
+          "backward_tprime_sha256": "b3f0b44a592b2ed985f973161864033a53092e65501dea362cec352d86d1e1f0",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "7d11cfd78561cbc5d46c44298aeb0a076fea07b1be2b6a5a9b37cbd33718d165",
+          "forward_tprime_sha256": "9e7929fa8ca1af01b4cae992ddfe9169bdac3b6c17e232462b220de8c9ae6794",
+          "index_from_entry": 0
+        },
+        {
+          "address": "0xaaab0c2b59c0",
+          "backward_nonce_sha256": "5f7a3f1fdeacc87ec7c2a973dfeef9e5abf24d910a57892a51de842d5b250b99",
+          "backward_tprime_sha256": "cf08d32f31375ccfd215c0cbb7d042c04a648144e2a2d9c8a876553dc9fe477a",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "53bc4f10035ce2be53aa90b84d9740812260947521f7d76543e9feb0cac0a625",
+          "forward_tprime_sha256": "0bc8018d3ab3b9b582d49b2b980e72127f215c99c0576fe1270fb15db6f5a029",
+          "index_from_entry": 1
+        },
+        {
+          "address": "0xaaab0c2b5b40",
+          "backward_nonce_sha256": "bea3acbaa753ca2138f81f08e50e96d469752c86c73e21af35581f5200ea7e31",
+          "backward_tprime_sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "87d1ba1f1e5885ace27bef4b83faecbbb7298a9aa732e7326af2344deeecaa5c",
+          "forward_tprime_sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb",
+          "index_from_entry": 2
+        }
+      ],
+      "owner_index": 13,
+      "structural_state_fingerprint_sha256": "e1cd23bef7a262a75659fd340414d71f28ff443ec21b702a7e5e8e4df8e6985a"
+    },
+    {
+      "circuit_address": "0xaaab0c2d2960",
+      "control_circuit_id": 17,
+      "entry_link_channel_id": 4,
+      "entry_link_circuit_id": 4174461231,
+      "hop_count": 3,
+      "hops": [
+        {
+          "address": "0xaaab0c2d2c30",
+          "backward_nonce_sha256": "0f1694218fe3c4eaa9d4a56a1115f3b7f2f00c0453a31b7106175ec4ce1f56cf",
+          "backward_tprime_sha256": "37bd4755e10828ee183e5896deb5a69b9372a29118ba8ded5878bd0cce88983a",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "8dc43ba77c2714a2540dfc51f7e5deb4e52c4f5d8d1c75e740bab14de44dc5fe",
+          "forward_tprime_sha256": "c693693a5b0ba8c1da1674d0c503f6f2bbe79b92d85324452c8465f95761fc2a",
+          "index_from_entry": 0
+        },
+        {
+          "address": "0xaaab0c2d2db0",
+          "backward_nonce_sha256": "9a37817ce8eb4336f7dc49c9f0fca89735b280975d09891cf3aa1a435d47b6e7",
+          "backward_tprime_sha256": "a97f4c49dd3e922fd652c1e7fca7a2f28780b32bd14349a7f91af5dd2abac63b",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "d8be7022c17100c45ea05eaa72b1a5cd90fc0bef9df9d16b402d5c2160b4c564",
+          "forward_tprime_sha256": "54cfc6553116780c6d2fda169f6259bf14f77c6f2a404571c28fd0a27bab9d97",
+          "index_from_entry": 1
+        },
+        {
+          "address": "0xaaab0c2d2f30",
+          "backward_nonce_sha256": "4fe719f42c2add55478259f5ff526db6665cddc6fc8723d7fe48ec58fa742b5d",
+          "backward_tprime_sha256": "75bc399ec42813ba10a57af7bec4ac9f27a74869f7ad22904a4794a100e78ddf",
+          "crypto_kind": "CGO",
+          "forward_nonce_sha256": "5e4ed62d3606f7ee82853f24660027ff57286979ece1aa378b9ff00a97eff3c9",
+          "forward_tprime_sha256": "a422dc5bc367c267f494e6c776c35674c9d3433c1d784b574df2ea41ec1bf5f2",
+          "index_from_entry": 2
+        }
+      ],
+      "owner_index": 14,
+      "structural_state_fingerprint_sha256": "abde0485ac66eb74826b4040f95a6c4295c70c0780c71e5e12e9369956d9bbcf"
+    }
+  ],
+  "external_circuit_selector_used": false,
+  "owner_list_completely_enumerated": true,
+  "owner_list_count": 15,
+  "required_evidence_level": "E3",
+  "schema": "tor-cgo-e3-circuit-manifest/0.1",
+  "selection": "all active E3 circuits whose every open hop has instantiated CGO state",
+  "source": "ownership-first offline core scan",
+  "source_scan": "/Users/hiro/workspace/tor/results/open-circuit-impact/independent-v3/rep7/core-scan.json",
+  "source_scan_sha256": "891d2250385695de5cba8ef99b066d2ce01fbed90fc1d70405a9c919f24c4c6a"
+}

@@ -1,0 +1,222 @@
+{
+  "chain": [
+    "saved PCAP",
+    "TLS 1.3 traffic secrets extracted from synchronized client core",
+    "authenticated TLS record decryption",
+    "all Tor-cell candidates enumerated by entry circuit ID and exact core write sequence",
+    "only circuits admitted by the ownership-first E3 manifest enter TLS/CGO secret extraction",
+    "CGO state extracted from the same E3 circuit in the same core",
+    "exactly one candidate must authenticate under CGO; hop recognition and 493-byte plaintext equality are checked afterward"
+  ],
+  "independent_process_runs": 10,
+  "limits": [
+    "All runs use Tor 0.4.9.16, OpenSSL 3.0.22, Debian arm64, and one host.",
+    "The PCAP begins after the TLS handshake; the core supplies the current record sequence.",
+    "Dynamic cell capture supplies evaluation truth only to the post-recovery evaluator and is absent from extraction, selection, replay fixtures, and CGO processing."
+  ],
+  "runs": [
+    {
+      "authenticated_tls_records": 1,
+      "cgo_authenticated_candidate_count": 1,
+      "control_circuit_id": 15,
+      "entry_link_circuit_id": 2528599190,
+      "evidence_stages": {
+        "E1": true,
+        "E2": true,
+        "E3": true,
+        "E4": true,
+        "E5": true
+      },
+      "offline_candidate_count": 7,
+      "payload_bytes_compared": 493,
+      "recognized_hop": 2,
+      "run": "rep1",
+      "success": true,
+      "tls_write_sequence_at_core": 7
+    },
+    {
+      "authenticated_tls_records": 1,
+      "cgo_authenticated_candidate_count": 1,
+      "control_circuit_id": 15,
+      "entry_link_circuit_id": 2639739734,
+      "evidence_stages": {
+        "E1": true,
+        "E2": true,
+        "E3": true,
+        "E4": true,
+        "E5": true
+      },
+      "offline_candidate_count": 7,
+      "payload_bytes_compared": 493,
+      "recognized_hop": 2,
+      "run": "rep2",
+      "success": true,
+      "tls_write_sequence_at_core": 7
+    },
+    {
+      "authenticated_tls_records": 1,
+      "cgo_authenticated_candidate_count": 1,
+      "control_circuit_id": 16,
+      "entry_link_circuit_id": 3666802523,
+      "evidence_stages": {
+        "E1": true,
+        "E2": true,
+        "E3": true,
+        "E4": true,
+        "E5": true
+      },
+      "offline_candidate_count": 7,
+      "payload_bytes_compared": 493,
+      "recognized_hop": 2,
+      "run": "rep3",
+      "success": true,
+      "tls_write_sequence_at_core": 7
+    },
+    {
+      "authenticated_tls_records": 1,
+      "cgo_authenticated_candidate_count": 1,
+      "control_circuit_id": 12,
+      "entry_link_circuit_id": 3582761519,
+      "evidence_stages": {
+        "E1": true,
+        "E2": true,
+        "E3": true,
+        "E4": true,
+        "E5": true
+      },
+      "offline_candidate_count": 7,
+      "payload_bytes_compared": 493,
+      "recognized_hop": 2,
+      "run": "rep4",
+      "success": true,
+      "tls_write_sequence_at_core": 7
+    },
+    {
+      "authenticated_tls_records": 1,
+      "cgo_authenticated_candidate_count": 1,
+      "control_circuit_id": 16,
+      "entry_link_circuit_id": 2165160969,
+      "evidence_stages": {
+        "E1": true,
+        "E2": true,
+        "E3": true,
+        "E4": true,
+        "E5": true
+      },
+      "offline_candidate_count": 7,
+      "payload_bytes_compared": 493,
+      "recognized_hop": 2,
+      "run": "rep5",
+      "success": true,
+      "tls_write_sequence_at_core": 7
+    },
+    {
+      "authenticated_tls_records": 1,
+      "cgo_authenticated_candidate_count": 1,
+      "control_circuit_id": 8,
+      "entry_link_circuit_id": 2569321696,
+      "evidence_stages": {
+        "E1": true,
+        "E2": true,
+        "E3": true,
+        "E4": true,
+        "E5": true
+      },
+      "offline_candidate_count": 7,
+      "payload_bytes_compared": 493,
+      "recognized_hop": 2,
+      "run": "rep6",
+      "success": true,
+      "tls_write_sequence_at_core": 7
+    },
+    {
+      "authenticated_tls_records": 1,
+      "cgo_authenticated_candidate_count": 1,
+      "control_circuit_id": 17,
+      "entry_link_circuit_id": 4174461231,
+      "evidence_stages": {
+        "E1": true,
+        "E2": true,
+        "E3": true,
+        "E4": true,
+        "E5": true
+      },
+      "offline_candidate_count": 7,
+      "payload_bytes_compared": 493,
+      "recognized_hop": 2,
+      "run": "rep7",
+      "success": true,
+      "tls_write_sequence_at_core": 7
+    },
+    {
+      "authenticated_tls_records": 1,
+      "cgo_authenticated_candidate_count": 1,
+      "control_circuit_id": 19,
+      "entry_link_circuit_id": 3774309438,
+      "evidence_stages": {
+        "E1": true,
+        "E2": true,
+        "E3": true,
+        "E4": true,
+        "E5": true
+      },
+      "offline_candidate_count": 7,
+      "payload_bytes_compared": 493,
+      "recognized_hop": 2,
+      "run": "rep8",
+      "success": true,
+      "tls_write_sequence_at_core": 7
+    },
+    {
+      "authenticated_tls_records": 1,
+      "cgo_authenticated_candidate_count": 1,
+      "control_circuit_id": 16,
+      "entry_link_circuit_id": 2530179828,
+      "evidence_stages": {
+        "E1": true,
+        "E2": true,
+        "E3": true,
+        "E4": true,
+        "E5": true
+      },
+      "offline_candidate_count": 7,
+      "payload_bytes_compared": 493,
+      "recognized_hop": 2,
+      "run": "rep9",
+      "success": true,
+      "tls_write_sequence_at_core": 7
+    },
+    {
+      "authenticated_tls_records": 1,
+      "cgo_authenticated_candidate_count": 1,
+      "control_circuit_id": 16,
+      "entry_link_circuit_id": 3272322479,
+      "evidence_stages": {
+        "E1": true,
+        "E2": true,
+        "E3": true,
+        "E4": true,
+        "E5": true
+      },
+      "offline_candidate_count": 7,
+      "payload_bytes_compared": 493,
+      "recognized_hop": 2,
+      "run": "rep10",
+      "success": true,
+      "tls_write_sequence_at_core": 7
+    }
+  ],
+  "schema": "tor-cgo-full-pcap-core-repetitions/0.3",
+  "stage_success_counts": {
+    "E1": 10,
+    "E2": 10,
+    "E3": 10,
+    "E4": 10,
+    "E5": 10
+  },
+  "successful_full_chains": 10,
+  "wilson_95": [
+    0.7224672001371107,
+    0.9999999999999999
+  ]
+}

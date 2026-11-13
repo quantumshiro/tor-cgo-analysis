@@ -1,0 +1,39 @@
+{
+  "all_trials_circuit_absent_after_attack": true,
+  "all_trials_single_injection": true,
+  "observed_rate": 1.0,
+  "schema": "tor-cgo-backward-ipr-live-statistics/0.1",
+  "successes": 3,
+  "trial_results": [
+    {
+      "client_unrecognized_close_count": 1,
+      "controlled_circuit_id": 9,
+      "controlled_circuit_present_after_attack": false,
+      "entry_fault_injection_count": 1,
+      "expected_boundary_observed": true,
+      "result_dir": "results/crypto-analysis/backward-ipr-live-rep3"
+    },
+    {
+      "client_unrecognized_close_count": 1,
+      "controlled_circuit_id": 10,
+      "controlled_circuit_present_after_attack": false,
+      "entry_fault_injection_count": 1,
+      "expected_boundary_observed": true,
+      "result_dir": "results/crypto-analysis/backward-ipr-live-rep4"
+    },
+    {
+      "client_unrecognized_close_count": 1,
+      "controlled_circuit_id": 16,
+      "controlled_circuit_present_after_attack": false,
+      "entry_fault_injection_count": 1,
+      "expected_boundary_observed": true,
+      "result_dir": "results/crypto-analysis/backward-ipr-live-rep5"
+    }
+  ],
+  "trials": 3,
+  "unit_of_independence": "fresh Chutney network and Tor processes",
+  "wilson_95_two_sided": {
+    "lower": 0.4385029682449546,
+    "upper": 1.0
+  }
+}

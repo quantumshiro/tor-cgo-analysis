@@ -1,0 +1,50 @@
+{
+  "false_recognitions": 0,
+  "rows": [
+    {
+      "false_recognitions": 0,
+      "negative_mode": "hop_order",
+      "negative_trials": 1024,
+      "schema": "tor-cgo-external-core-replay/0.1"
+    },
+    {
+      "false_recognitions": 0,
+      "negative_mode": "j_aes",
+      "negative_trials": 1024,
+      "schema": "tor-cgo-external-core-replay/0.1"
+    },
+    {
+      "false_recognitions": 0,
+      "negative_mode": "j_polyval",
+      "negative_trials": 1024,
+      "schema": "tor-cgo-external-core-replay/0.1"
+    },
+    {
+      "false_recognitions": 0,
+      "negative_mode": "nonce",
+      "negative_trials": 1024,
+      "schema": "tor-cgo-external-core-replay/0.1"
+    },
+    {
+      "false_recognitions": 0,
+      "negative_mode": "s_aes",
+      "negative_trials": 1024,
+      "schema": "tor-cgo-external-core-replay/0.1"
+    },
+    {
+      "false_recognitions": 0,
+      "negative_mode": "s_polyval",
+      "negative_trials": 1024,
+      "schema": "tor-cgo-external-core-replay/0.1"
+    },
+    {
+      "false_recognitions": 0,
+      "negative_mode": "tprime",
+      "negative_trials": 1024,
+      "schema": "tor-cgo-external-core-replay/0.1"
+    }
+  ],
+  "schema": "tor-cgo-negative-state-matrix/0.2",
+  "scope": "1024 deterministic wrong states per component category; categories are controls, not random samples from all invalid states",
+  "total_trials": 7168
+}

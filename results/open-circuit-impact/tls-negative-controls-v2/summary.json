@@ -1,0 +1,32 @@
+{
+  "all_expectations_met": true,
+  "cases": [
+    {
+      "authenticated_or_selected": false,
+      "diagnostic": "no TLS 1.3 record authenticated at a core write sequence",
+      "exit_status": 1,
+      "expected_acceptance": false,
+      "label": "wrong-secret",
+      "meets_expectation": true
+    },
+    {
+      "authenticated_or_selected": true,
+      "diagnostic": "",
+      "exit_status": 0,
+      "expected_acceptance": true,
+      "label": "wrong-sequence",
+      "meets_expectation": true
+    },
+    {
+      "authenticated_or_selected": false,
+      "diagnostic": "no TLS 1.3 record authenticated at a core write sequence",
+      "exit_status": 1,
+      "expected_acceptance": false,
+      "label": "other-connection",
+      "meets_expectation": true
+    }
+  ],
+  "interpretation": "AEAD rejects wrong secrets and other connections, but a later record with the correct connection secret remains cryptographically valid; temporal correctness therefore depends on the core sequence and acquisition timeline, not AEAD alone",
+  "schema": "tor-cgo-tls-negative-controls/0.1",
+  "scope": "deterministic controls for wrong client traffic secret, a later valid write sequence, and a different process connection"
+}

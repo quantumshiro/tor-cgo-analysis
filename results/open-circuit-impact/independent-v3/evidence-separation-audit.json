@@ -1,0 +1,127 @@
+{
+  "all_runs_pass": true,
+  "boundary": "cell.json is opened only by the post-recovery evaluator; CGO replay results already exist before that comparison",
+  "runs": [
+    {
+      "all_checks_pass": true,
+      "candidate_count": 7,
+      "checks": {
+        "all_replays_exclude_truth": true,
+        "cell_enumeration_no_external_selector": true,
+        "fixture_manifest_excludes_truth": true,
+        "fixture_manifest_no_external_selector": true,
+        "post_recovery_evaluation_passed": true
+      },
+      "run": "rep1"
+    },
+    {
+      "all_checks_pass": true,
+      "candidate_count": 7,
+      "checks": {
+        "all_replays_exclude_truth": true,
+        "cell_enumeration_no_external_selector": true,
+        "fixture_manifest_excludes_truth": true,
+        "fixture_manifest_no_external_selector": true,
+        "post_recovery_evaluation_passed": true
+      },
+      "run": "rep2"
+    },
+    {
+      "all_checks_pass": true,
+      "candidate_count": 7,
+      "checks": {
+        "all_replays_exclude_truth": true,
+        "cell_enumeration_no_external_selector": true,
+        "fixture_manifest_excludes_truth": true,
+        "fixture_manifest_no_external_selector": true,
+        "post_recovery_evaluation_passed": true
+      },
+      "run": "rep3"
+    },
+    {
+      "all_checks_pass": true,
+      "candidate_count": 7,
+      "checks": {
+        "all_replays_exclude_truth": true,
+        "cell_enumeration_no_external_selector": true,
+        "fixture_manifest_excludes_truth": true,
+        "fixture_manifest_no_external_selector": true,
+        "post_recovery_evaluation_passed": true
+      },
+      "run": "rep4"
+    },
+    {
+      "all_checks_pass": true,
+      "candidate_count": 7,
+      "checks": {
+        "all_replays_exclude_truth": true,
+        "cell_enumeration_no_external_selector": true,
+        "fixture_manifest_excludes_truth": true,
+        "fixture_manifest_no_external_selector": true,
+        "post_recovery_evaluation_passed": true
+      },
+      "run": "rep5"
+    },
+    {
+      "all_checks_pass": true,
+      "candidate_count": 7,
+      "checks": {
+        "all_replays_exclude_truth": true,
+        "cell_enumeration_no_external_selector": true,
+        "fixture_manifest_excludes_truth": true,
+        "fixture_manifest_no_external_selector": true,
+        "post_recovery_evaluation_passed": true
+      },
+      "run": "rep6"
+    },
+    {
+      "all_checks_pass": true,
+      "candidate_count": 7,
+      "checks": {
+        "all_replays_exclude_truth": true,
+        "cell_enumeration_no_external_selector": true,
+        "fixture_manifest_excludes_truth": true,
+        "fixture_manifest_no_external_selector": true,
+        "post_recovery_evaluation_passed": true
+      },
+      "run": "rep7"
+    },
+    {
+      "all_checks_pass": true,
+      "candidate_count": 7,
+      "checks": {
+        "all_replays_exclude_truth": true,
+        "cell_enumeration_no_external_selector": true,
+        "fixture_manifest_excludes_truth": true,
+        "fixture_manifest_no_external_selector": true,
+        "post_recovery_evaluation_passed": true
+      },
+      "run": "rep8"
+    },
+    {
+      "all_checks_pass": true,
+      "candidate_count": 7,
+      "checks": {
+        "all_replays_exclude_truth": true,
+        "cell_enumeration_no_external_selector": true,
+        "fixture_manifest_excludes_truth": true,
+        "fixture_manifest_no_external_selector": true,
+        "post_recovery_evaluation_passed": true
+      },
+      "run": "rep9"
+    },
+    {
+      "all_checks_pass": true,
+      "candidate_count": 7,
+      "checks": {
+        "all_replays_exclude_truth": true,
+        "cell_enumeration_no_external_selector": true,
+        "fixture_manifest_excludes_truth": true,
+        "fixture_manifest_no_external_selector": true,
+        "post_recovery_evaluation_passed": true
+      },
+      "run": "rep10"
+    }
+  ],
+  "schema": "tor-cgo-evidence-separation-audit/0.1"
+}

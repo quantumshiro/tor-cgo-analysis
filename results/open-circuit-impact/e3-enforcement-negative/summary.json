@@ -1,0 +1,17 @@
+{
+  "all_checks_pass": true,
+  "checks": {
+    "cgo_extractor_rejects_manifest_address_mismatch": true,
+    "cgo_extractor_rejects_missing_manifest": true,
+    "manifest_builder_rejects_no_E3_circuits": true,
+    "tls_extractor_rejects_manifest_address_mismatch": true
+  },
+  "return_codes": {
+    "cgo_tampered_manifest": 3,
+    "cgo_without_manifest": 3,
+    "no_e3_builder": 1,
+    "tls_tampered_manifest": 3
+  },
+  "schema": "tor-cgo-e3-enforcement-negative-tests/0.1",
+  "secrets_emitted": false
+}
