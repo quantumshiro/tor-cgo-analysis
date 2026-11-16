@@ -82,8 +82,8 @@
 
 \begin{abstract}
 Counter Galois Onion (CGO) updates cryptographic state for every circuit hop and direction.
-Key-like bytes in acquired Tor-client memory do not by themselves establish circuit ownership, entry-oriented hop order, or correspondence with a point in time.
-This paper presents a method that starts from C Tor's circuit-ownership list, recovers entry-oriented order from \code{cpath} using matching DWARF information, and follows the circuit to its entry TLS connection. It combines the TLS~1.3 traffic secret and record sequence number with the entry-link circuit identifier and per-hop CGO state to recover a synchronized post-acquisition relay-cell body from a stored PCAP.
+Key-like bytes in acquired Tor-client memory do not by themselves identify the owning circuit, the hop order from the entry, or the time to which the state applies.
+We present a method that traces C Tor's ownership relationships from its circuit list to each circuit's path and entry TLS connection. Matching DWARF information identifies the hop order from \code{cpath}. The method then combines the TLS~1.3 traffic secret and record sequence number, the entry-link circuit identifier, and per-hop CGO state to recover a relay-cell body from a stored PCAP when the captured traffic is synchronized with the acquired state.
 Across Tor 0.4.9-series Linux arm64 builds, the analyzer recovered 144/144 controlled circuits and 432/432 hops from 12 independent processes. In 10/10 self-built runs, it verified ownership, TLS AEAD, and unique CGO authentication and recovered a 493-byte body matching evaluation ground truth. A further 6/6 fixed-delay runs reproduced this result across different record numbers and destination hops without pausing the stream or observing cell or TLS-record boundaries. Ground-truth circuit identifiers from the Control Protocol were excluded from candidate selection.
 For the stripped Tor 0.4.9.17 package distributed by the Tor Project for Debian 12, the analyzer recovered 36/36 circuits and 108/108 hops in 3/3 structural runs using matching external debug symbols. A replay tool built from the official 0.4.9.17 source recovered a unique CGO-authenticated body in 6/6 traffic runs: 5 DATA cells containing the evaluation marker and 1 SENDME cell.
 By contrast, decryption of the immediately preceding cell with the current state failed in 3/3 runs, and sequential acquisition of active endpoints produced 0/36 state matches after gaps of 2.30--3.17 seconds.
@@ -95,10 +95,10 @@ The method therefore establishes correspondences among circuits, paths, cryptogr
 \section{Introduction}
 
 Tor makes it difficult to link a communication source to its destination by using circuits through multiple relays and layered cryptographic processing~\cite{dingledine2004tor}.
-This property protects ordinary communications. When investigating a compromised endpoint, however, the questions are where the state of each circuit resides in acquired memory and what can be recovered from that state.
+During an investigation of a compromised endpoint, acquired memory may retain the state of these circuits. The investigator must determine which state belongs to each circuit and what that state can reveal.
 
 CGO introduces authenticated onion encryption into Tor and updates keys, nonces, and an accumulated state $T'$ as cells are processed~\cite{torproposal359,degabriele2025cgo}.
-These updates make a simple key search insufficient. Finding a CGO structure in memory does not reveal whether it belongs to an open circuit, which hop it represents, or to cells at which point in time it applies.
+These updates make a simple key search insufficient. Finding a CGO structure in memory does not reveal whether it belongs to an open circuit, which hop it represents, or which cells it can process at a given time.
 
 This study addresses the following question.
 
@@ -106,7 +106,7 @@ This study addresses the following question.
 \textbf{Research question:} Under what conditions, and to what extent, can CGO/\torone{} circuit state and traffic content be recovered offline from a core dump and related evidence acquired during controlled, ongoing communication by an unmodified C Tor process?
 \end{quote}
 
-\centralclaim{When the TLS write-record sequence number retained in a core dump matches the first post-acquisition record that can be authenticated in a stored PCAP, circuit ownership, entry-oriented hop order, entry TLS, and per-hop CGO state can be associated, and the body of the relay cell in that record that passes CGO authentication can be recovered. This is a forensic method available after endpoint-memory acquisition, not an attack that breaks CGO itself.}
+\centralclaim{When the TLS write-record sequence number retained in a core dump matches the first post-acquisition record that can be authenticated in a stored PCAP, the method associates circuit ownership, entry-oriented hop order, the entry TLS connection, and per-hop CGO state. It then recovers the body of the relay cell in that record that passes CGO authentication. This forensic method requires endpoint-memory acquisition and does not break CGO itself.}
 
 Section~\ref{sec:contributions} summarizes the contributions, Section~\ref{sec:background} describes CGO and the investigation target, and Section~\ref{sec:related} distinguishes this work from prior research. Section~\ref{sec:method} presents the evidence-based method, Section~\ref{sec:implementation} its evaluation implementation, Section~\ref{sec:experiment} the experimental design, and Section~\ref{sec:results} the results. Section~\ref{sec:security} examines the attack-capability boundary created by extracted state, and Sections~\ref{sec:discussion} and~\ref{sec:limitations} discuss practical implications and limitations.
 
@@ -114,14 +114,14 @@ The analyzer, experimental scripts, and evaluation results with sensitive inform
 
 \section{Contributions}\label{sec:contributions}
 
-The contributions of this study are summarized in four points.
+This study makes four contributions.
 
 \begin{enumerate}[label=\textbf{C\arabic*.},leftmargin=3em]
   \item \textbf{Static memory analysis rooted in circuit ownership.}
   Rather than scanning for key or structure patterns, the method enumerates client-originated circuits (origin circuits) from Tor's own ownership list. It treats \code{origin_circuit_t.cpath} as the entry and checks magic values, list indices, bidirectional links, and cycle closure, thereby verifying both circuit ownership and entry-oriented hop order. Across 12 independent processes spanning multiple versions and optimization conditions, it recovered 144/144 controlled circuits and 432/432 hops. It also recovered 36/36 circuits and 108/108 hops from 3 independent processes of the distributed package build.
 
   \item \textbf{Correspondence among circuits, TLS, and CGO state.}
-  Following pointer relationships among Tor structures, the method associates circuit identifiers, stream destinations, entry channels, per-hop CGO/\torone{} schemes, and per-direction CGO state. Unlike a method that merely finds key-like values in memory, it can therefore explain to which circuit, hop, and direction each state belongs.
+  The method follows pointers between Tor structures to associate circuit identifiers, stream destinations, entry channels, per-hop CGO/\torone{} schemes, and per-direction CGO state. These relationships identify the circuit, hop, and direction to which each state belongs.
 
   \item \textbf{Recovery of synchronized post-acquisition traffic by processing TLS records and the CGO layer in sequence.}
   The method identifies the entry OpenSSL object from an owned circuit and obtains the TLS~1.3 traffic secret and write-record sequence number. Traffic recovery is limited to all-CGO circuits whose ownership, path structure, and cryptographic contexts can be verified. It then performs authenticated TLS decryption of the PCAP, enumerates every Tor-cell candidate, and processes the CGO layer in that order. For self-built Tor, it recovered a unique CGO-authenticated relay-cell body in 10/10 independent runs that paused communication and in 6/6 fixed-delay runs that neither stopped the stream nor observed cell or TLS boundaries. For the official package build, CGO authentication also succeeded in 6/6 runs, while relay DATA cells containing the evaluation marker were obtained in 5/6. Ground truth from the Control Protocol or dynamic instrumentation was excluded from decryption inputs and used only for evaluation after candidate selection.
@@ -130,7 +130,7 @@ The contributions of this study are summarized in four points.
   Negative controls covered uninitialized enum values during construction, missing pages, a mismatched executable, wrong keys, acquisition-time mismatch, the immediately preceding cell, and a known backward-direction resynchronization attack. The results show that current state can be used for the next cell after core-dump acquisition, but does not imply comprehensive decryption of past traffic, a remote attack, or general deanonymization.
 \end{enumerate}
 
-These contributions do not constitute new cryptanalysis of CGO. The CGO-specific contribution is to attribute per-hop evolving authenticated state sequences to circuits and points in time, then apply them to synchronized post-acquisition traffic in the correct order. The more general contribution is a method that starts from ownership structures, progressively combines type information, transport-layer authenticated state, and higher-layer cryptographic state, and records whether each check succeeded, failed, or was not evaluated.
+The CGO-specific contribution is the attribution of evolving per-hop authentication state to circuits and points in time, followed by its application to synchronized post-acquisition traffic in the correct order. More generally, the method uses ownership structures and type information to link transport-layer authentication state with higher-layer cryptographic state. Each check is recorded as successful, failed, or not evaluated. These contributions concern forensic reconstruction rather than new cryptanalysis of CGO.
 
 \section{Background}\label{sec:background}
 
@@ -142,7 +142,7 @@ Because cells are carried over the TLS connection to the entry, packets observed
 
 A C Tor origin circuit holds the circuit identifier, entry channel, streams, and path~\cite{ctorsource04916}.
 The path is a circular doubly linked list of \code{crypt_path_t} objects.
-Crucially, the lowest address in the list is not the entry; \code{origin_circuit_t.cpath} points to the entry hop.
+The lowest address in the list does not identify the entry; \code{origin_circuit_t.cpath} points to the entry hop.
 No inference from address order is therefore needed, because orientation follows from the semantics of the ownership structure.
 
 \subsection{CGO State and the Direction of Time}
@@ -272,23 +272,23 @@ The Control Protocol can describe circuits in a live process but does not provid
 Tor forensic research addresses endpoint traces but not the semantics of CGO state.
 Cryptographic-key and TLS forensics obtain keys or TLS plaintext but do not recover Tor circuit ownership and the CGO layer.
 
-The novelty of this work is to establish these three elements as a verifiable correspondence. It identifies a target circuit from Tor's internal ownership relationships, orders its hops from the entry, and applies TLS and CGO state held by the same circuit to a synchronized post-acquisition record in a stored PCAP. This combination distinguishes structurally plausible remnants from state owned at acquisition time and reaches the relay body.
+This work links these three elements through verifiable correspondences. It identifies a target circuit from Tor's internal ownership relationships, orders its hops from the entry, and applies TLS and CGO state associated with that circuit to a synchronized post-acquisition record in a stored PCAP. These checks distinguish structurally plausible remnants from state owned at acquisition time and enable recovery of the relay body.
 
 \section{Proposed Method}\label{sec:method}
 
 \subsection{Overview and Analysis Problem}
 
-The method does not search the entire memory image for cryptographic keys. Instead, it follows ownership relationships maintained by Tor in the forward direction and reaches cryptographic state last. The analysis order is to \textbf{identify owned circuits}, \textbf{identify the entry and hop order}, \textbf{establish the cryptographic scheme and initialization state}, \textbf{extract TLS and CGO secrets}, and \textbf{match them to synchronized post-acquisition traffic}.
+The method follows Tor's ownership relationships from the circuit list to cryptographic state. The analysis proceeds by \textbf{identifying owned circuits}, \textbf{identifying the entry and hop order}, \textbf{establishing the cryptographic scheme and initialization state}, \textbf{extracting TLS and CGO secrets}, and \textbf{matching them to synchronized post-acquisition traffic}.
 
-This order matters. The heap may retain structures from closed circuits, zero-initialized regions for circuits under construction, freed keys, and OpenSSL contexts belonging to other circuits. If only cryptographic values are found first, their circuit ownership cannot later be established. The method begins at \code{global_origin_circuit_list}, maintained by Tor itself. A structure or key that cannot be reached from that list cannot be attributed to a circuit owned at acquisition time, even if its value appears cryptographically plausible.
+The heap may retain structures from closed circuits, zero-initialized regions for circuits under construction, freed keys, and OpenSSL contexts associated with other circuits. Cryptographic values alone do not establish which circuit owns them. The method therefore begins at Tor's \code{global_origin_circuit_list}. A structure or key that cannot be reached from this list cannot be attributed to a circuit owned at acquisition time, even if its value appears cryptographically plausible.
 
-The attainable result depends on whether a PCAP is available. From only a core dump, matching executable, and DWARF, the method recovers circuits owned at acquisition time, their lifecycle, entry-oriented paths, stream destinations, per-hop CGO/\torone{} schemes, and per-direction CGO state. The target process may already have terminated.
+The information recoverable depends on whether a PCAP is available. Given only a core dump, a matching executable, and DWARF information, the method recovers circuits owned at acquisition time, their lifecycle, entry-oriented paths, stream destinations, per-hop CGO/\torone{} schemes, and per-direction CGO state. The target process may already have terminated.
 
 If a PCAP records the entry link across the core-dump acquisition point, the method also authenticates the record corresponding to the TLS write-record sequence number in the core and applies CGO state to Tor cells within it. This traffic analysis is suitable when Tor can resume after core-dump acquisition. If only a crash dump exists and there is no subsequent traffic, analysis stops at circuit state. Current CGO state cannot be rolled back to cells before acquisition unless a separate copy of the pre-update state remains.
 
 
 \paragraph{Threat model and trust boundary.}
-The investigator is assumed to have lawful authority to acquire the target endpoint and to trust the acquisition tool, analyzer, and hashing environment. The core dump and PCAP are assumed not to have been modified after acquisition; candidate ELF/DWARF files must pass compatibility checks against core mappings; and the OpenSSL-internal profile must have been validated for the target build. Even when the target process has been compromised, remnant structures, uninitialized regions, and partial loss are included in the checks. Out of scope is anti-forensic fabrication by an attacker who, before acquisition, can arbitrarily rewrite memory and deliberately make Tor's ownership list, circuit structures, cryptographic state, and PCAP mutually consistent.
+We assume that the investigator has lawful authority to acquire the target endpoint and trusts the acquisition tool, analyzer, and hashing environment. The core dump and PCAP must remain unmodified after acquisition. Candidate ELF/DWARF files must pass compatibility checks against the core mappings, and the profile of OpenSSL internals must have been validated for the target build. The checks account for remnant structures, uninitialized regions, and partial loss, including in a compromised process. They do not address an attacker who can arbitrarily rewrite memory before acquisition and fabricate mutually consistent ownership lists, circuit structures, cryptographic state, and PCAP evidence.
 
 Membership in the ownership list and structural validation show that Tor's ownership relationships and state are internally consistent within the acquired evidence. They do not replace legal chain-of-custody procedures. Verification of TLS and CGO authentication tags shows that the target bytes authenticate under the extracted secrets; it does not show that a particular person intended the communication or attribute an origin outside the endpoint. Result records include acquisition time, input hashes, success, failure, or non-evaluation for every check, and the reason for each status.
 
@@ -314,7 +314,7 @@ $c$ is the circuit, $d$ is the forward or backward direction, $h$ is the hop, an
 
 \subsection{Procedure from Ownership to Traffic Recovery}
 
-The method is divided into circuit-state recovery from a core dump alone (Algorithm~\ref{alg:core-recovery}) and traffic recovery with an additional stored PCAP (Algorithm~\ref{alg:traffic-recovery}). Every preceding validation must succeed before a processing stage is considered established. Success at a later stage does not compensate for an unestablished earlier stage.
+The method first recovers circuit state from a core dump (Algorithm~\ref{alg:core-recovery}) and, if a stored PCAP is available, attempts traffic recovery (Algorithm~\ref{alg:traffic-recovery}). A stage establishes its conclusion only if all prerequisite checks succeed. A successful later check cannot compensate for a failed or unevaluated prerequisite.
 
 The ownership list $O_t$ is read in full, and the element $c$ at position $j$ becomes an analysis target. The condition for validating structure-membership information is
 \begin{equation}
@@ -472,7 +472,7 @@ An origin circuit's path is a circular list. Any element can be treated as the h
 
 The ordering is accepted only if forward and backward links mutually return at every $p_i$ and the final element closes to $p_0$. If traversal reaches NULL, a different cycle, or an unreadable region, only membership in the ownership list is confirmed; the entry-oriented path cannot be established.
 
-This procedure does not statistically estimate which hop appears entry-like. It determines orientation from the semantics of the ownership reference in Tor's implementation. Thus, even if the same three hops are recovered, a reversed or rotated ordering is not counted as success.
+This procedure determines orientation from the semantics of Tor's ownership reference rather than estimating which hop is the entry. Thus, even if the same three hops are recovered, a reversed or rotated ordering is not counted as success.
 
 
 The method distinguishes three properties of cryptographic state.
@@ -488,7 +488,7 @@ The method distinguishes three properties of cryptographic state.
   The accumulated CGO state $T'$ has changed from its initial value. This is evidence that a state transition occurred in that direction, but it does not identify a particular stream, exact cell count, or user action.
 \end{description}
 
-This separation is important for circuits under construction. Even when a zero-initialized enum has the same value as \torone{}, it is not classified as established \torone{} if the cryptographic context is uninitialized. Likewise, key fragments remaining after termination are not linked to a circuit owned at acquisition time unless that circuit is present in $O_t$.
+These distinctions prevent misclassification of circuits under construction. A zero-initialized enum may have the same value as \torone{}, but the scheme is not classified as established \torone{} while its cryptographic context remains uninitialized. Key fragments left after termination are attributed to a circuit owned at acquisition time only if that circuit remains in $O_t$.
 
 \subsection{Traffic Recovery from Acquisition-Time Cryptographic State}
 
@@ -556,7 +556,7 @@ Wall-clock time is supporting information, not the primary basis for selecting t
 \end{figure}
 
 
-Two authentication decisions using distinct keys and state separate the PCAP from the relay body. The first is the TLS~1.3 AEAD authentication tag. Record authentication fails if any of the traffic secret, nonce, record sequence number, or TLS header does not correspond. The second is the CGO authentication tag. The state of each hop is applied in entry order, and the hop that recognizes the tag is the destination. Statistical independence of the two decisions is not assumed.
+Recovery from the PCAP to the relay body requires two authentication checks with distinct keys and state. TLS~1.3 AEAD authenticates the record using the traffic secret, nonce, record sequence number, and TLS header. CGO then authenticates the relay cell: the method applies each hop's state in entry order, and the hop that recognizes the tag is the destination. We do not assume that the two checks are statistically independent.
 
 If only TLS authentication succeeds, the conclusion stops at associating Tor cells in the PCAP with the entry link. Without a hop that passes CGO-tag validation, the destination hop and relay-cell body cannot be established. Possible causes include state drift, cell loss, wrong direction, or an unsupported implementation. Only when exactly one candidate succeeds are the 493 bytes excluding the 16-byte authentication tag identified as the relay-cell body.
 
@@ -570,7 +570,7 @@ A validation failure does not establish absence of the target. If the ownership 
 
 \section{Implementation}\label{sec:implementation}
 
-The evaluation implementation reads core dumps through GDB's Python API and interprets internal state using DWARF type information and an OpenSSL memory layout validated for the target version~\cite{gdbcorepython,dwarf5,openssl3022}. Type-resolution methods and internal OpenSSL offsets are environment-dependent. Decision criteria for circuit ownership, entry order, correspondence to the core-dump acquisition point, and TLS and CGO authentication do not depend on these implementation choices.
+The implementation reads core dumps through GDB's Python API. It interprets internal state using DWARF type information and an OpenSSL memory layout validated for the target version~\cite{gdbcorepython,dwarf5,openssl3022}. Type resolution and internal OpenSSL offsets depend on the environment. The criteria for circuit ownership, entry order, acquisition-time correspondence, and TLS and CGO authentication remain the same across these implementation choices.
 
 GDB with DWARF was selected because the acquisition artifact is a single-process ELF core dump and the analysis requires the target application's exact types, global variables, pointer relationships, and PIE load bias. Volatility~3 instead organizes analysis around memory layers, symbol tables, and reusable plugins, and converts Linux DWARF information to its intermediate symbol format~\cite{volatility3docs}. A Volatility~3 plugin would be suitable when the acquisition source is a supported full-system memory image or when integration with an established memory-forensics workflow is required. It would still require matching Tor types, a validated OpenSSL profile, and the same ownership and authentication checks. The present implementation therefore uses GDB as the acquisition adapter; the evidentiary method is not tied to that adapter.
 
@@ -774,7 +774,7 @@ Separately, we ran experiments whose stop time was not aligned with cell or TLS-
 \label{fig:acquisition-timeline}
 \end{figure}
 
-Table~\ref{tab:experiment-groups} summarizes experimental groups and independent units. Because populations and independent units differ by group, results are aggregated separately by group.
+Table~\ref{tab:experiment-groups} lists the experimental groups and their independent units. We report each group separately because the populations and independent units differ.
 
 \begin{table}[!tbp]
 \centering
@@ -811,7 +811,7 @@ The evaluation was divided into six groups.
   \item Boundaries involving acquisition-time mismatch, preceding cells, wrong keys, and the known backward-direction resynchronization attack.
 \end{enumerate}
 
-Circuits and hops are correlated within a process. Repeated-run success rates therefore use a run that reinitializes Tor process state each time as the unit. Two-sided 95\% Wilson score intervals are reported descriptively by treating runs as exchangeable Bernoulli trials. Trials varying hop count or acquisition delay are not random samples from an identical distribution, so these intervals are not used to estimate success rates in general environments. Deterministically generated wrong states receive no confidence interval; only observed counts are reported.
+Circuits and hops within a process are correlated. We therefore calculate repeated-run success rates using runs that each reinitialize Tor process state. We report descriptive two-sided 95\% Wilson score intervals by treating these runs as exchangeable Bernoulli trials. Runs with different hop counts or acquisition delays are not random samples from an identical distribution, so the intervals do not estimate success rates in general environments. For deterministically generated wrong states, we report observed counts without confidence intervals.
 
 \section{Results}\label{sec:results}
 
@@ -870,7 +870,7 @@ Without external debug symbols, type information could not be resolved and circu
 
 Traffic recovery was evaluated in 6 further runs using the same distributed executable and debug symbols, rebuilding the isolated network and Tor processes each time. Communication was not paused, and core-dump acquisition began after fixed delays of 0.13, 0.31, 0.57, 0.19, 0.43, and 0.71 seconds from stream start. Cell processing and TLS-record boundaries were not observed. Three 2-hop and three 3-hop runs each authenticated 1 record corresponding to in-core TLS write-record sequence numbers 13, 16, 19, 25, 29, and 34. Exactly 1 candidate passed CGO authentication in all 6/6 runs. Hop 1 was recognized for 2-hop circuits and hop 2 for 3-hop circuits. Every check from ownership validation through TLS AEAD and unique CGO authentication succeeded in 6/6 runs. Under an exchangeable-Bernoulli assumption, the descriptive 95\% Wilson score interval is 60.97--100\%.
 
-Among the 493-byte CGO-authenticated bodies, 5/6 were relay DATA cells containing the evaluation marker: 2/3 for 2-hop and 3/3 for 3-hop circuits. The remaining 1 run recovered a SENDME relay command that passed CGO authentication but contained no evaluation marker. The descriptive 95\% Wilson score interval for marker-bearing bodies in 5/6 runs is 43.65--96.99\%. Successful CGO authentication does not guarantee recovery of the traffic content sought by an investigator.
+Of the 493-byte CGO-authenticated bodies, 5/6 belonged to relay DATA cells containing the evaluation marker: 2/3 for 2-hop and 3/3 for 3-hop circuits. The remaining 1 run recovered an authenticated SENDME relay command without the marker. The descriptive 95\% Wilson score interval for marker-bearing bodies in 5/6 runs is 43.65--96.99\%. Authentication establishes that a body was recovered correctly; it does not guarantee that the body contains the content sought by an investigator.
 
 The replay tool was built from the Tor Project's official 0.4.9.17 source archive (SHA-256 \code{ff372c41...abe2}). Production source files were unchanged; only the test harness in \code{test_crypto_cgo.c} was extended with an interface for loading stored state. The replay tool's SHA-256 is \code{e71129d0...0acbd} and GNU Build ID is \code{cfebbca1...eebc}. Reprocessing all 36 candidates from the 6 stored runs produced 36/36 agreement with the previous 0.4.9.16-based replay in CGO-authenticated hop, recovered bytes, and the flag indicating no use of ground-truth information.
 
@@ -898,7 +898,7 @@ For complete core dumps of approximately 731~MiB, median analysis times for 0/12
 From client core dumps, the analyzer joined destinations, Control circuit IDs, and entry-oriented paths for 12/12 controlled streams, with 0 false positives and 0 false negatives.
 The next relay cell generated after core-dump acquisition was supplied to current CGO state extracted from the same owned circuit. All 5 independent runs recognized hop 2, and 493/493 bytes of the body matched evaluation plaintext.
 
-Negative controls were extended across complete CGO state. For each of 7 categories---the $J$-side AES key, $J$-side POLYVAL key, $S$-side AES key, $S$-side POLYVAL key, nonce, $T'$, and hop order---1,024 states were applied to the same real cell, for 7,168 states in total, with 0 false recognitions. These deterministic controls are not random samples from all wrong states and are therefore not generalized to a confidence interval for the false-positive rate.
+Negative controls covered the complete CGO state. We applied 1,024 states to the same real cell for each of 7 categories: the $J$-side AES key, $J$-side POLYVAL key, $S$-side AES key, $S$-side POLYVAL key, nonce, $T'$, and hop order. Across the 7,168 states in total, there were 0 false recognitions. These deterministic controls are not random samples from all wrong states, so we do not use them to estimate a confidence interval for the false-positive rate.
 For arbitrary-time acquisition during continuous communication, 10 snapshots were collected from each of 3 processes, and CGO-state extraction succeeded in 30/30. Snapshots within a process are correlated. When the 10 snapshots per process are grouped and aggregated at process level, success is 3/3 processes with a 95\% interval of 43.85--100\%.
 
 
@@ -934,19 +934,19 @@ Post hoc agreement with evaluation ground truth & 10/10 & Candidate, hop, and 49
 With the Tor process as the independent unit, the two-sided 95\% Wilson interval for 10/10 repeated successes under fixed conditions is 72.25--100\%.
 In additional fixed-delay experiments that neither stopped the stream nor observed cell or TLS boundaries, every check from ownership validation through unique CGO authentication also succeeded in 6/6 runs. CGO authentication succeeded at hop 1 in three runs with 2-hop circuits and at hop 2 in three runs with 3-hop circuits. TLS write-record sequence numbers obtained from the core dumps were 17, 23, 29, 37, 53, and 68, differing in every trial, and one TLS~1.3 record was authenticated at each number. Exactly 1 of 7 cell candidates in each trial passed CGO authentication, after which the evaluation marker also matched. The descriptive 95\% Wilson score interval for 6/6 is 60.97--100\%.
 
-These additional experiments excluded Control Protocol circuit IDs, dynamically hooked cells, ground-truth hops, and ground-truth plaintext from decryption inputs. They therefore reject the possibility that 10/10 success depended only on fixed record number 7, fixed hop 2, or stream pausing. However, Tor did not use a 1-hop general SOCKS stream as an ordinary exit circuit, so traffic decryption with hop 0 as destination could not be evaluated. 0 relay-cell bodies were recovered under wrong-key, different-run secret, cryptographic-context validation failure, modified validated-circuit information, and mixed-circuit conditions. Because all 6 trials succeeded, no failure case for fixed-delay acquisition was observed.
+These additional experiments excluded Control Protocol circuit IDs, dynamically hooked cells, ground-truth hops, and ground-truth plaintext from decryption inputs. They show that the 10/10 result did not depend exclusively on fixed record number 7, fixed hop 2, or stream pausing. Tor did not use a 1-hop general SOCKS stream as an ordinary exit circuit, so decryption with destination hop 0 could not be evaluated. Under wrong-key, different-run secret, cryptographic-context validation failure, modified validated-circuit information, and mixed-circuit conditions, 0 relay-cell bodies were recovered. All 6 fixed-delay trials succeeded, leaving failure cases for this acquisition procedure unobserved.
 
 A PCAP-only control without TLS secrets recovered no known cell, plaintext, or synthetic identifier even after reassembling 118 packets and 78 TCP-payload segments.
 
 In TLS negative controls, a 1-bit flip in the client traffic secret and a TLS secret from another run each authenticated 0 records. In contrast, changing the write-record sequence number from 7 to 8 while retaining the same connection secret correctly authenticated the subsequent record numbered 8. AEAD authentication establishes a record's cryptographic validity but not that it is the record immediately after acquisition. Adoption of a TLS record therefore requires an unmodified in-core record sequence number and the acquisition order in Figure~\ref{fig:acquisition-timeline}.
 
-This result is not a claim of decryption from memory alone or from a PCAP alone. It results from joining both pieces of time-corresponding evidence through circuit ownership.
+Recovery requires both memory and a PCAP corresponding to the same acquisition point, linked through circuit ownership.
 
 \subsection{Time Gaps Destroyed Cryptographic-State Correspondence before Structural Correspondence}
 
 While a 100-MB stream was transferred over 12 circuits, the client and 3 relays were acquired sequentially.
 Even with measured acquisition gaps of 2.297, 2.663, and 3.168 seconds, link sequences corresponded for 36/36 hops. Complete nonce and $T'$ matches, however, were 0/36.
-Circuit structure persists for seconds, whereas cryptographic state advances with every cell.
+In these trials, circuit structure persisted for seconds, whereas cryptographic state advanced with every cell.
 
 In 3 trials applying current state immediately after cell processing to the preceding forward cell, the CGO-authenticated hop was $-1$ in every case and plaintext did not match. This confirms the temporal boundary in Figure~\ref{fig:time} on real Tor.
 
@@ -974,7 +974,7 @@ Wrong-CGO-state destination misrecognition & 0/7168 & Deterministic controls in 
 
 \section{Attack-Capability Boundary of Extracted State}\label{sec:security}
 
-Extracting cryptographic state from memory does not by itself enable remote attacks or deanonymization. To examine this threat boundary, we reproduced Pillwax's IPR-plus-resynchronization distinguishing attack against backward CGO in C Tor 0.4.9.16 and tested how far it progressed on a real 3-hop circuit~\cite{pillwax2026improving}. This is not a separate vulnerability claim from the proposed method; it is a boundary experiment measuring capabilities that must not be extrapolated from extracted state.
+To assess whether the observed properties of CGO support attacks beyond forensic recovery, we reproduced Pillwax's IPR-plus-resynchronization distinguishing attack against backward CGO in C Tor 0.4.9.16 on a real 3-hop circuit~\cite{pillwax2026improving}. This experiment tests the operational limits of a known attack. Extracting state alone does not establish remote attack or deanonymization capabilities, and we do not claim a separate vulnerability from this experiment.
 
 For a single middle layer, flipping 1 bit on the right side of a modified cell while retaining its left-side tag caused that cell not to be recognized, but the target layers on the client and relay resynchronized. The next normal cell matched in 509/509 bytes.
 Thus, the formal resynchronization property exists in the implementation.
@@ -982,34 +982,34 @@ Thus, the formal resynchronization property exists in the implementation.
 Under 3-hop processing, however, only the outer target layer resynchronized; $T'$ in the 2 inner layers that processed the modified cell no longer matched the relay side. Even if the circuit was artificially preserved, the next normal exit cell was not recognized. Arti 0.48.0 likewise rejected the same 2-cell sequence with \code{BadCellAuth}~\cite{artisource048}.
 Furthermore, in 3 independent runs on the isolated Chutney network where the entry relay modified 1 cell once, the client closed the target circuit in 3/3 runs. The 95\% Wilson interval is 43.85--100\%, reflecting the small sample.
 
-The known formal attack is therefore reproducible in the implementation, but in this evaluation it did not develop into keyless decryption, cell forgery, or deanonymization. Mismatch of inner state after full-layer processing and circuit closure at the first authentication failure prevented a second query. This study does not claim a new vulnerability from this result.
+The implementation reproduced the known formal attack, but the evaluated sequence did not enable keyless decryption, cell forgery, or deanonymization. Inner-state mismatch after processing all layers, together with circuit closure at the first authentication failure, prevented a second query. This result does not establish a new vulnerability.
 
 \section{Discussion}\label{sec:discussion}
 
 \subsection{Practical Significance and Capability Boundary}
 
-The questions this method directly answers are specific.
+The method answers the following investigative questions.
 It can recover client-originated circuits owned by Tor at acquisition time, their Control circuit IDs, relay order from the entry, per-hop CGO/\torone{} schemes, and initialization and update status of per-direction CGO state.
 If stream structures remain, SOCKS destinations can be linked to their owning circuits and paths.
 With an entry-link PCAP spanning core-dump acquisition, Tor cells can be extracted from TLS records and processed through CGO to recover relay bodies. The recovery unit is a 493-byte Tor relay-message body. Even if a DATA message contains application bytes, ciphertext from HTTPS or an Onion Service upper-layer protocol requires separate decryption.
 
-This information is suitable for verifying which destination a compromised endpoint connected to at investigation time, which circuit it used, which cryptographic schemes were confirmed initialized, and which relay message it sent immediately after acquisition.
-The practical benefit is reproducible analysis of acquired evidence even when ordinary logs lack destinations or content and the Control Port can no longer be queried.
+An investigator can use this information to determine the endpoint's destination and circuit at acquisition time, the cryptographic schemes initialized along that circuit, and the relay message sent immediately afterward.
+The acquired evidence can be reanalyzed even when ordinary logs omit destinations or content and the Control Port is no longer available.
 
-If a plaintext PCAP from the localhost side has already been acquired and the sole objective is application content, that method should be used first, as Table~\ref{tab:practical-alternatives} indicates. The additional value here is not finding plaintext-like fragments, but attributing owned circuits, entry order, hop schemes, TLS records, and CGO-authenticated relay messages from post-termination evidence to the same point in time. Operational deployment requires an acquisition plan covering (1) continuous entry-link PCAP capture, (2) preservation of the Tor binary, shared libraries, and external debug symbols, (3) acquisition of a consistent core dump involving a brief process stop, and (4) access control for secret files.
+If a plaintext PCAP from localhost is available and application content is the sole objective, it should be examined first (Table~\ref{tab:practical-alternatives}). The present method additionally links owned circuits, entry order, hop schemes, TLS records, and authenticated CGO relay messages to the same acquisition point, using evidence that remains analyzable after process termination. Operational use requires (1) continuous entry-link PCAP capture, (2) preservation of the Tor binary, shared libraries, and external debug symbols, (3) a consistent core dump acquired during a brief process stop, and (4) access control for files containing secrets.
 
 In evaluation using synthetic source \code{127.0.0.2} and synthetic identifiers, every check agreed for source, stream, destination, circuit ID, 3-hop path, and identifier in decrypted content.
 This demonstrates how anonymity metadata is lost when endpoint memory is compromised. It does not identify a real person, externally attribute a source IP, or observe third-party communication.
 
 
-Decryption of TLS records and CGO layers does not result from cryptanalytic inference of CGO keys. It results from legitimate TLS secrets and CGO state being present in endpoint memory and correctly attributed to a circuit through Tor's ownership relationships.
-The threat model therefore includes endpoint-memory read access. The method does not apply to a passive observer holding only a PCAP.
+TLS records and CGO layers can be decrypted because endpoint memory retains the TLS secrets and CGO state, and Tor's ownership relationships identify the circuit associated with that state.
+The method therefore requires read access to endpoint memory. A passive observer with only a PCAP lacks the required secrets.
 
-The result does not imply comprehensive decryption of Tor or of past traffic. It demonstrates target- and time-bounded decryption using endpoint state at acquisition.
+The recovered state supports decryption for a specific target and acquisition point. It does not enable comprehensive decryption of Tor or past traffic.
 
 
-To compare cryptographic state at both endpoints, target processes should first be stopped simultaneously and memory then saved. Sequential acquisition produces state drift within seconds.
-Processing post-dump cells from a client-only core dump and a contemporaneous PCAP does not require simultaneous acquisition of both endpoints. It requires agreement between TLS/CGO state in the core dump and cell order in the PCAP.
+Comparing instantaneous cryptographic state at both endpoints requires stopping the target processes simultaneously before saving their memory. In our experiments, sequential acquisition produced state drift within seconds.
+Recovery from a client-only core dump and a contemporaneous PCAP instead requires the dump's TLS/CGO state to match cell order in the capture. It does not require acquiring both endpoints simultaneously.
 
 To reproduce the experiment's success conditions in field acquisition, investigators must stop Tor while packet capture continues and preserve the core dump, executable, external debug symbols, Build ID, timestamps, and hashes. Analysis must check read success and enumeration completion. If enumeration is incomplete, circuit absence cannot be determined.
 
@@ -1041,9 +1041,9 @@ Traffic recovery from a client core dump and PCAP corresponding to the same acqu
 Traffic recovery requires validated ownership, path structure, and cryptographic contexts, with CGO established at every hop. Evaluation ground truth was separated from decryption, and ground-truth circuit IDs from the Control Protocol were not used for candidate selection. 10 mixed CGO/\torone{} circuits did not satisfy the all-CGO condition, and their traffic recovery remains unevaluated.
 The method thereby verifies the correspondence among a stored PCAP, TLS records, Tor circuits, CGO hops, and 493-byte relay bodies.
 
-The scope of validity is equally clear. Current CGO state is not a key that comprehensively unlocks past traffic. The immediately preceding cell could not be decrypted in 3/3 trials, and sequential acquisition during activity produced 0/36 state matches. The known backward resynchronization attack likewise did not lead to keyless decryption or deanonymization because of 3-hop processing and circuit closure.
+The temporal limits were also measurable. Current CGO state failed to decrypt the immediately preceding cell in 3/3 trials, and sequential acquisition during activity produced 0/36 state matches. The known backward resynchronization attack did not enable keyless decryption or deanonymization under the evaluated 3-hop processing and circuit-closure behavior. These results do not support comprehensive decryption of past traffic.
 
-Further generalization requires evaluation of native x86\_64, different OpenSSL providers, TLS KeyUpdate, incomplete PCAPs, backward traffic, and Arti ownership structures. Any extension must state not only the range of decryption but also the evidentiary conditions, point in time, and circuit that can be explained.
+Further evaluation should cover native x86\_64, different OpenSSL providers, TLS KeyUpdate, incomplete PCAPs, backward traffic, and Arti ownership structures. Each extension should specify which traffic it can recover, the evidence required, and the circuit and point in time to which the result applies.
 
 \printbibliography[title={References}]
 
