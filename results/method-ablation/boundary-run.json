@@ -1,0 +1,50 @@
+{
+  "ablations": [
+    {
+      "lost_conclusion": "membership in Tor's owned origin-circuit set at acquisition",
+      "omitted_evidence": "Tor ownership list",
+      "quantitative_substitute_available": false,
+      "reason": "the same bytes do not contain an independent ownership label",
+      "remaining_output": "unattributed structures and cryptographic values"
+    },
+    {
+      "lost_conclusion": "which rotation starts at the entry hop",
+      "omitted_evidence": "entry-oriented cpath head and links",
+      "remaining_interpretations_per_three_hop_circuit": 3
+    },
+    {
+      "lost_conclusion": "which authenticated TLS position corresponds to acquisition",
+      "note": "record authentication may still be attempted if sequence numbers can be inferred or searched, but it no longer anchors the record to the snapshot",
+      "omitted_evidence": "snapshot TLS write-record sequence",
+      "remaining_authenticated_record_positions": 230
+    },
+    {
+      "lost_conclusion": "which candidate and destination hop are cryptographically valid",
+      "omitted_evidence": "CGO authentication tag",
+      "remaining_candidate_hop_outputs": 2790
+    },
+    {
+      "independently_authenticated_snapshot_anchors": 1,
+      "lost_conclusion": "continuous recovery after the first synchronized cell",
+      "omitted_evidence": "CGO state update after the anchor",
+      "statefully_authenticated_cells_with_full_method": 929
+    }
+  ],
+  "evaluation_truth_used": false,
+  "full_method": {
+    "cgo_authenticated_anchor_count": 1,
+    "first_failure_index": null,
+    "statefully_authenticated_cells": 929
+  },
+  "input_counts": {
+    "hop_count_distribution": {
+      "1": 1,
+      "3": 14
+    },
+    "owned_e3_all_cgo_circuits": 15,
+    "target_owned_circuits": 1,
+    "target_relay_cell_candidates": 930,
+    "tls_authenticated_records_after_snapshot": 230
+  },
+  "schema": "tor-cgo-method-ablation/0.1"
+}

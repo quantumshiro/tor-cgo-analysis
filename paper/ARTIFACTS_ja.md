@@ -1,16 +1,17 @@
 # 論文評価アーティファクト
 
-公開リポジトリ：<https://github.com/quantumshiro/tor-cgo-analysis>。本改訂に対応するタグと完全なコミットSHAは、提出版の公開時に固定する。
+公開リポジトリ：<https://github.com/quantumshiro/tor-cgo-analysis>。本改訂のタグは`v0.0.5`とし、タグが指すコミットSHAを提出版で固定する。
 
 ## 再現可能性の区分
 
-公開物には生のコアダンプ、PCAP、TLS秘密、CGO秘密、復号済みレコードを含めない。そのため、次の三段階を区別する。
+公開物には、隔離網で生成した合成取得物を一組だけ含める。それ以外の取得物については、生のコアダンプ、PCAP、TLS秘密、CGO状態、復号済みレコードを含めない。次の四段階を区別する。
 
 - **A：結果監査** — 集計JSON、個別の非秘密結果、SHA-256、解析コードを照合できる。
 - **B：集計再生成** — 公開した個別の非秘密結果から、論文中の集計を再生成できる。
 - **C：新規再取得** — 固定コミットの第三者ソースを別途取得または配布パッケージから展開し、隔離網で新しいコアダンプとPCAPを生成して一連の処理を再実行できる。
+- **D：保存取得物の完全再解析** — 公開した合成コアダンプ、PCAP、対応ELF/DWARF、正確なソースから、候補選択を含む処理を最初から再実行できる。
 
-除外した生データが必要な「保存済み取得物そのものの完全な再解析」は公開版だけではできない。この制約をCと表記しない。
+区分Dは`artifacts/reanalysis-boundary-r1/`の一組だけに適用する。他の保存取得物の完全再解析は公開版だけではできない。
 
 | 主張・評価 | 公開結果 | 区分 | 公開版で可能な検証 |
 |---|---|---:|---|
@@ -29,6 +30,11 @@
 | 真に読取り不能なPT_LOAD対照 | `results/page-loss-absent/summary.json` | A/C | 欠損生成・評価スクリプトと集計を監査 |
 | 直前セル0/3 | `results/open-circuit-impact/past-cell-statistics.json` | A | 集計と評価器を監査 |
 | 後方向再同期攻撃後の回路終了3/3 | `results/crypto-analysis/backward-ipr-live-statistics.json` | A/C | 集計と評価器を監査し、隔離網で新規取得 |
+| 保存12取得物の連続再生1,429/1,429 | `results/sequence-recovery/saved-runs-summary.json` | B/C | 取得物別100--131セルの集計を監査し、新規取得で再実行 |
+| 長時間試行1,692/1,692、欠落4条件 | `results/sequence-recovery/long-run-summary.json` | B/C | 連続復元と位置0/9/99/999の停止結果を監査 |
+| CGO更新後・キュー挿入前の取得、929/929 | `results/snapshot-correspondence/boundary-run.json`、`results/sequence-recovery/boundary-run-summary.json` | D | 公開した合成コア、PCAP、ELF/DWARF、ソースから全処理を再実行 |
+| 同じ入口TLS接続上の3回路、64/64 | `results/sequence-recovery/multiplex-run-summary.json` | B/C | 回路別21/21/22セルとTCP欠落停止を監査し、新規取得で再実行 |
+| 同一取得物を使った構成要素別の比較 | `results/method-ablation/long-run.json`、`results/method-ablation/boundary-run.json` | B/D | 各証拠関係を除いたときに残る候補数を再集計 |
 
 公式パッケージ版の取得条件、ハッシュ、負の対照、限界は`research/PACKAGED_TOR_EVALUATION_ja.md`にまとめた。論文中の用語がTor仕様の語か、本稿独自の評価ラベルかを確認した結果は`research/TERMINOLOGY_AUDIT_ja.md`に記録した。
 
@@ -66,4 +72,4 @@ python3 experiments/evaluate_mixed_e3_admission.py \
 - torspec: `d5b1ca79a35b811267783ac6555b66476fd900fc`
 - Chutney: `6036fae4bd94c53e1f72967b9fb6c10d9c7fbd7e`
 
-公開用アーカイブは`paper/build_public_supplement.sh`が`paper/public-supplement-files.txt`の固定リストから生成する。既定出力は`paper/tor-cgo-forensics-public-supplement-v6.tar.gz`である。収録ファイルのハッシュは`results/SHA256SUMS.paper-v6`に固定する。
+公開用アーカイブは`paper/build_public_supplement.sh`が`paper/public-supplement-files.txt`の固定リストから生成する。既定出力は`paper/tor-cgo-forensics-public-supplement-v7.tar.gz`である。収録ファイルのハッシュは`results/SHA256SUMS.paper-v7`に固定する。保存取得物の完全再解析は`experiments/reanalyze_boundary_dataset.sh artifacts/reanalysis-boundary-r1 /tmp/tor-cgo-boundary-reanalysis`で実行する。

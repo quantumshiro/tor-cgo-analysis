@@ -1,0 +1,23 @@
+{
+  "attachment_count": 1,
+  "attachments": [
+    {
+      "circuit_id": 16,
+      "event": "650 STREAM 18 NEW 0 127.0.0.1:4848 SOURCE_ADDR=127.0.0.1:52524 PURPOSE=USER SOCKS_USERNAME=\"cgo-lab\" CLIENT_PROTOCOL=SOCKS4 NYM_EPOCH=0 SESSION_GROUP=-4 ISO_FIELDS=SOCKS_USERNAME,SOCKS_PASSWORD,CLIENTADDR,SESSION_GROUP,NYM_EPOCH",
+      "reply": [
+        "250 OK"
+      ],
+      "stream_id": 18,
+      "unix_ns": 1795347919567692680
+    }
+  ],
+  "circuits_with_attachments": [
+    16
+  ],
+  "controlled_circuit_ids": [
+    16
+  ],
+  "rejected_event_count": 0,
+  "rejected_events": [],
+  "schema": "tor-cgo-stream-attachments/0.1"
+}

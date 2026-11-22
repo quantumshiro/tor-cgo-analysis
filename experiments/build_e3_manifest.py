@@ -31,7 +31,10 @@ def main() -> None:
 
     scan_bytes = args.scan.read_bytes()
     scan = json.loads(scan_bytes)
-    if scan.get("schema") != "tor-cgo-memory-forensics/0.2":
+    if scan.get("schema") not in {
+        "tor-cgo-memory-forensics/0.2",
+        "tor-cgo-memory-forensics/0.3",
+    }:
         fail("unsupported scan schema")
     owner = scan.get("global_origin_circuit_list")
     if not isinstance(owner, dict) or owner.get("bounds_valid") is not True:
