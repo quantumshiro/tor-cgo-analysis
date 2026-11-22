@@ -1,0 +1,75 @@
+{
+  "authenticated_anchor": {
+    "anchor_id": 0,
+    "candidate_index": 1,
+    "control_circuit_id": 16,
+    "fixture": "/tmp/cgo-boundary-r1-post/anchors/candidate-00001.bin",
+    "fixture_metadata": {
+      "command": 3,
+      "control_circuit_id": 16,
+      "entry_link_circuit_id": 3725759307,
+      "evaluation_truth_included": false,
+      "fixture_sha256": "f5c8b5e7068fb6467ba92bdd8e2b189f368307f97b3218b37ec1c1005cbf4f01",
+      "fixture_size": 805,
+      "hop_count": 3,
+      "raw_secrets_omitted_from_metadata": true,
+      "schema": "tor-cgo-replay-fixture-metadata/0.2",
+      "secret_component_hashes": [
+        {
+          "index_from_entry": 0,
+          "state_sha256": "6f96d2290f01eeb1fc77369e147ae28e62b65c9b02cbe6246c7e5628ef6b5eaf",
+          "tprime_sha256": "be37245dc1d82a8e4eb6ad2166e28d83f69703dcd617312939651883112736f2"
+        },
+        {
+          "index_from_entry": 1,
+          "state_sha256": "7e2bd459aa50419b77576799d0b60f4cdec6f9d494dbe1f3cca98110069b5482",
+          "tprime_sha256": "d22ac1c9c3331c12c16b48744664f9865f703fe2a4ecd5ec7201037e6e759373"
+        },
+        {
+          "index_from_entry": 2,
+          "state_sha256": "16bf262ae48aafb98a116c0bb4b2b391a8e405f81d6b33d357d83d5cb6762f45",
+          "tprime_sha256": "aa880197aef1f4d8c8a2d9968ece24e9adb49d2762c533d4c60dced54b264a1c"
+        }
+      ]
+    },
+    "recognized_hop": 2,
+    "result": "/tmp/cgo-boundary-r1-post/anchor-results/candidate-00001.json",
+    "sequence_index": 1,
+    "status": "ready"
+  },
+  "captured_target_cells_before_anchor": 1,
+  "cgo_authenticated_anchor_count": 1,
+  "classification": "snapshot_state_matches_after_earlier_captured_candidates",
+  "earlier_captured_cells": [
+    {
+      "candidate_index": 0,
+      "sequence_index": 0,
+      "wire_sha256": "ba412f780dee412f1e09145efda10ce77d10fa86d6ad83a8517fdcd91935bb87"
+    }
+  ],
+  "earlier_cells_found_in_snapshot_circuit_queue": 0,
+  "evaluation_truth_used_for_candidate_selection": false,
+  "interpretation": "A pre-anchor hash match proves that CGO had advanced before the corresponding Tor cell left the circuit queue. Unmatched pre-anchor cells may already have moved to the shared TLS output buffer or the kernel and are not attributed from buffer occupancy alone.",
+  "posthoc_evaluation": {
+    "consistent_with_observation": true,
+    "dynamic_cell_hook_used": true,
+    "expected_boundary": "after CGO state update and before circuit-queue insertion",
+    "snapshot_boundary_selected_from_cell_processing": true,
+    "snapshot_mode": "after_cgo_before_queue",
+    "used_for_candidate_selection": false
+  },
+  "queue_matches": [],
+  "schema": "tor-cgo-snapshot-correspondence/0.1",
+  "snapshot_circuit_blocked_on_entry_channel": false,
+  "snapshot_circuit_queue": {
+    "declared_cell_count": 0,
+    "enumerated_cell_count": 0,
+    "enumeration_complete": true
+  },
+  "snapshot_entry_connection": {
+    "bytes_xmitted": 16459,
+    "bytes_xmitted_by_tls": 17298,
+    "input_buffer_bytes": 0,
+    "output_buffer_bytes": 0
+  }
+}

@@ -1,0 +1,23 @@
+[New LWP 190]
+[New LWP 191]
+[New LWP 192]
+[New LWP 193]
+[New LWP 194]
+[New LWP 195]
+[New LWP 196]
+[New LWP 197]
+[New LWP 198]
+[New LWP 199]
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/aarch64-linux-gnu/libthread_db.so.1".
+0x0000ffffba8ac0f4 in epoll_pwait () from /lib/aarch64-linux-gnu/libc.so.6
+Breakpoint 1 at 0xaaaab2d4ddd0: file /work/third_party/tor-0.4.9.16/src/core/or/relay.c, line 3453.
+
+Thread 1 "tor" hit Breakpoint 1, append_cell_to_circuit_queue (circ=circ@entry=0xaaaaeef57300, chan=0xaaaaeef46780, cell=cell@entry=0xffffd3398470, direction=CELL_DIRECTION_OUT, fromstream=63962) at /work/third_party/tor-0.4.9.16/src/core/or/relay.c:3453
+3453	/work/third_party/tor-0.4.9.16/src/core/or/relay.c: No such file or directory.
+CGO_BOUNDARY_REACHED control_id=16\n#0  append_cell_to_circuit_queue (circ=circ@entry=0xaaaaeef57300, chan=0xaaaaeef46780, cell=cell@entry=0xffffd3398470, direction=CELL_DIRECTION_OUT, fromstream=63962) at /work/third_party/tor-0.4.9.16/src/core/or/relay.c:3453
+#1  0x0000aaaab2d4e1c8 in circuit_package_relay_cell (cell=cell@entry=0xffffd3398470, circ=circ@entry=0xaaaaeef57300, cell_direction=<optimized out>, layer_hint=layer_hint@entry=0xaaaaeef578d0, on_stream=on_stream@entry=63962, filename=filename@entry=0xaaaab2f4e3a8 "/work/third_party/tor-0.4.9.16/src/core/or/relay.c", lineno=lineno@entry=815) at /work/third_party/tor-0.4.9.16/src/core/or/relay.c:445
+#2  0x0000aaaab2d4e570 in relay_send_command_from_edge_ (stream_id=63962, orig_circ=<optimized out>, relay_command=relay_command@entry=2 '\002', payload=payload@entry=0xffffd3398708 "CGO-UCT-boundary-r1-CGO-UCT-boundary-r1-CGO-UCT-boundary-r1-CGO-UCT-boundary-r1-CGO-UCT-boundary-r1-CGO-UCT-boundary-r1-CGO-UCT-boundary-r1-CGO-UCT-boundary-r1-CGO-UCT-boundary-r1-CGO-UCT-boundary-r1-"..., payload_len=payload_len@entry=488, cpath_layer=0xaaaaeef578d0, filename=filename@entry=0xaaaab2f4e3a8 "/work/third_party/tor-0.4.9.16/src/core/or/relay.c", lineno=lineno@entry=815) at /work/third_party/tor-0.4.9.16/src/core/or/relay.c:716
+warning: target file /proc/188/cmdline contained unexpected null characters
+Saved corefile /work/results/snapshot-correspondence/live/boundary-r1/client.core
+[Inferior 1 (process 188) detached]

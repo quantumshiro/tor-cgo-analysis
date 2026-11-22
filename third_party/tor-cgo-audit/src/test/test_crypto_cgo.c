@@ -1753,6 +1753,113 @@ test_crypto_cgo_external_core_replay(void *arg)
     cgo_crypt_free(clone[h]);
 }
 
+/** Replay a sequence of cells while preserving the CGO state across cells. */
+static void
+test_crypto_cgo_external_core_sequence(void *arg)
+{
+  (void)arg;
+  const char *fixture_path = getenv("CGO_SEQUENCE_FIXTURE");
+  const char *result_path = getenv("CGO_SEQUENCE_RESULT");
+  FILE *f = NULL;
+  FILE *result = NULL;
+  cgo_crypt_t *clone[3] = { NULL, NULL, NULL };
+  uint8_t header[12];
+  uint8_t state[3][80];
+  uint8_t tprime[3][16];
+  uint32_t cell_count = 0;
+  uint32_t processed = 0;
+  int first_failure = -1;
+  int hop_count = 0;
+
+  if (!fixture_path)
+    tt_skip();
+  f = fopen(fixture_path, "rb");
+  tt_assert(f);
+  tt_uint_op(fread(header, 1, sizeof(header), f), OP_EQ, sizeof(header));
+  tt_mem_op(header, OP_EQ, "CGR3", 4);
+  hop_count = header[4];
+  tt_int_op(hop_count, OP_GE, 1);
+  tt_int_op(hop_count, OP_LE, 3);
+  cell_count = ((uint32_t)header[8] << 24) |
+               ((uint32_t)header[9] << 16) |
+               ((uint32_t)header[10] << 8) |
+               (uint32_t)header[11];
+  tt_u64_op((uint64_t)cell_count, OP_LE, UINT32_C(100000));
+  for (int h = 0; h < hop_count; ++h) {
+    tt_uint_op(fread(state[h], 1, 80, f), OP_EQ, 80);
+    tt_uint_op(fread(tprime[h], 1, 16, f), OP_EQ, 16);
+    clone[h] = cgo_crypt_new(CGO_MODE_RELAY_FORWARD, 128,
+                             state[h], sizeof(state[h]));
+    tt_assert(clone[h]);
+    memcpy(clone[h]->tprime, tprime[h], sizeof(tprime[h]));
+  }
+  if (result_path) {
+    result = fopen(result_path, "w");
+    tt_assert(result);
+    fprintf(result,
+            "{\"schema\":\"tor-cgo-external-core-sequence/0.1\","
+            "\"declared_cell_count\":%u,\"cells\":[",
+            (unsigned)cell_count);
+  }
+
+  for (uint32_t index = 0; index < cell_count; ++index) {
+    uint8_t cell_header[4];
+    cell_t cell;
+    int recognized_hop = -1;
+    memset(&cell, 0, sizeof(cell));
+    tt_uint_op(fread(cell_header, 1, sizeof(cell_header), f), OP_EQ,
+               sizeof(cell_header));
+    cell.command = cell_header[0];
+    tt_uint_op(fread(cell.payload, 1, sizeof(cell.payload), f), OP_EQ,
+               sizeof(cell.payload));
+    for (int h = 0; h < hop_count; ++h) {
+      const uint8_t *tag = NULL;
+      cgo_crypt_relay_forward(clone[h], &cell, &tag);
+      if (tag) {
+        recognized_hop = h;
+        break;
+      }
+    }
+    if (result) {
+      if (index)
+        fputc(',', result);
+      fprintf(result, "{\"index\":%u,\"recognized_hop\":%d",
+              (unsigned)index, recognized_hop);
+      fputc('}', result);
+    }
+    ++processed;
+    if (recognized_hop < 0) {
+      first_failure = (int)index;
+      break;
+    }
+  }
+  if (result) {
+    fprintf(result,
+            "],\"processed_cell_count\":%u,\"first_failure_index\":",
+            (unsigned)processed);
+    if (first_failure >= 0)
+      fprintf(result, "%d", first_failure);
+    else
+      fprintf(result, "null");
+    fprintf(result,
+            ",\"all_processed_cells_authenticated\":%s,"
+            "\"evaluation_truth_used\":false}\n",
+            first_failure < 0 && processed == cell_count ? "true" : "false");
+  }
+  if (first_failure < 0)
+    tt_int_op(fgetc(f), OP_EQ, EOF);
+
+ done:
+  if (f)
+    fclose(f);
+  if (result)
+    fclose(result);
+  memwipe(state, 0, sizeof(state));
+  memwipe(tprime, 0, sizeof(tprime));
+  for (int h = 0; h < 3; ++h)
+    cgo_crypt_free(clone[h]);
+}
+
 struct testcase_t crypto_cgo_tests[] = {
   { "et_roundtrip", test_crypto_cgo_et_roundtrip, 0, NULL, NULL },
   { "et_testvec", test_crypto_cgo_et_testvec, 0, NULL, NULL },
@@ -1783,6 +1890,8 @@ struct testcase_t crypto_cgo_tests[] = {
   { "cgo_snapshot_replay", test_crypto_cgo_snapshot_replay,
     0, NULL, NULL },
   { "cgo_external_core_replay", test_crypto_cgo_external_core_replay,
+    0, NULL, NULL },
+  { "cgo_external_core_sequence", test_crypto_cgo_external_core_sequence,
     0, NULL, NULL },
   END_OF_TESTCASES
 };

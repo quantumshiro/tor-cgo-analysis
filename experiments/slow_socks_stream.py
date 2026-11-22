@@ -47,7 +47,10 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--source-ip")
     parser.add_argument("--payload-prefix", default="")
+    parser.add_argument("--iteration-delay", type=float, default=0.01)
     args = parser.parse_args()
+    if args.iteration_delay < 0:
+        raise SystemExit("--iteration-delay must be nonnegative")
 
     listener = socket.socket()
     listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -95,7 +98,8 @@ def main() -> None:
                 if echoed != payload:
                     raise RuntimeError("echo mismatch")
                 iterations += 1
-                time.sleep(0.01)
+                if args.iteration_delay:
+                    time.sleep(args.iteration_delay)
     finally:
         listener.close()
 
@@ -109,6 +113,7 @@ def main() -> None:
         "server_errors": errors,
         "source_ip": args.source_ip,
         "payload_prefix": args.payload_prefix,
+        "iteration_delay_seconds": args.iteration_delay,
     }
     args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
 

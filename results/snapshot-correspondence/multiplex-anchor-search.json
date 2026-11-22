@@ -1,0 +1,22 @@
+{
+  "candidate_count": 64,
+  "completed_count": 64,
+  "evaluation_truth_used": false,
+  "failed_count": 0,
+  "recognized": [
+    {
+      "candidate_index": 0,
+      "recognized_hop": 2
+    },
+    {
+      "candidate_index": 21,
+      "recognized_hop": 2
+    },
+    {
+      "candidate_index": 42,
+      "recognized_hop": 2
+    }
+  ],
+  "recognized_count": 3,
+  "schema": "tor-cgo-anchor-search/0.1"
+}

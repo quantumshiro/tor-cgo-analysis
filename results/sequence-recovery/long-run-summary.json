@@ -1,0 +1,83 @@
+{
+  "all_complete_cases_authenticated": true,
+  "all_loss_cases_stopped_at_omission": true,
+  "case_count": 6,
+  "cases": [
+    {
+      "all_processed_cells_authenticated": true,
+      "authenticated_anchor_sequence_index": 0,
+      "authenticated_cell_count": 1692,
+      "captured_candidates_skipped_before_anchor": 0,
+      "drop_relative_index": null,
+      "dropped_sequence_index": null,
+      "first_failure_index": null,
+      "input_cell_count": 1692,
+      "label": "long-all",
+      "processed_cell_count": 1692
+    },
+    {
+      "all_processed_cells_authenticated": true,
+      "authenticated_anchor_sequence_index": 0,
+      "authenticated_cell_count": 1000,
+      "captured_candidates_skipped_before_anchor": 0,
+      "drop_relative_index": null,
+      "dropped_sequence_index": null,
+      "first_failure_index": null,
+      "input_cell_count": 1000,
+      "label": "long-1000",
+      "processed_cell_count": 1000
+    },
+    {
+      "all_processed_cells_authenticated": false,
+      "authenticated_anchor_sequence_index": 0,
+      "authenticated_cell_count": 0,
+      "captured_candidates_skipped_before_anchor": 0,
+      "drop_relative_index": 0,
+      "dropped_sequence_index": 0,
+      "first_failure_index": 0,
+      "input_cell_count": 1691,
+      "label": "loss-0",
+      "processed_cell_count": 1
+    },
+    {
+      "all_processed_cells_authenticated": false,
+      "authenticated_anchor_sequence_index": 0,
+      "authenticated_cell_count": 9,
+      "captured_candidates_skipped_before_anchor": 0,
+      "drop_relative_index": 9,
+      "dropped_sequence_index": 9,
+      "first_failure_index": 9,
+      "input_cell_count": 1691,
+      "label": "loss-9",
+      "processed_cell_count": 10
+    },
+    {
+      "all_processed_cells_authenticated": false,
+      "authenticated_anchor_sequence_index": 0,
+      "authenticated_cell_count": 99,
+      "captured_candidates_skipped_before_anchor": 0,
+      "drop_relative_index": 99,
+      "dropped_sequence_index": 99,
+      "first_failure_index": 99,
+      "input_cell_count": 1691,
+      "label": "loss-99",
+      "processed_cell_count": 100
+    },
+    {
+      "all_processed_cells_authenticated": false,
+      "authenticated_anchor_sequence_index": 0,
+      "authenticated_cell_count": 999,
+      "captured_candidates_skipped_before_anchor": 0,
+      "drop_relative_index": 999,
+      "dropped_sequence_index": 999,
+      "first_failure_index": 999,
+      "input_cell_count": 1691,
+      "label": "loss-999",
+      "processed_cell_count": 1000
+    }
+  ],
+  "evaluation_truth_used": false,
+  "plaintext_included": false,
+  "raw_secrets_included": false,
+  "schema": "tor-cgo-sequence-recovery-summary/0.1"
+}

@@ -297,6 +297,95 @@ def inspect_streams(first_ptr, circuit_addr):
     return streams, "stream_list_exceeds_limit"
 
 
+def inspect_n_chan_queue(base):
+    """Describe cells encrypted before the snapshot but still on the circuit queue."""
+    queue = base["n_chan_cells"]
+    declared = int(queue["n"])
+    result = {
+        "declared_cell_count": declared,
+        "enumerated_cell_count": 0,
+        "enumeration_complete": False,
+        "cells": [],
+    }
+    if declared < 0 or declared > 1_000_000:
+        result["error"] = "invalid queue length"
+        return result
+    current = queue["head"]["sqh_first"]
+    seen = set()
+    for index in range(declared):
+        address = as_int(current)
+        if address == 0:
+            result["error"] = "queue ended before declared length"
+            return result
+        if address in seen:
+            result["error"] = "queue contains a cycle"
+            return result
+        seen.add(address)
+        packed = current.dereference()
+        wire = byte_array(packed["body"])
+        if len(wire) < 514:
+            result["error"] = "packed cell body is shorter than 514 bytes"
+            return result
+        wire = wire[:514]
+        result["cells"].append({
+            "queue_index": index,
+            "packed_cell_address": hex(address),
+            "entry_link_circuit_id": int.from_bytes(wire[:4], "big"),
+            "command": wire[4],
+            "wire_sha256": hashlib.sha256(wire).hexdigest(),
+            "payload_sha256": hashlib.sha256(wire[5:]).hexdigest(),
+            "inserted_timestamp": int(packed["inserted_timestamp"]),
+            "raw_cell_emitted": False,
+        })
+        current = packed["next"]["sqe_next"]
+    result["enumerated_cell_count"] = len(result["cells"])
+    result["enumeration_complete"] = (
+        result["enumerated_cell_count"] == declared and as_int(current) == 0
+    )
+    if not result["enumeration_complete"]:
+        result["error"] = "queue contains more cells than declared"
+    return result
+
+
+def inspect_entry_channel_buffers(base):
+    """Recover shared entry-link buffer occupancy without emitting bytes."""
+    channel = base["n_chan"]
+    result = {
+        "entry_channel_present": as_int(channel) != 0,
+        "or_connection_present": False,
+        "input_buffer_bytes": None,
+        "output_buffer_bytes": None,
+        "raw_buffer_bytes_emitted": False,
+    }
+    if not as_int(channel):
+        return result
+    channel_tls_type = gdb.lookup_type("struct channel_tls_t").pointer()
+    tls_channel = channel.cast(channel_tls_type).dereference()
+    conn_ptr = tls_channel["conn"]
+    result["or_connection_present"] = as_int(conn_ptr) != 0
+    if not as_int(conn_ptr):
+        return result
+    conn = conn_ptr.dereference()
+    base_conn = conn["base_"]
+    result.update({
+        "or_connection_address": hex(as_int(conn_ptr)),
+        "link_protocol": int(conn["link_proto"]),
+        "bytes_xmitted": int(conn["bytes_xmitted"]),
+        "bytes_xmitted_by_tls": int(conn["bytes_xmitted_by_tls"]),
+        "connection_write_blocked_on_bandwidth": bool(
+            base_conn["write_blocked_on_bw"]
+        ),
+    })
+    for field, output_name in (
+        ("inbuf", "input_buffer_bytes"),
+        ("outbuf", "output_buffer_bytes"),
+    ):
+        pointer = base_conn[field]
+        if as_int(pointer):
+            result[output_name] = int(pointer.dereference()["datalen"])
+    return result
+
+
 def inspect_circuit(ptr, expected_index):
     circuit = ptr.dereference()
     base = circuit["base_"]
@@ -320,6 +409,9 @@ def inspect_circuit(ptr, expected_index):
         "entry_hop_address": hex(cpath_addr) if cpath_addr else None,
         "orientation": "origin_circuit.cpath_is_entry" if cpath_addr else "no_path",
         "entry_link_circuit_id": int(base["n_circ_id"]),
+        "circuit_blocked_on_entry_channel": bool(
+            base["circuit_blocked_on_n_chan"]
+        ),
         "entry_link_channel_id": (
             int(base["n_chan"].dereference()["global_identifier"])
             if as_int(base["n_chan"]) else None
@@ -332,6 +424,25 @@ def inspect_circuit(ptr, expected_index):
         "streams": [],
         "path_closed_cycle": False,
     }
+    try:
+        output["outbound_cell_queue"] = inspect_n_chan_queue(base)
+    except (gdb.error, MemoryError) as exc:
+        output["outbound_cell_queue"] = {
+            "declared_cell_count": None,
+            "enumeration_complete": False,
+            "error": str(exc),
+        }
+    try:
+        output["entry_channel_buffers"] = inspect_entry_channel_buffers(base)
+    except (gdb.error, MemoryError) as exc:
+        output["entry_channel_buffers"] = {
+            "entry_channel_present": as_int(base["n_chan"]) != 0,
+            "or_connection_present": None,
+            "input_buffer_bytes": None,
+            "output_buffer_bytes": None,
+            "raw_buffer_bytes_emitted": False,
+            "error": str(exc),
+        }
     try:
         output["streams"], stream_error = inspect_streams(
             circuit["p_streams"], address
@@ -408,7 +519,7 @@ def assign_core_evidence(report):
 def scan():
     executable_path = gdb.current_progspace().filename
     report = {
-        "schema": "tor-cgo-memory-forensics/0.2",
+        "schema": "tor-cgo-memory-forensics/0.3",
         "generated_at_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "method": "offline_gdb_dwarf_core",
         "executable": {

@@ -1,0 +1,23 @@
+{
+  "all_complete_cases_authenticated": true,
+  "all_loss_cases_stopped_at_omission": true,
+  "case_count": 1,
+  "cases": [
+    {
+      "all_processed_cells_authenticated": true,
+      "authenticated_anchor_sequence_index": 1,
+      "authenticated_cell_count": 929,
+      "captured_candidates_skipped_before_anchor": 1,
+      "drop_relative_index": null,
+      "dropped_sequence_index": null,
+      "first_failure_index": null,
+      "input_cell_count": 929,
+      "label": "boundary-all",
+      "processed_cell_count": 929
+    }
+  ],
+  "evaluation_truth_used": false,
+  "plaintext_included": false,
+  "raw_secrets_included": false,
+  "schema": "tor-cgo-sequence-recovery-summary/0.1"
+}

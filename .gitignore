@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+
+# Live acquisitions contain cores, packet captures, and raw secrets.  Only
+# hash-only summaries under results/snapshot-correspondence are versioned.
+results/snapshot-correspondence/live/
+
+# LaTeX intermediate files; the source and final PDFs remain versioned.
+paper/*.aux
+paper/*.bbl
+paper/*.bcf
+paper/*.blg
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.log
+paper/*.out
+paper/*.run.xml
